@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>La Lambretta · Ristorante Pizzeria in Kehlen</title>
+<meta name="description" content="Italienisches Restaurant in Kehlen, Luxemburg: dünne, knusprige Pizza, Pasta al dente und täglich wechselndes Plat du Jour. Tisch reservieren oder online bestellen.">
+<meta name="theme-color" content="#16261F">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%2316261F'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-style='italic' font-size='34' font-weight='700' text-anchor='middle' fill='%23F69800'%3EL%3C/text%3E%3C/svg%3E">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "La Lambretta",
+  "servesCuisine": ["Italian", "Pizza"],
+  "telephone": "+35226652626",
+  "email": "info@lalambretta.lu",
+  "url": "https://www.lalambretta.lu/",
+  "acceptsReservations": true,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "8, rue de Mamer",
+    "postalCode": "L-8280",
+    "addressLocality": "Kehlen",
+    "addressCountry": "LU"
+  },
+  "geo": { "@type": "GeoCoordinates", "latitude": 49.667995, "longitude": 6.034242 },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "12:00", "closes": "14:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Wednesday","Thursday","Friday","Saturday"], "opens": "18:00", "closes": "22:00" }
+  ]
+}
+</script>
+
+<style>
+  /* ── Tokens ─────────────────────────────────────────────── */
+  :root {
+    --ink: #16261F;          /* Hauptfarbe 1: Flaschengrün */
+    --ink-soft: #24392F;
+    --cream: #F6EFE1;        /* Neutral */
+    --paper: #FCF8EF;
+    --orange: #F69800;       /* Akzent: Lambretta-Orange (Markenfarbe) */
+    --orange-deep: #D97F00;
+    --tomato: #C2391F;       /* Hauptfarbe 2: Pomodoro, sparsam */
+    --text: #1B2A23;
+    --muted: #5E6B63;
+    --line: rgba(22, 38, 31, .14);
+    --line-light: rgba(246, 239, 225, .18);
+
+    --serif: "Fraunces", "Iowan Old Style", Georgia, serif;
+    --sans: "Figtree", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+    --wrap: 1180px;
+    --gutter: clamp(20px, 4vw, 48px);
+    --section: clamp(72px, 10vw, 136px);
+    --radius: 14px;
+    --ease: cubic-bezier(.2, .7, .2, 1);
+  }
+
+  /* ── Base ───────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 84px; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--cream); color: var(--text);
+    font-family: var(--sans); font-size: 17px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  img, svg { display: block; max-width: 100%; }
+  a { color: inherit; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.05; margin: 0; letter-spacing: -.015em; }
+  h2 { font-size: clamp(2.1rem, 4.6vw, 3.5rem); }
+  h2 em, h1 em { font-style: italic; color: var(--orange); font-weight: 500; }
+  p { margin: 0; }
+  :focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; border-radius: 4px; }
+
+  .wrap { width: min(var(--wrap), 100% - 2 * var(--gutter)); margin-inline: auto; }
+  .section { padding-block: var(--section); }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-size: .78rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--tomato);
+  }
+  .eyebrow::before { content: ""; width: 28px; height: 2px; background: currentColor; }
+  .lead { font-size: clamp(1.05rem, 1.5vw, 1.2rem); color: var(--muted); max-width: 56ch; }
+  .section-head { display: grid; gap: 18px; margin-bottom: clamp(36px, 5vw, 64px); }
+
+  /* ── Buttons ────────────────────────────────────────────── */
+  .btn {
+    --bg: var(--orange); --fg: #14110A;
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 16px 26px; border-radius: 999px; border: 1.5px solid var(--bg);
+    background: var(--bg); color: var(--fg);
+    font: 600 1rem/1 var(--sans); text-decoration: none; cursor: pointer; white-space: nowrap;
+    transition: transform .25s var(--ease), box-shadow .25s var(--ease), background .2s, color .2s, border-color .2s;
+  }
+  .btn svg { width: 18px; height: 18px; transition: transform .25s var(--ease); }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -10px rgba(246, 152, 0, .7); background: #FFA61A; border-color: #FFA61A; }
+  .btn:hover svg.arrow { transform: translateX(4px); }
+  .btn:active { transform: translateY(0); box-shadow: none; }
+  .btn--ghost { --bg: transparent; --fg: var(--cream); border-color: var(--line-light); }
+  .btn--ghost:hover { background: var(--cream); color: var(--ink); border-color: var(--cream); box-shadow: none; }
+  .btn--dark { --bg: var(--ink); --fg: var(--cream); }
+  .btn--dark:hover { background: var(--ink-soft); border-color: var(--ink-soft); box-shadow: 0 10px 24px -12px rgba(22, 38, 31, .8); }
+  .btn--outline { --bg: transparent; --fg: var(--ink); border-color: var(--ink); }
+  .btn--outline:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); box-shadow: none; }
+  .btn--sm { padding: 12px 20px; font-size: .92rem; }
+
+  /* ── Header ─────────────────────────────────────────────── */
+  .header {
+    position: fixed; inset: 0 0 auto 0; z-index: 50; color: var(--cream);
+    transition: background .3s, box-shadow .3s, padding .3s;
+    padding-block: 18px;
+  }
+  .header.is-stuck { background: rgba(22, 38, 31, .94); backdrop-filter: blur(10px); box-shadow: 0 1px 0 var(--line-light); padding-block: 10px; }
+  .header__in { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .brand { font-family: var(--serif); font-style: italic; font-weight: 600; font-size: 1.5rem; text-decoration: none; letter-spacing: -.02em; display: inline-flex; align-items: baseline; gap: 2px; }
+  .brand span { color: var(--orange); }
+  .nav { display: flex; align-items: center; gap: 30px; }
+  .nav a.link { font-size: .95rem; font-weight: 500; text-decoration: none; position: relative; padding-block: 6px; opacity: .88; transition: opacity .2s; }
+  .nav a.link::after { content: ""; position: absolute; left: 0; bottom: 0; width: 100%; height: 1.5px; background: var(--orange); transform: scaleX(0); transform-origin: left; transition: transform .3s var(--ease); }
+  .nav a.link:hover { opacity: 1; }
+  .nav a.link:hover::after { transform: scaleX(1); }
+  .lang { display: inline-flex; border: 1px solid var(--line-light); border-radius: 999px; padding: 3px; }
+  .lang button { all: unset; cursor: pointer; font: 600 .75rem/1 var(--sans); letter-spacing: .08em; padding: 7px 10px; border-radius: 999px; opacity: .7; transition: background .2s, color .2s, opacity .2s; }
+  .lang button:hover { opacity: 1; }
+  .lang button[aria-pressed="true"] { background: var(--cream); color: var(--ink); opacity: 1; }
+  .lang button:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+  .burger { all: unset; display: none; cursor: pointer; width: 44px; height: 44px; place-items: center; }
+  .burger i { display: block; width: 22px; height: 2px; background: currentColor; margin: 5px auto; transition: transform .3s var(--ease), opacity .2s; }
+
+  /* ── Hero ───────────────────────────────────────────────── */
+  .hero { position: relative; background: var(--ink); color: var(--cream); overflow: hidden; padding-top: clamp(120px, 16vw, 176px); }
+  .hero__grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(24px, 4vw, 64px); align-items: center; padding-bottom: clamp(64px, 9vw, 120px); }
+  .hero .eyebrow { color: var(--orange); }
+  .hero h1 { font-size: clamp(2.9rem, 7.4vw, 6rem); margin-top: 26px; font-weight: 400; }
+  .hero__sub { margin-top: 28px; font-size: clamp(1.08rem, 1.6vw, 1.28rem); color: rgba(246, 239, 225, .78); max-width: 46ch; }
+  .hero__cta { margin-top: 38px; display: flex; flex-wrap: wrap; gap: 14px; }
+  .hero__meta { margin-top: 40px; padding-top: 26px; border-top: 1px solid var(--line-light); display: flex; flex-wrap: wrap; gap: 14px 34px; font-size: .93rem; color: rgba(246, 239, 225, .78); }
+  .hero__meta b { color: var(--cream); font-weight: 600; }
+  .hero__meta span { display: inline-flex; align-items: center; gap: 9px; }
+  .status-dot { width: 9px; height: 9px; border-radius: 50%; background: #8A968F; flex: none; }
+  .is-open .status-dot { background: #5BD08A; box-shadow: 0 0 0 4px rgba(91, 208, 138, .2); }
+  .stars { color: var(--orange); letter-spacing: 2px; }
+
+  .hero__art { position: relative; aspect-ratio: 1; width: min(100%, 540px); justify-self: end; }
+  .hero__art .pizza { width: 100%; height: 100%; animation: spin 90s linear infinite; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, .4)); }
+  .hero__badge {
+    position: absolute; left: -4%; bottom: 6%; width: 148px; height: 148px; border-radius: 50%;
+    background: var(--orange); color: #14110A; display: grid; place-content: center; text-align: center;
+    transform: rotate(-10deg); box-shadow: 0 14px 30px -12px rgba(0, 0, 0, .55);
+    font-family: var(--serif); line-height: 1;
+  }
+  .hero__badge small { font: 600 .68rem/1.2 var(--sans); letter-spacing: .14em; text-transform: uppercase; }
+  .hero__badge strong { font-size: 2.3rem; font-weight: 600; font-style: italic; margin: 5px 0 3px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* racing stripes — a nod to the scooter */
+  .stripes { height: 14px; background: linear-gradient(var(--orange) 0 5px, transparent 5px 9px, var(--tomato) 9px 14px); }
+
+  .ticker { background: var(--orange); color: #14110A; overflow: hidden; padding-block: 14px; }
+  .ticker__track { display: flex; width: max-content; animation: slide 38s linear infinite; }
+  .ticker__track span { font-family: var(--serif); font-style: italic; font-size: 1.25rem; font-weight: 500; padding-inline: 22px; white-space: nowrap; }
+  .ticker__track span::after { content: "✺"; font-style: normal; margin-left: 44px; font-size: .9rem; opacity: .7; }
+  @keyframes slide { to { transform: translateX(-50%); } }
+
+  /* ── Highlights ─────────────────────────────────────────── */
+  .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--line); }
+  .card { padding: clamp(28px, 3.4vw, 44px) clamp(20px, 3vw, 40px) clamp(28px, 3.4vw, 44px) 0; border-bottom: 1px solid var(--line); position: relative; transition: background .3s; }
+  .card + .card { padding-left: clamp(20px, 3vw, 40px); border-left: 1px solid var(--line); }
+  .card__num { font-family: var(--serif); font-style: italic; color: var(--tomato); font-size: 1rem; }
+  .card h3 { font-size: clamp(1.5rem, 2.3vw, 1.95rem); margin: 18px 0 14px; }
+  .card p { color: var(--muted); }
+  .card__price { margin-top: 22px; display: inline-flex; align-items: baseline; gap: 8px; font-size: .9rem; font-weight: 600; color: var(--text); }
+  .card__price b { font-family: var(--serif); font-size: 1.35rem; font-weight: 600; }
+
+  /* ── Reviews ────────────────────────────────────────────── */
+  .proof { background: var(--paper); border-block: 1px solid var(--line); }
+  .proof__grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.6fr); gap: clamp(32px, 6vw, 88px); align-items: start; }
+  .score { font-family: var(--serif); font-size: clamp(5rem, 11vw, 8.5rem); line-height: .9; font-weight: 400; letter-spacing: -.04em; }
+  .score sup { font-size: .3em; color: var(--muted); letter-spacing: 0; vertical-align: top; position: relative; top: .5em; margin-left: 6px; }
+  .score-meta { margin-top: 16px; color: var(--muted); font-size: .95rem; }
+  .score-meta .stars { font-size: 1.1rem; display: block; margin-bottom: 6px; }
+  .quotes { display: grid; gap: 0; }
+  .quote { padding-block: 28px; border-top: 1px solid var(--line); display: grid; gap: 14px; }
+  .quote:first-child { padding-top: 0; border-top: 0; }
+  .quote blockquote { margin: 0; font-family: var(--serif); font-size: clamp(1.25rem, 2.1vw, 1.7rem); line-height: 1.3; letter-spacing: -.01em; }
+  .quote figcaption { font-size: .88rem; color: var(--muted); display: flex; gap: 10px; align-items: center; }
+  .quote figcaption b { color: var(--text); font-weight: 600; }
+
+  /* ── Menu ───────────────────────────────────────────────── */
+  .menu__tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 36px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .menu__tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    all: unset; cursor: pointer; flex: none; padding: 11px 18px; border-radius: 999px; border: 1px solid var(--line);
+    font: 600 .92rem/1 var(--sans); color: var(--text); transition: background .2s, color .2s, border-color .2s, transform .2s var(--ease);
+  }
+  .tab:hover { border-color: var(--ink); transform: translateY(-1px); }
+  .tab[aria-selected="true"] { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+  .tab:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+  .menu__note { color: var(--muted); font-style: italic; font-family: var(--serif); margin-bottom: 20px; }
+  .dishes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(32px, 6vw, 88px); }
+  .dish { padding-block: 16px; border-bottom: 1px solid var(--line); animation: rise .45s var(--ease) both; }
+  .dish__top { display: flex; align-items: baseline; gap: 12px; }
+  .dish__name { font-family: var(--serif); font-size: 1.22rem; font-weight: 500; }
+  .dish__dots { flex: 1; border-bottom: 1.5px dotted rgba(22, 38, 31, .3); transform: translateY(-4px); min-width: 16px; }
+  .dish__price { font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .dish__desc { color: var(--muted); font-size: .94rem; margin-top: 3px; max-width: 44ch; }
+  .dish--star .dish__name::after { content: "Signature"; margin-left: 10px; font: 600 .62rem/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: #14110A; background: var(--orange); padding: 4px 7px; border-radius: 4px; vertical-align: middle; position: relative; top: -2px; }
+  .menu__foot { margin-top: 44px; display: flex; flex-wrap: wrap; gap: 14px 28px; align-items: center; justify-content: space-between; }
+  .menu__foot p { color: var(--muted); font-size: .92rem; max-width: 52ch; }
+  @keyframes rise { from { opacity: 0; transform: translateY(8px); } }
+
+  /* ── Plat du jour ───────────────────────────────────────── */
+  .pdj { background: var(--tomato); color: var(--cream); }
+  .pdj__grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(32px, 6vw, 88px); align-items: center; }
+  .pdj .eyebrow { color: var(--cream); opacity: .85; }
+  .pdj h2 em { color: #FFD08A; }
+  .pdj .lead { color: rgba(246, 239, 225, .86); }
+  .pdj__price { font-family: var(--serif); font-size: clamp(3.4rem, 7vw, 5.5rem); line-height: 1; margin-top: 26px; }
+  .pdj__price small { font: 500 .95rem var(--sans); opacity: .85; margin-left: 10px; }
+  .week { list-style: none; margin: 0; padding: 0; }
+  .week li { display: grid; grid-template-columns: 64px 1fr; gap: 18px; padding-block: 18px; border-top: 1px solid rgba(246, 239, 225, .28); }
+  .week li:last-child { border-bottom: 1px solid rgba(246, 239, 225, .28); }
+  .week b { font: 600 .78rem/1.9 var(--sans); letter-spacing: .14em; text-transform: uppercase; opacity: .85; }
+  .week span { font-family: var(--serif); font-size: 1.2rem; line-height: 1.3; }
+  .week small { display: block; font: 400 .88rem/1.5 var(--sans); opacity: .82; margin-top: 2px; }
+  .pdj__hint { margin-top: 16px; font-size: .85rem; opacity: .8; }
+
+  /* ── Visit ──────────────────────────────────────────────── */
+  .visit__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(32px, 5vw, 72px); align-items: stretch; }
+  .hours { width: 100%; border-collapse: collapse; margin-top: 8px; }
+  .hours th, .hours td { text-align: left; padding: 13px 0; border-bottom: 1px solid var(--line); font-weight: 400; font-variant-numeric: tabular-nums; }
+  .hours th { font-weight: 600; width: 42%; }
+  .hours td { color: var(--muted); }
+  .hours tr.today th, .hours tr.today td { color: var(--tomato); font-weight: 600; }
+  .hours tr.today th::after { content: attr(data-today); margin-left: 10px; font: 600 .62rem/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; background: var(--tomato); color: var(--cream); padding: 4px 7px; border-radius: 4px; vertical-align: middle; }
+  .contact { margin-top: 34px; display: grid; gap: 6px; }
+  .contact a { font-family: var(--serif); font-size: clamp(1.5rem, 2.6vw, 2.1rem); text-decoration: none; width: fit-content; background: linear-gradient(var(--orange), var(--orange)) 0 100% / 0 2px no-repeat; transition: background-size .35s var(--ease); }
+  .contact a:hover { background-size: 100% 2px; }
+  .contact address { font-style: normal; color: var(--muted); margin-top: 8px; }
+  .visit__cta { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 12px; }
+  .map { position: relative; border-radius: var(--radius); overflow: hidden; min-height: 420px; background: #DDD6C6; border: 1px solid var(--line); }
+  .map iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; filter: saturate(.85) contrast(1.02); }
+  .perks { list-style: none; padding: 0; margin: clamp(44px, 6vw, 72px) 0 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--line); }
+  .perks li { padding: 22px 20px 0 0; }
+  .perks b { display: block; font-family: var(--serif); font-size: 1.15rem; font-weight: 500; margin-bottom: 4px; }
+  .perks span { color: var(--muted); font-size: .92rem; }
+
+  /* ── FAQ ────────────────────────────────────────────────── */
+  .faq { background: var(--paper); border-top: 1px solid var(--line); }
+  .faq__grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.4fr); gap: clamp(32px, 6vw, 88px); }
+  details { border-bottom: 1px solid var(--line); }
+  details:first-of-type { border-top: 1px solid var(--line); }
+  summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 22px 0; font-family: var(--serif); font-size: clamp(1.15rem, 1.8vw, 1.38rem); transition: color .2s; }
+  summary::-webkit-details-marker { display: none; }
+  summary:hover { color: var(--tomato); }
+  summary i { flex: none; width: 30px; height: 30px; border: 1px solid var(--line); border-radius: 50%; position: relative; transition: transform .3s var(--ease), background .2s, border-color .2s; }
+  summary i::before, summary i::after { content: ""; position: absolute; inset: 50% auto auto 50%; width: 11px; height: 1.5px; background: currentColor; transform: translate(-50%, -50%); }
+  summary i::after { transform: translate(-50%, -50%) rotate(90deg); transition: transform .3s var(--ease); }
+  details[open] summary i { background: var(--ink); border-color: var(--ink); color: var(--cream); }
+  details[open] summary i::after { transform: translate(-50%, -50%) rotate(0); }
+  details p { padding: 0 50px 24px 0; color: var(--muted); max-width: 62ch; }
+  details a { color: var(--text); text-decoration-color: var(--orange); text-underline-offset: 3px; }
+
+  /* ── Final CTA + Footer ─────────────────────────────────── */
+  .final { background: var(--ink); color: var(--cream); text-align: center; }
+  .final h2 { font-size: clamp(2.6rem, 7vw, 5.4rem); font-weight: 400; max-width: 14ch; margin-inline: auto; }
+  .final p { margin: 24px auto 0; color: rgba(246, 239, 225, .76); max-width: 44ch; }
+  .final .hero__cta { justify-content: center; }
+  .footer { background: var(--ink); color: rgba(246, 239, 225, .7); font-size: .9rem; border-top: 1px solid var(--line-light); padding-block: 30px calc(30px + env(safe-area-inset-bottom)); }
+  .footer__in { display: flex; flex-wrap: wrap; gap: 14px 32px; justify-content: space-between; align-items: center; }
+  .footer a { text-decoration: none; transition: color .2s; }
+  .footer a:hover { color: var(--orange); }
+  .footer nav { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+
+  /* ── Mobile action bar ──────────────────────────────────── */
+  .dock { display: none; }
+
+  /* ── Reveal ─────────────────────────────────────────────── */
+  .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+  .js .reveal.in { opacity: 1; transform: none; }
+
+  /* ── Responsive ─────────────────────────────────────────── */
+  @media (max-width: 960px) {
+    .burger { display: grid; }
+    .nav {
+      position: fixed; inset: 0; background: var(--ink); flex-direction: column; justify-content: center; gap: 26px;
+      opacity: 0; visibility: hidden; transition: opacity .3s, visibility .3s; z-index: -1;
+    }
+    .nav a.link { font-family: var(--serif); font-size: 2rem; opacity: 1; }
+    .nav .btn { margin-top: 8px; }
+    .nav-open .nav { opacity: 1; visibility: visible; }
+    .nav-open .burger i:first-child { transform: translateY(3.5px) rotate(45deg); }
+    .nav-open .burger i:last-child { transform: translateY(-3.5px) rotate(-45deg); }
+    .nav-open { overflow: hidden; }
+    .hero__grid { grid-template-columns: 1fr; }
+    .hero__art { justify-self: center; width: min(78vw, 420px); margin-top: 12px; order: 2; }
+    .hero__badge { width: 120px; height: 120px; left: -2%; }
+    .hero__badge strong { font-size: 1.85rem; }
+    .cards { grid-template-columns: 1fr; }
+    .card, .card + .card { padding-inline: 0; border-left: 0; }
+    .proof__grid, .pdj__grid, .visit__grid, .faq__grid { grid-template-columns: 1fr; }
+    .dishes { grid-template-columns: 1fr; }
+    .perks { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .map { min-height: 340px; }
+  }
+  @media (max-width: 640px) {
+    body { font-size: 16px; padding-bottom: 76px; }
+    .hero__cta .btn { flex: 1 1 100%; }
+    .hero__meta { gap: 12px; flex-direction: column; }
+    .menu__tabs { margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); }
+    .menu__foot .btn { width: 100%; }
+    details p { padding-right: 0; }
+    .dock {
+      display: grid; grid-template-columns: 1fr 1.4fr; gap: 10px;
+      position: fixed; inset: auto 0 0 0; z-index: 40;
+      padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+      background: rgba(252, 248, 239, .94); backdrop-filter: blur(10px); border-top: 1px solid var(--line);
+      transform: translateY(110%); transition: transform .35s var(--ease);
+    }
+    .dock.show { transform: none; }
+    .dock .btn { padding: 15px 12px; font-size: .95rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    .js .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+
+<body>
+<script>document.documentElement.classList.add('js');</script>
+
+<!-- ═══ Header ═══ -->
+<header class="header" id="top">
+  <div class="wrap header__in">
+    <a class="brand" href="#top" aria-label="La Lambretta – Startseite">La&nbsp;Lambretta<span>.</span></a>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation">
+      <a class="link" href="#karte" data-fr="La carte">Speisekarte</a>
+      <a class="link" href="#mittag" data-fr="Plat du jour">Mittagstisch</a>
+      <a class="link" href="#besuch" data-fr="Horaires &amp; accès">Zeiten &amp; Anfahrt</a>
+      <a class="link" href="#faq">FAQ</a>
+      <div class="lang" role="group" aria-label="Sprache / Langue">
+        <button type="button" data-lang="de" aria-pressed="true">DE</button>
+        <button type="button" data-lang="fr" aria-pressed="false">FR</button>
+      </div>
+      <a class="btn btn--sm js-reserve" href="tel:+35226652626" data-fr="Réserver">Reservieren</a>
+    </nav>
+    <button class="burger" type="button" aria-label="Menü" aria-expanded="false" aria-controls="nav"><span><i></i><i></i></span></button>
+  </div>
+</header>
+
+<main>
+<!-- ═══ Hero ═══ -->
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div>
+      <span class="eyebrow" data-fr="Ristorante · Pizzeria — Kehlen, Luxembourg">Ristorante · Pizzeria — Kehlen, Luxemburg</span>
+      <h1 data-fr="La pizza qui vaut le <em>détour</em> par Kehlen.">Pizza, für die man gern nach <em>Kehlen</em> fährt.</h1>
+      <p class="hero__sub" data-fr="Pâte fine et croustillante jusqu’à la dernière bouchée, pâtes al dente et portions généreuses. Midi et soir, à dix minutes de Mamer et de Capellen.">Dünner, knuspriger Boden bis zum letzten Bissen, Pasta al dente und großzügige Portionen. Mittags und abends – zehn Minuten von Mamer und Capellen.</p>
+      <div class="hero__cta">
+        <a class="btn js-reserve" href="tel:+35226652626">
+          <span data-fr="Réserver une table">Tisch reservieren</span>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn--ghost" href="https://www.lalambretta.lu/fr/commander" target="_blank" rel="noopener" data-fr="Commander à emporter">Zum Mitnehmen bestellen</a>
+      </div>
+      <div class="hero__meta">
+        <span id="status"><i class="status-dot"></i><b id="status-text">Mo, Mi–Sa 12–14 &amp; 18–22 Uhr</b></span>
+        <span><span class="stars" aria-hidden="true">★★★★★</span><b>4,7</b> <span data-fr="sur Google">auf Google</span></span>
+        <span data-fr="Parking gratuit devant la porte">Gratis parken vor der Tür</span>
+      </div>
+    </div>
+
+    <div class="hero__art" aria-hidden="true">
+      <svg class="pizza" viewBox="0 0 400 400">
+        <circle cx="200" cy="200" r="196" fill="#D99A45"/>
+        <circle cx="200" cy="200" r="196" fill="none" stroke="#B9782C" stroke-width="6" stroke-dasharray="3 22" stroke-linecap="round"/>
+        <circle cx="200" cy="200" r="170" fill="#C2391F"/>
+        <g fill="#F7E9C8">
+          <path d="M118 96c22-14 50-6 54 16s-14 40-38 38-38-40-16-54z"/>
+          <path d="M246 78c26-6 48 12 44 34s-30 30-48 18-22-46 4-52z"/>
+          <path d="M300 180c22 4 34 28 22 46s-40 18-52 0 8-50 30-46z"/>
+          <path d="M92 200c18-12 44-2 46 20s-18 36-40 30-24-38-6-50z"/>
+          <path d="M176 176c24-10 50 6 50 30s-22 40-48 34-26-54-2-64z"/>
+          <path d="M240 276c22-8 46 8 42 30s-28 32-48 22-16-44 6-52z"/>
+          <path d="M132 280c20-8 42 6 40 26s-24 30-42 22-18-40 2-48z"/>
+        </g>
+        <g fill="#8E2412" opacity=".55">
+          <circle cx="210" cy="118" r="7"/><circle cx="150" cy="170" r="6"/><circle cx="262" cy="232" r="7"/><circle cx="196" cy="296" r="6"/><circle cx="100" cy="158" r="5"/><circle cx="318" cy="150" r="5"/>
+        </g>
+        <g fill="#2F6B3F">
+          <path d="M196 132c16-14 38-10 46 2-12 14-34 14-46-2z"/>
+          <path d="M112 232c4-20 22-32 36-28-2 18-18 32-36 28z"/>
+          <path d="M276 196c18 6 28 26 22 38-18-4-28-22-22-38z"/>
+          <path d="M186 262c18-8 38 2 42 14-16 8-36 2-42-14z"/>
+          <path d="M228 148c10-12 28-12 36-4-10 12-26 14-36 4z" opacity=".8"/>
+        </g>
+        <g stroke="#1E4A2B" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".7">
+          <path d="M200 133c14-3 28-2 40 1"/><path d="M115 230c8-10 18-18 30-24"/><path d="M279 200c8 8 14 20 18 32"/><path d="M190 263c12-1 26 3 36 11"/>
+        </g>
+      </svg>
+      <div class="hero__badge">
+        <small data-fr="Pizza dès">Pizza ab</small>
+        <strong>12,50&nbsp;€</strong>
+        <small>Margherita</small>
+      </div>
+    </div>
+  </div>
+  <div class="stripes"></div>
+</section>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <span>Pizza</span><span>Pasta fresca</span><span>Risotti</span><span>Carpaccio</span><span>Tagliata</span><span>Frutti di Mare</span><span>Tiramisù</span><span>Plat du Jour</span>
+    <span>Pizza</span><span>Pasta fresca</span><span>Risotti</span><span>Carpaccio</span><span>Tagliata</span><span>Frutti di Mare</span><span>Tiramisù</span><span>Plat du Jour</span>
+  </div>
+</div>
+
+<!-- ═══ Highlights ═══ -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-fr="Pourquoi on revient">Warum man wiederkommt</span>
+      <h2 data-fr="Trois raisons de <em>s’attabler</em>.">Drei Gründe, sich <em>hinzusetzen</em>.</h2>
+    </div>
+    <div class="cards">
+      <article class="card reveal">
+        <span class="card__num">01</span>
+        <h3 data-fr="Pizza fine, bord croustillant">Pizza, dünn und knusprig</h3>
+        <p data-fr="27 pizzas, de la Margherita à « La Lambretta » : bufala chaude, sauce à la truffe, speck tyrolien. La pâte reste croustillante jusqu’à la dernière part.">27 Pizzen von der Margherita bis zur „La Lambretta“ mit warmer Bufala, Trüffelsauce und Tiroler Speck. Der Boden bleibt knusprig – bis zum letzten Stück.</p>
+        <span class="card__price"><span data-fr="dès">ab</span> <b>12,50&nbsp;€</b></span>
+      </article>
+      <article class="card reveal">
+        <span class="card__num">02</span>
+        <h3 data-fr="Pâtes al dente, à partager">Pasta al dente, dreimal anders</h3>
+        <p data-fr="Envie de tout goûter ? Le Tris de pâtes Lambretta réunit paccheri à la saucisse, tagliatelle à la roquette et orecchiette au jambon de Parme.">Nicht entscheiden müssen: Das Tris de Pâtes Lambretta bringt Paccheri mit Salsiccia, Tagliatelle mit Rucola und Orecchiette mit Parmaschinken auf einen Teller.</p>
+        <span class="card__price">Tris Lambretta <b>22,90&nbsp;€</b></span>
+      </article>
+      <article class="card reveal">
+        <span class="card__num">03</span>
+        <h3 data-fr="Un plat du jour chaque midi">Jeden Mittag ein Tagesgericht</h3>
+        <p data-fr="Du lundi au vendredi, un plat différent, garniture comprise. Servi rapidement, pour une vraie pause entre deux rendez-vous.">Montag bis Freitag ein anderes Gericht, Beilage inklusive. Schnell serviert – eine echte Pause zwischen zwei Terminen.</p>
+        <span class="card__price">Plat du Jour <b>14,50&nbsp;€</b></span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Social proof ═══ -->
+<section class="section proof">
+  <div class="wrap proof__grid">
+    <div class="reveal">
+      <span class="eyebrow" data-fr="Ce qu’en disent nos clients">Das sagen unsere Gäste</span>
+      <div class="score" style="margin-top:26px">4,7<sup>/5</sup></div>
+      <p class="score-meta"><span class="stars" aria-hidden="true">★★★★★</span><span data-fr="Note moyenne sur Google">Durchschnitt aus Google-Rezensionen</span></p>
+    </div>
+    <div class="quotes">
+      <figure class="quote reveal" style="margin:0">
+        <blockquote>“The best pizza en Luxembourg, very friendly service, cosy and welcoming.”</blockquote>
+        <figcaption><span class="stars" aria-hidden="true">★★★★★</span><b>Celia R.</b> · Google</figcaption>
+      </figure>
+      <figure class="quote reveal" style="margin:0">
+        <blockquote>“The pizza was great, the gnocchi were also very good, and the Tris de Pâtes was delicious as well. We’ll definitely come back!”</blockquote>
+        <figcaption><span class="stars" aria-hidden="true">★★★★</span><b>J. S.</b> · Google</figcaption>
+      </figure>
+      <figure class="quote reveal" style="margin:0">
+        <blockquote>“We loved it! The pizzas are legendary. Great Italian restaurant!”</blockquote>
+        <figcaption><span class="stars" aria-hidden="true">★★★★★</span><b>Pedro S.</b> · Google</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Menu ═══ -->
+<section class="section" id="karte">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-fr="La carte">Die Karte</span>
+      <h2 data-fr="De l’antipasto au <em>tiramisù</em>.">Vom Antipasto bis zum <em>Tiramisù</em>.</h2>
+      <p class="lead" data-fr="Toute la carte, avec les prix. Tous les plats sont aussi disponibles à emporter.">Die komplette Karte mit Preisen. Alle Gerichte gibt es auch zum Mitnehmen.</p>
+    </div>
+    <div class="menu__tabs" role="tablist" aria-label="Kategorien" id="tabs"></div>
+    <p class="menu__note" id="menu-note" hidden></p>
+    <div class="dishes" id="dishes" role="tabpanel"></div>
+    <div class="menu__foot">
+      <p data-fr="Allergies ou intolérances ? Notre équipe vous renseigne volontiers. Prix en euros, TVA comprise.">Allergien oder Unverträglichkeiten? Unser Team berät Sie gern. Preise in Euro inkl. MwSt.</p>
+      <a class="btn btn--dark" href="https://www.lalambretta.lu/fr/commander" target="_blank" rel="noopener">
+        <span data-fr="Commander en ligne">Online bestellen</span>
+        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Plat du jour ═══ -->
+<section class="section pdj" id="mittag">
+  <div class="wrap pdj__grid">
+    <div class="reveal">
+      <span class="eyebrow" data-fr="Le midi, du lundi au vendredi">Mittags, Montag bis Freitag</span>
+      <h2 style="margin-top:18px" data-fr="Plat du jour. <em>Vite servi.</em>">Plat du Jour. <em>Schnell serviert.</em></h2>
+      <p class="lead" style="margin-top:20px" data-fr="Un plat différent chaque jour, garniture comprise. De 12h à 14h, sur place ou à emporter.">Jeden Tag ein anderes Gericht, Beilage inklusive. Von 12 bis 14 Uhr – im Restaurant oder zum Mitnehmen.</p>
+      <div class="pdj__price">14,50&nbsp;€<small data-fr="garniture comprise">inkl. Beilage</small></div>
+    </div>
+    <div class="reveal">
+      <ul class="week">
+        <li><b data-fr="Lun">Mo</b><span><span data-fr="Escalope de dinde, sauce crème aux champignons">Putenschnitzel in Champignon-Rahmsauce</span><small data-fr="avec frites">mit Pommes frites</small></span></li>
+        <li><b data-fr="Mer">Mi</b><span><span data-fr="Tartiflette traditionnelle">Traditionelle Tartiflette</span><small data-fr="avec salade">mit Salat</small></span></li>
+        <li><b data-fr="Jeu">Do</b><span><span data-fr="Cuisse de canard rôtie au four">Ofengebratene Entenkeule</span><small data-fr="avec riz">mit Reis</small></span></li>
+        <li><b data-fr="Ven">Fr</b><span><span data-fr="Sauté de porc à l’ananas">Schweinegeschnetzeltes mit Ananas</span><small data-fr="avec pommes dippers">mit Kartoffel-Dippers</small></span></li>
+      </ul>
+      <p class="pdj__hint" data-fr="Exemple : semaine du 9 au 13 novembre. Le menu change chaque semaine — mardi fermé.">Beispielwoche 9.–13. November. Das Angebot wechselt wöchentlich – dienstags Ruhetag.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Visit ═══ -->
+<section class="section" id="besuch">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-fr="Horaires &amp; accès">Zeiten &amp; Anfahrt</span>
+      <h2 data-fr="On vous garde <em>une table</em>.">Wir halten Ihnen <em>einen Tisch</em> frei.</h2>
+    </div>
+    <div class="visit__grid">
+      <div class="reveal">
+        <table class="hours" id="hours">
+          <tbody>
+            <tr data-day="1"><th data-fr="Lundi">Montag</th><td>12:00–14:00 · 18:00–22:00</td></tr>
+            <tr data-day="2"><th data-fr="Mardi">Dienstag</th><td data-fr="Fermé">Ruhetag</td></tr>
+            <tr data-day="3"><th data-fr="Mercredi">Mittwoch</th><td>12:00–14:00 · 18:00–22:00</td></tr>
+            <tr data-day="4"><th data-fr="Jeudi">Donnerstag</th><td>12:00–14:00 · 18:00–22:00</td></tr>
+            <tr data-day="5"><th data-fr="Vendredi">Freitag</th><td>12:00–14:00 · 18:00–22:00</td></tr>
+            <tr data-day="6"><th data-fr="Samedi">Samstag</th><td>12:00–14:00 · 18:00–22:00</td></tr>
+            <tr data-day="0"><th data-fr="Dimanche">Sonntag</th><td>12:00–14:00</td></tr>
+          </tbody>
+        </table>
+        <div class="contact">
+          <a href="tel:+35226652626">+352 26 65 26 26</a>
+          <a href="mailto:info@lalambretta.lu">info@lalambretta.lu</a>
+          <address>8, rue de Mamer · L-8280 Kehlen</address>
+        </div>
+        <div class="visit__cta">
+          <a class="btn btn--dark js-reserve" href="tel:+35226652626" data-fr="Réserver une table">Tisch reservieren</a>
+          <a class="btn btn--outline" href="https://maps.app.goo.gl/26kYkke9cCugr4o99" target="_blank" rel="noopener" data-fr="Itinéraire">Route planen</a>
+        </div>
+      </div>
+      <div class="map reveal">
+        <iframe title="Karte: La Lambretta, 8 rue de Mamer, Kehlen" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=La+Lambretta,+8+Rue+de+Mamer,+8280+Kehlen,+Luxembourg&z=15&output=embed"></iframe>
+      </div>
+    </div>
+    <ul class="perks reveal">
+      <li><b data-fr="Parking gratuit">Gratis parken</b><span data-fr="Juste devant le restaurant, avec disque.">Direkt vor dem Restaurant, mit Parkscheibe.</span></li>
+      <li><b data-fr="Terrasse couverte">Überdachte Terrasse</b><span data-fr="Pour les beaux jours, à l’abri.">Draußen sitzen, auch wenn es tröpfelt.</span></li>
+      <li><b data-fr="Familles bienvenues">Familienfreundlich</b><span data-fr="Table à langer sur place, chiens acceptés.">Wickeltisch vorhanden, Hunde willkommen.</span></li>
+      <li><b data-fr="Accès facile">Barrierearm</b><span data-fr="Entrée accessible en fauteuil roulant.">Eingang rollstuhlgerecht zugänglich.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section class="section faq" id="faq">
+  <div class="wrap faq__grid">
+    <div class="section-head reveal" style="margin-bottom:0">
+      <span class="eyebrow" data-fr="Questions fréquentes">Häufige Fragen</span>
+      <h2 data-fr="Bon à <em>savoir</em>.">Gut zu <em>wissen</em>.</h2>
+      <p class="lead" data-fr="Une autre question ? Appelez-nous, c’est le plus rapide.">Noch etwas offen? Ein Anruf ist der schnellste Weg.</p>
+    </div>
+    <div class="reveal">
+      <details open>
+        <summary><span data-fr="Faut-il réserver ?">Muss ich reservieren?</span><i></i></summary>
+        <p data-fr="Nous vous le conseillons, surtout le vendredi et le samedi soir. Réservez en ligne en quelques clics ou par téléphone au +352 26 65 26 26.">Wir empfehlen es – besonders freitag- und samstagabends. Reservieren Sie online in wenigen Klicks oder telefonisch unter +352 26 65 26 26.</p>
+      </details>
+      <details>
+        <summary><span data-fr="Peut-on commander à emporter ?">Kann ich Essen zum Mitnehmen bestellen?</span><i></i></summary>
+        <p data-fr="Oui. Toute la carte est disponible à emporter : <a href='https://www.lalambretta.lu/fr/commander' target='_blank' rel='noopener'>commandez en ligne</a>, payez directement et passez chercher votre commande.">Ja. Die gesamte Karte gibt es zum Mitnehmen: <a href="https://www.lalambretta.lu/fr/commander" target="_blank" rel="noopener">online bestellen</a>, direkt bezahlen und im Restaurant abholen.</p>
+      </details>
+      <details>
+        <summary><span data-fr="Quel est le jour de fermeture ?">Wann ist Ruhetag?</span><i></i></summary>
+        <p data-fr="Le restaurant est fermé le mardi toute la journée ainsi que le dimanche soir. Les jours fériés, merci de nous appeler.">Dienstags ganztägig und sonntagabends bleibt die Küche zu. An Feiertagen bitte kurz anrufen.</p>
+      </details>
+      <details>
+        <summary><span data-fr="Y a-t-il des plats végétariens ?">Gibt es vegetarische Gerichte?</span><i></i></summary>
+        <p data-fr="Bien sûr : pizza Végétarienne, Margherita, 4 Formaggi, gnocchi Sorrentina, raviolis ricotta-épinards, penne all’arrabbiata et plusieurs salades.">Natürlich: Pizza Végétarienne, Margherita, 4 Formaggi, Gnocchi Sorrentina, Ravioli Ricotta-Spinat, Penne all’Arrabbiata und mehrere Salate.</p>
+      </details>
+      <details>
+        <summary><span data-fr="Où se garer ?">Wo kann ich parken?</span><i></i></summary>
+        <p data-fr="Des places gratuites se trouvent directement devant le restaurant — pensez à votre disque de stationnement.">Kostenlose Parkplätze liegen direkt vor dem Restaurant – bitte an die Parkscheibe denken.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Final CTA ═══ -->
+<section class="section final">
+  <div class="wrap reveal">
+    <h2 data-fr="Ce soir, c’est <em>italien</em>.">Heute Abend wird’s <em>italienisch</em>.</h2>
+    <p data-fr="Réservez votre table en moins d’une minute — ou emportez votre pizza à la maison.">Tisch in unter einer Minute reservieren – oder die Pizza einfach mit nach Hause nehmen.</p>
+    <div class="hero__cta">
+      <a class="btn js-reserve" href="tel:+35226652626">
+        <span data-fr="Réserver une table">Tisch reservieren</span>
+        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="btn btn--ghost" href="tel:+35226652626">+352 26 65 26 26</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__in">
+    <span>© <span id="year">2026</span> Restaurant La Lambretta · 8, rue de Mamer · L-8280 Kehlen</span>
+    <nav aria-label="Footer">
+      <a href="#karte" data-fr="La carte">Speisekarte</a>
+      <a href="#besuch" data-fr="Horaires">Öffnungszeiten</a>
+      <a href="mailto:info@lalambretta.lu">info@lalambretta.lu</a>
+      <a href="tel:+35226652626">+352 26 65 26 26</a>
+    </nav>
+  </div>
+</footer>
+
+<!-- Mobile action bar -->
+<div class="dock" id="dock">
+  <a class="btn btn--outline" href="tel:+35226652626" data-fr="Appeler">Anrufen</a>
+  <a class="btn js-reserve" href="tel:+35226652626" data-fr="Réserver une table">Tisch reservieren</a>
+</div>
+
+<!-- Bestehendes Reservierungs-Widget des Restaurants (Delova). Lädt es nicht, greifen die Buttons auf den Anruf zurück. -->
+<delova-reservation tenant="lalambretta" locale="fr"></delova-reservation>
+<script src="https://delova.app/embed/v1/reservation.js" async></script>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var lang = 'de';
+
+  /* ── Menu data: [name, FR, DE, price, signature?] ── */
+  var MENU = [
+    { id: 'pizza', de: 'Pizza', fr: 'Pizza', items: [
+      ['Margherita', 'Tomates, mozzarella, origan', 'Tomaten, Mozzarella, Oregano', 12.5],
+      ['La Lambretta', 'Basilic, bufala chaude, sauce truffe, speck tyrolien, tomates fraîches', 'Basilikum, warme Bufala, Trüffelsauce, Tiroler Speck, frische Tomaten', 21.9, 1],
+      ['Napoletana', 'Tomates, mozzarella, anchois, origan', 'Tomaten, Mozzarella, Sardellen, Oregano', 15.9],
+      ['Funghi', 'Tomates, mozzarella, champignons frais', 'Tomaten, Mozzarella, frische Champignons', 14.5],
+      ['Prosciutto', 'Tomates, mozzarella, jambon', 'Tomaten, Mozzarella, Schinken', 16],
+      ['Prosciutto e Funghi', 'Tomates, mozzarella, jambon, champignons frais', 'Tomaten, Mozzarella, Schinken, frische Champignons', 16],
+      ['Bismarck', 'Tomates, mozzarella, jambon, œuf', 'Tomaten, Mozzarella, Schinken, Ei', 16.5],
+      ['Salami', 'Tomates, mozzarella, salami', 'Tomaten, Mozzarella, Salami', 15.9],
+      ['Diavola', 'Tomates, mozzarella, salami piquant', 'Tomaten, Mozzarella, scharfe Salami', 17.9],
+      ['Capricciosa', 'Tomates, mozzarella, jambon, champignons, artichauts, olives', 'Tomaten, Mozzarella, Schinken, Champignons, Artischocken, Oliven', 16.9],
+      ['4 Stagioni', 'Tomates, mozzarella, jambon, champignons, artichauts, olives, anchois', 'Tomaten, Mozzarella, Schinken, Champignons, Artischocken, Oliven, Sardellen', 16.9],
+      ['Végétarienne', 'Tomates, mozzarella, aubergines, courgettes, champignons frais, épinards, olives', 'Tomaten, Mozzarella, Auberginen, Zucchini, frische Champignons, Spinat, Oliven', 16.9],
+      ['Ciociara', 'Tomates, mozzarella, fromage de chèvre, lardons', 'Tomaten, Mozzarella, Ziegenkäse, Speck', 17.9],
+      ['Frutti di Mare', 'Tomates, mozzarella, fruits de mer frais, ail', 'Tomaten, Mozzarella, frische Meeresfrüchte, Knoblauch', 19],
+      ['Salsiccia e Spinaci', 'Tomates, mozzarella, saucisse italienne, épinards', 'Tomaten, Mozzarella, italienische Salsiccia, Spinat', 18],
+      ['4 Formaggi', 'Tomates, 4 fromages', 'Tomaten, vier Käsesorten', 16.9],
+      ['Romana', 'Tomates, mozzarella, olives, anchois, câpres', 'Tomaten, Mozzarella, Oliven, Sardellen, Kapern', 15.9],
+      ['Tonno', 'Tomates, mozzarella, thon', 'Tomaten, Mozzarella, Thunfisch', 16.9],
+      ['Tonno e Cipolla', 'Tomates, mozzarella, thon, oignons', 'Tomaten, Mozzarella, Thunfisch, Zwiebeln', 16.9],
+      ['Hawaii', 'Tomates, mozzarella, jambon cuit, ananas', 'Tomaten, Mozzarella, Kochschinken, Ananas', 16.5],
+      ['Bufala e Rucola', 'Mozzarella de bufflonne, tomates cerises, roquette', 'Büffelmozzarella, Kirschtomaten, Rucola', 20.9],
+      ['Carrettiera', 'Mozzarella, saucisse piquante, tomates cerises, roquette', 'Mozzarella, scharfe Salsiccia, Kirschtomaten, Rucola', 18.9],
+      ['Rustica', 'Mozzarella, thon, oignons, salami piquant, tomates cerises, basilic', 'Mozzarella, Thunfisch, Zwiebeln, scharfe Salami, Kirschtomaten, Basilikum', 18.9],
+      ['Scampi', 'Tomates, mozzarella, scampis', 'Tomaten, Mozzarella, Scampi', 20.9],
+      ['Biancaneve e Parma', '', '', 18.9],
+      ['Calzone', 'Tomates, mozzarella, jambon', 'Tomaten, Mozzarella, Schinken', 16],
+      ['Calzone Ricotta e Spinaci', 'Tomates, fromage frais et épinards', 'Tomaten, Ricotta und Spinat', 17.5]
+    ]},
+    { id: 'pasta', de: 'Pasta', fr: 'Pâtes', items: [
+      ['Tris de pâtes Lambretta', 'Paccheri à la saucisse, tagliatelle à la roquette, orecchiette jambon de Parme, crème et parmesan', 'Paccheri mit Salsiccia, Tagliatelle mit Rucola, Orecchiette mit Parmaschinken, Sahne und Parmesan', 22.9, 1],
+      ['Tris de pâtes', 'Tagliatelle au pesto, tortellini crème-jambon et penne napoli', 'Tagliatelle mit Pesto, Tortellini in Schinken-Sahne und Penne Napoli', 18],
+      ['Penne all’Arrabbiata', 'Sauce tomate piquante', 'Scharfe Tomatensauce', 14.5],
+      ['Penne all’Amatriciana', 'Guanciale, oignons, sauce tomate', 'Guanciale, Zwiebeln, Tomatensauce', 18.5],
+      ['Spaghetti Bolognese', '', '', 15],
+      ['Spaghetti Carbonara', 'À l’italienne', 'Nach italienischer Art', 20.5],
+      ['Spaghetti Vongole', 'Palourdes', 'Mit Venusmuscheln', 21.9],
+      ['Tagliatelle Pesto', '', '', 17],
+      ['Tagliatelle Scampis', '', '', 21.9],
+      ['Tagliatelle Saumon', '', 'Mit Lachs', 19.9],
+      ['Tagliatelle Rucola', 'Roquette, tomates fraîches', 'Rucola, frische Tomaten', 17.5],
+      ['Tortellini Crème Jambon', 'Tortellini à la crème et au jambon', 'Tortellini in Schinken-Sahne-Sauce', 18.5],
+      ['Gnocchi Sorrentina', 'Mozzarella, basilic, tomates', 'Mozzarella, Basilikum, Tomaten', 18.5],
+      ['Maccheroni Diavolo', 'Salami piquant, sauce rosée, vodka', 'Scharfe Salami, Rosé-Sauce, Wodka', 17.9],
+      ['Ravioli Ricotta Épinards', '', 'Mit Ricotta und Spinat', 19.9],
+      ['Ravioli Saumon', '', 'Mit Lachs', 19.9],
+      ['Ravioli Viande', '', 'Mit Fleischfüllung', 19.9],
+      ['Trilogie Ravioli', '', 'Alle drei Ravioli auf einem Teller', 19.9]
+    ]},
+    { id: 'forno', de: 'Gratins & Risotti', fr: 'Gratinées & Risotti', items: [
+      ['Lasagna', '', '', 20],
+      ['Cannelloni au four', '', 'Aus dem Ofen', 20],
+      ['Maccheroni aux aubergines', 'Sauce rosée, aubergines, mozzarella, gratinés', 'Rosé-Sauce, Auberginen, Mozzarella, überbacken', 17.5],
+      ['Maccheroni 4 fromages', '', 'Mit vier Käsesorten', 17.5],
+      ['Risotto Lambretta', 'Bœuf, champignons et truffe', 'Rindfleisch, Pilze und Trüffel', 24.9, 1],
+      ['Risotto Scampis et Citron', '', 'Mit Scampi und Zitrone', 22.5],
+      ['Risotto Mare e Monti', '', '', 22.5]
+    ]},
+    { id: 'antipasti', de: 'Salate & Vorspeisen', fr: 'Salades & Entrées', items: [
+      ['Caprese', 'Tomate, mozzarella et basilic', 'Tomate, Mozzarella und Basilikum', 16.5],
+      ['Chèvre chaud', 'Salade mixte, fromage de chèvre et miel', 'Gemischter Salat, Ziegenkäse und Honig', 19.9],
+      ['Paysanne', 'Salade mixte, croûtons, pommes de terre, lardons, tomates et œuf au plat', 'Gemischter Salat, Croûtons, Kartoffeln, Speck, Tomaten und Spiegelei', 19.9],
+      ['Niçoise', 'Salade mixte, pommes de terre, haricots verts, tomates, œufs durs, thon, anchois et oignons rouges', 'Gemischter Salat, Kartoffeln, grüne Bohnen, Tomaten, Ei, Thunfisch, Sardellen und rote Zwiebeln', 20.9],
+      ['Salade Poulet', 'Salade mixte, poulet, sauce balsamique et miel', 'Gemischter Salat, Hähnchen, Balsamico-Honig-Sauce', 20.9],
+      ['Scampis à l’ail', 'Salade mixte et scampis', 'Gemischter Salat und Knoblauch-Scampi', 23],
+      ['Carpaccio', 'Carpaccio de bœuf, roquette et copeaux de Grana Padano, accompagné de piadina', 'Rindercarpaccio, Rucola und Grana Padano, dazu Piadina', 24],
+      ['Saumon fumé', 'Saumon fumé, câpres et oignons', 'Räucherlachs, Kapern und Zwiebeln', 24],
+      ['Cocktail de crevettes', 'Salade et cocktail de crevettes', 'Salat und Krabbencocktail', 20],
+      ['Jambon de Parme', '', 'Parmaschinken', 21],
+      ['Jambon de Parme melon', '', 'Parmaschinken mit Melone', 25],
+      ['Assiette de charcuterie', '', 'Italienische Wurst- und Schinkenplatte', 25],
+      ['Tortellini in brodo', '', 'Tortellini in Brühe', 13],
+      ['Minestrone', '', '', 12],
+      ['Crème de tomate', '', 'Tomatencremesuppe', 11],
+      ['Cuisses de grenouilles', '', 'Froschschenkel', 21.5]
+    ]},
+    { id: 'carne', de: 'Fleisch', fr: 'Viandes',
+      noteDe: 'Alle Fleischgerichte servieren wir mit Pommes frites und Salat.',
+      noteFr: 'Nos viandes sont accompagnées de frites et de salade.', items: [
+      ['Tagliata de bœuf', '', 'Rinder-Tagliata', 37],
+      ['Tagliata de poulet', '', 'Hähnchen-Tagliata', 26.9],
+      ['Filet de bœuf grillé', '', 'Rinderfilet vom Grill', 34],
+      ['Filet de bœuf, sauce au choix', 'Poivre vert, béarnaise, gorgonzola ou marchand de vin', 'Grüner Pfeffer, Béarnaise, Gorgonzola oder Rotweinsauce', 36.9],
+      ['Entrecôte de bœuf grillée', '', 'Rinder-Entrecôte vom Grill', 33],
+      ['Entrecôte, sauce au choix', 'Poivre vert, béarnaise, gorgonzola ou marchand de vin', 'Grüner Pfeffer, Béarnaise, Gorgonzola oder Rotweinsauce', 35.9],
+      ['Tartare de filet de bœuf', '', 'Tatar vom Rinderfilet', 34],
+      ['Saltimbocca alla Romana', '', '', 30.9],
+      ['Escalope de veau grillée', '', 'Kalbsschnitzel vom Grill', 27],
+      ['Escalope de veau, crème champignons', '', 'Kalbsschnitzel in Champignon-Rahmsauce', 30.9],
+      ['Escalope Viennoise', '', 'Wiener Schnitzel', 24.9],
+      ['Cordon Bleu nature', '', '', 25.9],
+      ['Cordon Bleu, crème champignons', '', 'Mit Champignon-Rahmsauce', 28.9]
+    ]},
+    { id: 'pesce', de: 'Fisch', fr: 'Poissons', items: [
+      ['Trilogie de poissons grillés', 'Saumon, scampis et calamars, accompagnés de salade', 'Lachs, Scampi und Calamari vom Grill, mit Salat', 35.9, 1],
+      ['Saumon grillé', 'Accompagné de riz', 'Mit Reis', 30.5],
+      ['Saumon au poivre vert', 'Accompagné de riz', 'Mit grünem Pfeffer und Reis', 33.4],
+      ['Scampis à l’ail', 'Accompagnés de riz', 'Mit Knoblauch und Reis', 34],
+      ['Scampis Diavolo', 'Accompagnés de riz', 'Pikant, mit Reis', 34],
+      ['Filet de dorade grillé', 'Accompagné de riz', 'Doradenfilet vom Grill, mit Reis', 29.5],
+      ['Filet de dorade, sauce vierge', 'Accompagné de riz', 'Doradenfilet mit Sauce vierge und Reis', 31.9],
+      ['Calamars grillés', 'Accompagnés de salade', 'Vom Grill, mit Salat', 29.9],
+      ['Calamars frits', 'Accompagnés de salade', 'Frittiert, mit Salat', 29.9]
+    ]},
+    { id: 'dolci', de: 'Desserts', fr: 'Desserts', items: [
+      ['Tiramisù', '', '', 11],
+      ['Cassata Siciliana', '', '', 9],
+      ['Panna Cotta', '', '', 8.5],
+      ['Mousse au chocolat', '', '', 8]
+    ]}
+  ];
+
+  var active = 'pizza';
+  var tabs = $('#tabs'), dishes = $('#dishes'), note = $('#menu-note');
+  var price = function (n) { return n.toFixed(2).replace('.', ',') + ' €'; };
+  var el = function (tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+
+  function renderTabs() {
+    tabs.textContent = '';
+    MENU.forEach(function (c) {
+      var b = el('button', 'tab', c[lang]);
+      b.type = 'button'; b.setAttribute('role', 'tab'); b.setAttribute('aria-selected', String(c.id === active));
+      b.addEventListener('click', function () { active = c.id; renderTabs(); renderDishes(); });
+      tabs.appendChild(b);
+    });
+  }
+  function renderDishes() {
+    var cat = MENU.filter(function (c) { return c.id === active; })[0];
+    var n = lang === 'fr' ? cat.noteFr : cat.noteDe;
+    note.hidden = !n; note.textContent = n || '';
+    dishes.textContent = '';
+    cat.items.forEach(function (it, i) {
+      var d = el('div', 'dish' + (it[4] ? ' dish--star' : ''));
+      d.style.animationDelay = Math.min(i * 18, 300) + 'ms';
+      var top = el('div', 'dish__top');
+      top.appendChild(el('span', 'dish__name', it[0]));
+      top.appendChild(el('span', 'dish__dots'));
+      top.appendChild(el('span', 'dish__price', price(it[3])));
+      d.appendChild(top);
+      var desc = lang === 'fr' ? it[1] : it[2];
+      if (desc) d.appendChild(el('p', 'dish__desc', desc));
+      dishes.appendChild(d);
+    });
+  }
+
+  /* ── Opening status (Europe/Luxembourg) ── */
+  var SLOTS = { 0: [[720, 840]], 1: [[720, 840], [1080, 1320]], 2: [], 3: [[720, 840], [1080, 1320]], 4: [[720, 840], [1080, 1320]], 5: [[720, 840], [1080, 1320]], 6: [[720, 840], [1080, 1320]] };
+  var DAYS = { de: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'], fr: ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'] };
+  var hhmm = function (m) { return ('0' + Math.floor(m / 60)).slice(-2) + ':' + ('0' + (m % 60)).slice(-2); };
+  function luxNow() {
+    try {
+      var p = {};
+      new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Luxembourg', weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false })
+        .formatToParts(new Date()).forEach(function (x) { p[x.type] = x.value; });
+      return { day: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(p.weekday), min: (parseInt(p.hour, 10) % 24) * 60 + parseInt(p.minute, 10) };
+    } catch (e) { var d = new Date(); return { day: d.getDay(), min: d.getHours() * 60 + d.getMinutes() }; }
+  }
+  function renderStatus() {
+    var now = luxNow(), box = $('#status'), txt = $('#status-text'), open = null, next = null, i, k;
+    SLOTS[now.day].forEach(function (s) { if (now.min >= s[0] && now.min < s[1]) open = s; });
+    if (!open) {
+      for (i = 0; i < 8 && !next; i++) {
+        k = (now.day + i) % 7;
+        SLOTS[k].forEach(function (s) { if (!next && (i > 0 || s[0] > now.min)) next = { day: k, off: i, start: s[0] }; });
+      }
+    }
+    box.classList.toggle('is-open', !!open);
+    if (open) {
+      txt.textContent = lang === 'fr' ? 'Ouvert · jusqu’à ' + hhmm(open[1]) : 'Jetzt geöffnet · bis ' + hhmm(open[1]) + ' Uhr';
+    } else if (next) {
+      var when = next.off === 0 ? (lang === 'fr' ? 'à ' : 'um ') : next.off === 1 ? (lang === 'fr' ? 'demain à ' : 'morgen um ') : DAYS[lang][next.day] + (lang === 'fr' ? ' à ' : ' um ');
+      txt.textContent = lang === 'fr' ? 'Fermé · ouvre ' + when + hhmm(next.start) : 'Geschlossen · öffnet ' + when + hhmm(next.start) + ' Uhr';
+    }
+    $$('#hours tr').forEach(function (tr) {
+      var is = Number(tr.getAttribute('data-day')) === now.day;
+      tr.classList.toggle('today', is);
+      if (is) tr.firstElementChild.setAttribute('data-today', lang === 'fr' ? 'Aujourd’hui' : 'Heute'); else tr.firstElementChild.removeAttribute('data-today');
+    });
+  }
+
+  /* ── Language toggle: German lives in the markup, French in data-fr ── */
+  function setLang(l) {
+    lang = l;
+    document.documentElement.lang = l;
+    $$('[data-fr]').forEach(function (n) {
+      if (n.getAttribute('data-de') == null) n.setAttribute('data-de', n.innerHTML);
+      n.innerHTML = n.getAttribute(l === 'fr' ? 'data-fr' : 'data-de');
+    });
+    $$('.lang button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === l)); });
+    var w = $('delova-reservation'); if (w) w.setAttribute('locale', l);
+    document.title = l === 'fr' ? 'La Lambretta · Ristorante Pizzeria à Kehlen' : 'La Lambretta · Ristorante Pizzeria in Kehlen';
+    renderTabs(); renderDishes(); renderStatus();
+    try { localStorage.setItem('ll-lang', l); } catch (e) {}
+  }
+  $$('.lang button').forEach(function (b) { b.addEventListener('click', function () { setLang(b.getAttribute('data-lang')); }); });
+
+  /* ── Reservation: open the booking widget if it loaded, otherwise the tel: link does its job ── */
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest && e.target.closest('.js-reserve');
+    if (!t) return;
+    var host = $('delova-reservation');
+    var launcher = host && host.shadowRoot && host.shadowRoot.querySelector('.dr-launcher');
+    if (launcher) { e.preventDefault(); document.body.classList.remove('nav-open'); launcher.click(); }
+  });
+
+  /* ── Header, mobile nav, dock, reveal ── */
+  var header = $('.header'), burger = $('.burger'), dock = $('#dock');
+  function onScroll() {
+    header.classList.toggle('is-stuck', window.scrollY > 24);
+    dock.classList.toggle('show', window.scrollY > 520);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  burger.addEventListener('click', function () {
+    var open = document.body.classList.toggle('nav-open');
+    burger.setAttribute('aria-expanded', String(open));
+  });
+  $$('.nav a').forEach(function (a) { a.addEventListener('click', function () { document.body.classList.remove('nav-open'); burger.setAttribute('aria-expanded', 'false'); }); });
+
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
+    $$('.reveal').forEach(function (n) { io.observe(n); });
+  } else { $$('.reveal').forEach(function (n) { n.classList.add('in'); }); }
+
+  $('#year').textContent = new Date().getFullYear();
+  var saved = null; try { saved = localStorage.getItem('ll-lang'); } catch (e) {}
+  setLang(saved === 'fr' || (!saved && /^fr/i.test(navigator.language || '')) ? 'fr' : 'de');
+  setInterval(renderStatus, 60000);
+})();
+</script>
+</body>
+</html>
