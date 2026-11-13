@@ -5,6 +5,8 @@
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { readFileSync } from 'node:fs';
+import { CAPTURED, channels, ytLong, ytShorts, instagram, tiktokTopic, analysis } from './fetched/channel-data.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const shots = (...t) => t.map((x) => ({ t: x, done: false }));
@@ -58,7 +60,7 @@ const projects = [
   }),
   P('trade-up-2', {
     title: 'Trade-Up Challenge episode 2: from a pen toward a car', type: 'Challenge', topic: 'Challenge',
-    priority: 'high', collab: 'none',
+    collab: 'none',
     material: 'Episode 1 is published, so a recap can be cut from existing footage.',
     hook: 'Hold up the current item: "Last time this was a pen. Today we trade it again."',
     shotlist: shots('Recap of episode 1 in 20 seconds', 'Current item and its rough value', 'Each trade attempt, including the refusals', 'Reaction after each successful trade', 'Running "trade ladder" graphic', 'Cliffhanger: the item going into episode 3'),
@@ -66,7 +68,7 @@ const projects = [
     titleIdeas: ['From a pen to a car: episode 2', 'Trading up again: what did the pen become?'],
     thumbnail: 'Canva: pen on the left, arrow, current item in the middle, car silhouette with a question mark on the right.',
     cta: 'Have something to trade? Write to me.',
-    notes: BRIEF + ' Priority set to high as a suggestion because it continues a published series. Change it if you disagree.',
+    notes: BRIEF + ' Episode 1 shows 55 views three months after upload (captured 13 Nov 2026), the lowest of your long videos, so this is no longer marked high priority. Consider testing the idea as Shorts first.',
   }),
   P('tiago-rodrigues-followup', {
     title: 'Tiago Rodrigues follow-up: what changed since our first vlog?', type: 'Player interview', people: 'Tiago Rodrigues',
@@ -78,7 +80,7 @@ const projects = [
     titleIdeas: ['Tiago Rodrigues: what changed since our first vlog?', 'We filmed him once. Here is what happened next.'],
     thumbnail: 'Canva: then / now split of Tiago with the word "NOW?" over the right half.',
     cta: 'Watch the first vlog if you missed it.',
-    notes: BRIEF + ' This is a follow-up, not a first shoot: the original Tiago Rodrigues vlog is in the archive. Priority high is a suggestion.',
+    notes: BRIEF + ' This is a follow-up, not a first shoot. The first vlog is your third most viewed YouTube video (509 views, captured 13 Nov 2026), which is why this is marked high priority.',
   }),
   P('ylb-reunion', {
     title: 'YoungLuxBallers reunion', type: 'Community', people: 'YoungLuxBallers',
@@ -109,7 +111,9 @@ const projects = [
     titleIdeas: ['Matchday in Luxembourg vs Germany: what is the difference?', 'I went to two matchdays across the border'],
     thumbnail: 'Canva: split screen with both flags, two stadium shots and "VS" in the middle.',
     cta: 'Which country does matchday better?',
-    notes: BRIEF + ' Clubs and fixtures are not chosen yet. Check filming rules at both grounds.',
+    priority: 'high',
+    material: 'Your two most viewed TikToks in the fetched sample are from 1. FC Saarbrücken II against SV Elversberg II (175,126 and 119,983 views).',
+    notes: BRIEF + ' Marked high priority because German lower-league football is your strongest TikTok topic so far. Clubs and fixtures are not chosen yet. Check filming rules at both grounds.',
   }),
   P('national-team-followups', {
     title: 'Follow-up interviews with players from my earlier national-team coverage', type: 'Player interview',
@@ -120,12 +124,8 @@ const projects = [
     titleIdeas: ['Where are they now? Luxembourg youth internationals', 'I filmed them for the national team. This is where they are today.'],
     thumbnail: 'Canva: national-team shot on the left, current club shot on the right, year labels on both.',
     cta: 'Which player should I catch up with next?',
-    notes: BRIEF + ' Could become a series, one player per episode. No player has been asked yet.',
-  }),
-  P('mifa-metz', {
-    title: 'MIFA Metz', type: '', verify: true,
-    verifyNote: 'Status to verify: publication is not confirmed. Check your channels, then either move it to the archive or set the real production status.',
-    collab: 'none', notes: 'Kept in the pipeline with a placeholder status until you confirm whether it was published.',
+    priority: 'high',
+    notes: BRIEF + ' Marked high priority because your interview Shorts with youth internationals (1.5K, 1.1K, 739 and 593 views) beat the full match videos. Could become a series, one player per episode. No player has been asked yet.',
   }),
   P('four-languages-short', {
     title: 'One matchday moment in four languages', origin: 'new', type: 'Short/Reel', aspect: '9:16',
@@ -150,32 +150,27 @@ const projects = [
   }),
 ];
 
-const BRIEF_SRC = 'Brief (unverified)';
-const V = (id, label, topic, notes = '') => ({
-  id, label, title: '', platform: '', topic, views: null, viewsText: '', duration: '', ageText: '',
-  source: BRIEF_SRC, capturedAt: '', url: '', notes, edited: [],
-});
-const T = 'Topic assumed from the name. Correct it if needed.';
+const SRC = 'Public channel data';
+const parseK = (t) => (/k$/i.test(t) ? Math.round(parseFloat(t) * 1000) : parseInt(t.replace(/[.,]/g, ''), 10));
+const V = (o) => ({ label: '', title: '', platform: '', format: '', topic: '', views: null, viewsText: '', likes: null, comments: null, shares: null,
+  duration: '', ageText: '', publishedAt: '', source: SRC, capturedAt: CAPTURED, url: '', notes: '', edited: [], ...o });
+const mmss = (s) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+const tiktok = JSON.parse(readFileSync(join(here, 'fetched', 'tiktok.json'), 'utf8'));
 const videos = [
-  V('tim-flick', 'Tim Flick', '', 'Topic left blank: the brief does not say what kind of video this is.'),
-  V('tiago-rodrigues', 'Tiago Rodrigues (first vlog)', 'Football', T),
-  V('tiago-costa', 'Tiago Costa', '', 'Topic left blank: the brief does not say what kind of video this is.'),
-  V('dejan-ngemba', 'Dejan Ngemba', '', 'Topic left blank: the brief does not say what kind of video this is.'),
-  V('hostert-kaerjeng-cup-final', 'Hostert versus Käerjeng cup final', 'Football'),
-  V('lux-turkey-u18-game-1', 'Luxembourg versus Turkey U18 (game 1)', 'Football', 'One of two Luxembourg versus Turkey U18 videos.'),
-  V('lux-turkey-u18-game-2', 'Luxembourg versus Turkey U18 (game 2)', 'Football', 'One of two Luxembourg versus Turkey U18 videos.'),
-  V('malta-lux-u17', 'Malta versus Luxembourg U17', 'Football'),
-  V('youngluxballers', 'YoungLuxBallers', 'Football', T),
-  V('loris-muay-thai', 'Loris’s Muay Thai fight', 'Athlete'),
-  V('community-runs', 'Community runs', 'Community', 'Possibly more than one video. Split into separate records once the screenshots show them.'),
-  V('table-tennis-championships', 'Table-tennis championships', 'Athlete', T + ' Possibly more than one video.'),
-  V('spain', 'Spain', 'Travel'),
-  V('athens', 'Athens', 'Travel'),
-  V('rome', 'Rome', 'Travel'),
-  V('ikea-with-lenny', 'IKEA with Lenny', 'Lifestyle', T),
-  V('bowling-and-darts', 'Bowling and darts', 'Lifestyle', T),
-  V('trade-up-1', 'Trade-Up episode 1', 'Challenge'),
+  ...ytLong.map(([vid, title, views, duration, ageText, topic, id, label]) => V({ id: id || 'yt-' + vid, label: label || title, title, platform: 'YouTube', format: 'Long video', topic,
+    views, viewsText: views + ' views', duration, ageText, url: 'https://www.youtube.com/watch?v=' + vid })),
+  ...ytShorts.map(([vid, title, vt, topic]) => V({ id: 'yt-' + vid, label: title, title, platform: 'YouTube', format: 'Short / Reel', topic,
+    views: parseK(vt), viewsText: vt + ' views', url: 'https://www.youtube.com/shorts/' + vid,
+    notes: vid === 'ZpGbSXjrOhk' ? 'This confirms MIFA Metz was published (as a Short). Upload age is not shown in the Shorts list.' : 'Upload age is not shown in the Shorts list.' })),
+  ...instagram.map(([code, title, date, likes, comments, views, topic]) => V({ id: 'ig-' + code, label: title, title, platform: 'Instagram', format: views == null ? 'Post' : 'Short / Reel', topic,
+    views, viewsText: views == null ? '' : views.toLocaleString('en-GB') + ' views', likes, comments, publishedAt: date, url: 'https://www.instagram.com/p/' + code + '/',
+    notes: views == null ? 'Photo or slideshow post: Instagram shows likes but no view count.' : '' })),
+  ...tiktok.map((t) => { const title = t.desc.trim() || `TikTok of ${t.date} (no caption)`; return V({ id: 'tt-' + t.id, label: title, title: t.desc.trim(), platform: 'TikTok', format: t.seconds ? 'Short / Reel' : 'Post', topic: tiktokTopic(t.desc),
+    views: t.views, viewsText: t.views.toLocaleString('en-GB') + ' views', likes: t.likes, comments: t.comments, shares: t.shares, duration: t.seconds ? mmss(t.seconds) : '', publishedAt: t.date, url: t.url,
+    notes: t.seconds ? '' : 'Photo slideshow.' }); }),
 ];
+const k = ytShorts.filter((x) => parseK(x[2]) >= 1000).length;
+analysis.observations = analysis.observations.map((o) => o.replace('14 of 37 Shorts', `${k} of ${ytShorts.length} Shorts`).replace('show 368 to 4,656 views; most are', 'show 368 to 2,643 views; many are'));
 
 const SUBS = ['Auto captions generated in CapCut, then proofread line by line', 'Names, clubs and places spelled correctly', 'Caption language matches the spoken language (type Luxembourgish by hand if auto captions fail)', 'Maximum two lines, large type, strong contrast', 'Captions inside the safe zone, clear of platform buttons', 'Hook text on screen in the first two seconds'];
 const C = (id, sourceId, title, angle, hook, cover) => ({
@@ -192,13 +187,13 @@ const clips = [
   C('clip-loris-walkout', 'loris-muay-thai', 'Walk-out and first exchange', 'Look for the walk to the ring and the first few seconds of the fight, if you filmed them.', 'His first seconds in the ring.', 'Canva cover: Loris at the ring with the event name.'),
 ];
 
-const seed = { app: 'touchline-studio', version: 1, exportedAt: '2026-11-13', projects, videos, clips, templates: [] };
+const seed = { app: 'touchline-studio', version: 1, exportedAt: CAPTURED, projects, videos, clips, templates: [], channels, notes: [analysis] };
 writeFileSync(join(here, '..', 'seed.json'), JSON.stringify(seed, null, 1));
 
 const out = process.argv[2];
 if (out) {
   const writes = [];
-  for (const coll of ['projects', 'videos', 'clips']) {
+  for (const coll of ['projects', 'videos', 'clips', 'channels', 'notes']) {
     mkdirSync(join(out, coll), { recursive: true });
     for (const r of seed[coll]) {
       const f = join(out, coll, r.id + '.json');
@@ -208,4 +203,4 @@ if (out) {
   }
   writeFileSync(join(out, 'writes.json'), JSON.stringify(writes));
 }
-console.log(`seed: ${projects.length} projects, ${videos.length} videos, ${clips.length} clips`);
+console.log(`seed: ${projects.length} projects, ${videos.length} videos, ${clips.length} clips, ${channels.length} channels`);

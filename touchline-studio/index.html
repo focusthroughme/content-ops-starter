@@ -1,213 +1,268 @@
 <title>Touchline Studio</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <style>
-/* Layout: fixed navy touchline (sidebar) on the left, light working pitch on the right; sidebar folds into a top strip on phones. */
+/* Layout: frosted sidebar beside a calm grey canvas of white rounded sheets; the sidebar folds into a frosted top bar on phones. */
 :root{
-  --navy:#12264a; --navy-2:#1b3566; --navy-fg:#dbe4f5; --navy-mute:#93a5c7;
-  --bg:#f3f5f9; --surface:#ffffff; --surface-2:#f8f9fc; --fg:#15213a; --mute:#5b6a83; --line:#dde3ec;
-  --accent:#17865b; --accent-soft:#e2f4ec; --accent-fg:#ffffff;
-  --blue:#2a5fc4; --blue-soft:#e6eefc; --warn:#a85f00; --warn-soft:#fdf0d8; --bad:#b8323c; --bad-soft:#fbe6e8;
-  --violet:#6a4bb5; --violet-soft:#eee9fa;
-  --shadow:0 1px 2px rgba(18,38,74,.06),0 4px 14px rgba(18,38,74,.06);
-  --display:"Space Grotesk","Inter",system-ui,sans-serif; --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --gut:28px;
+  --bg:#f5f5f7; --surface:#ffffff; --surface-2:#f2f2f5; --fg:#1d1d1f; --mute:#6e6e73; --line:rgba(0,0,0,.09);
+  --navy:#0b1f44; --navy-fg:#ffffff;
+  --side:rgba(250,250,252,.72); --side-fg:#1d1d1f; --side-mute:#86868b; --side-active:rgba(11,31,68,.08);
+  --accent:#1f8a4c; --accent-soft:#e3f6ea; --accent-fg:#ffffff;
+  --blue:#0066cc; --blue-soft:#e5f0fb; --warn:#a05a00; --warn-soft:#fdf1dc; --bad:#d70015; --bad-soft:#fde7e9;
+  --violet:#6b3fd4; --violet-soft:#efe9fc;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.06); --shadow-lg:0 24px 70px rgba(0,0,0,.22);
+  --glass:rgba(255,255,255,.72); --scrim:rgba(0,0,0,.32);
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Inter","Helvetica Neue",system-ui,sans-serif;
+  --ease:cubic-bezier(.32,.72,0,1); --gut:32px; --r:18px;
 }
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
-  --navy:#0a162d; --navy-2:#16284d; --navy-fg:#dbe4f5; --navy-mute:#8697b8;
-  --bg:#0e1626; --surface:#162036; --surface-2:#1b2740; --fg:#e7ecf5; --mute:#9eabc2; --line:#2a3852;
-  --accent:#3fcf97; --accent-soft:#143528; --accent-fg:#06281b;
-  --blue:#7fa8f5; --blue-soft:#1a2c52; --warn:#f0b455; --warn-soft:#3a2c10; --bad:#f08a92; --bad-soft:#40181d;
-  --violet:#b39df0; --violet-soft:#2a2248; --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark } }
+  --bg:#000000; --surface:#1c1c1e; --surface-2:#2c2c2e; --fg:#f5f5f7; --mute:#a1a1a6; --line:rgba(255,255,255,.12);
+  --navy:#f5f5f7; --navy-fg:#0b1f44;
+  --side:rgba(28,28,30,.72); --side-fg:#f5f5f7; --side-mute:#8e8e93; --side-active:rgba(255,255,255,.1);
+  --accent:#30d158; --accent-soft:#12331f; --accent-fg:#04220f;
+  --blue:#4da3ff; --blue-soft:#10294a; --warn:#ffb340; --warn-soft:#3a2a0c; --bad:#ff6961; --bad-soft:#40161a;
+  --violet:#b89cff; --violet-soft:#2a2050;
+  --shadow:0 1px 2px rgba(0,0,0,.4); --shadow-lg:0 24px 70px rgba(0,0,0,.6); --glass:rgba(28,28,30,.72); --scrim:rgba(0,0,0,.55); color-scheme:dark } }
 :root[data-theme="dark"]{
-  --navy:#0a162d; --navy-2:#16284d; --navy-fg:#dbe4f5; --navy-mute:#8697b8;
-  --bg:#0e1626; --surface:#162036; --surface-2:#1b2740; --fg:#e7ecf5; --mute:#9eabc2; --line:#2a3852;
-  --accent:#3fcf97; --accent-soft:#143528; --accent-fg:#06281b;
-  --blue:#7fa8f5; --blue-soft:#1a2c52; --warn:#f0b455; --warn-soft:#3a2c10; --bad:#f08a92; --bad-soft:#40181d;
-  --violet:#b39df0; --violet-soft:#2a2248; --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark }
+  --bg:#000000; --surface:#1c1c1e; --surface-2:#2c2c2e; --fg:#f5f5f7; --mute:#a1a1a6; --line:rgba(255,255,255,.12);
+  --navy:#f5f5f7; --navy-fg:#0b1f44;
+  --side:rgba(28,28,30,.72); --side-fg:#f5f5f7; --side-mute:#8e8e93; --side-active:rgba(255,255,255,.1);
+  --accent:#30d158; --accent-soft:#12331f; --accent-fg:#04220f;
+  --blue:#4da3ff; --blue-soft:#10294a; --warn:#ffb340; --warn-soft:#3a2a0c; --bad:#ff6961; --bad-soft:#40161a;
+  --violet:#b89cff; --violet-soft:#2a2050;
+  --shadow:0 1px 2px rgba(0,0,0,.4); --shadow-lg:0 24px 70px rgba(0,0,0,.6); --glass:rgba(28,28,30,.72); --scrim:rgba(0,0,0,.55); color-scheme:dark }
 
 *{box-sizing:border-box}
 html,body{height:100%}
-body{background:var(--bg);color:var(--fg);font:14px/1.5 var(--body)}
-button,input,select,textarea{font:inherit;color:inherit}
-h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;letter-spacing:-.01em}
-h1{font-size:24px;font-weight:700} h2{font-size:17px;font-weight:600} h3{font-size:14px;font-weight:600}
+body{background:var(--bg);color:var(--fg);font:15px/1.47 var(--font);-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit}
+h1,h2,h3{margin:0;text-wrap:balance;font-weight:700}
+h1{font-size:34px;letter-spacing:-.03em;line-height:1.1} h2{font-size:19px;letter-spacing:-.02em;font-weight:650} h3{font-size:13px;font-weight:600;color:var(--mute)}
 p{margin:0}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+a{color:var(--blue);text-decoration:none} a:hover{text-decoration:underline}
+:focus-visible{outline:3px solid color-mix(in srgb,var(--blue) 55%,transparent);outline-offset:2px}
 .num{font-variant-numeric:tabular-nums}
 
-.app{display:grid;grid-template-columns:228px minmax(0,1fr);min-height:100%}
-.side{background:var(--navy);color:var(--navy-fg);position:sticky;top:0;height:100dvh;display:flex;flex-direction:column;gap:18px;
-  padding:22px 14px 18px max(14px,env(safe-area-inset-left,0px));overflow:auto}
-.brand{display:flex;align-items:center;gap:10px;padding:0 8px}
-.brand-mark{width:30px;height:30px;border-radius:8px;border:2px solid var(--accent);position:relative;flex:none}
-.brand-mark::before{content:"";position:absolute;left:50%;top:0;bottom:0;border-left:2px solid var(--accent)}
-.brand-mark::after{content:"";position:absolute;left:50%;top:50%;width:10px;height:10px;margin:-5px;border:2px solid var(--accent);border-radius:50%;background:var(--navy)}
-.brand b{font-family:var(--display);font-size:16px;font-weight:700;color:#fff;line-height:1.1;display:block}
-.brand small{color:var(--navy-mute);font-size:11px}
-.nav{display:flex;flex-direction:column;gap:2px}
-.nav a{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;color:var(--navy-fg);text-decoration:none;font-weight:500;white-space:nowrap}
-.nav a:hover{background:var(--navy-2)}
-.nav a[aria-current="page"]{background:var(--navy-2);color:#fff;box-shadow:inset 3px 0 0 var(--accent)}
-.nav .cnt{font-size:11px;color:var(--navy-mute);font-variant-numeric:tabular-nums}
-.side-foot{margin-top:auto;font-size:12px;color:var(--navy-mute);padding:0 8px;display:flex;flex-direction:column;gap:6px}
-.sync{display:inline-flex;align-items:center;gap:6px;color:var(--navy-fg)}
-.sync i{width:8px;height:8px;border-radius:50%;background:var(--navy-mute);flex:none}
-.sync.ok i{background:#3fcf97} .sync.local i{background:#f0b455}
+/* Lock screen */
+.lock{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-right,0px)) 24px max(16px,env(safe-area-inset-left,0px));
+  background:radial-gradient(1200px 700px at 20% -10%,color-mix(in srgb,var(--accent) 16%,transparent),transparent 60%),radial-gradient(900px 600px at 110% 110%,color-mix(in srgb,var(--blue) 14%,transparent),transparent 60%),var(--bg)}
+.lock-card{width:min(360px,100%);display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;background:var(--glass);backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);
+  border:1px solid var(--line);border-radius:28px;padding:36px 28px 28px;box-shadow:var(--shadow-lg)}
+.lock-card h1{font-size:26px} .lock-card p{color:var(--mute)}
+.lock-card input{width:100%;height:46px;border-radius:14px;border:1px solid var(--line);background:var(--surface);padding:0 16px;text-align:center;font-size:16px}
+.lock-card .btn{width:100%;height:46px;border-radius:14px;font-size:16px}
+.lock-err{min-height:1.4em;color:var(--bad)!important;font-size:13px}
+.lock.leaving{opacity:0;transform:scale(1.04);pointer-events:none}
+.lock-mark{width:64px;height:64px;border-radius:18px;background:var(--navy);display:grid;place-items:center;box-shadow:var(--shadow)}
+.lock-mark i{width:30px;height:30px;border:2.5px solid var(--accent);border-radius:8px;position:relative;display:block}
+.lock-mark i::before{content:"";position:absolute;left:50%;top:0;bottom:0;margin-left:-1.25px;border-left:2.5px solid var(--accent)}
 
-.main{min-width:0;padding-block:24px 48px;padding-left:max(var(--gut),env(safe-area-inset-left,0px));padding-right:max(var(--gut),env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px}
-.head{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between}
-.head p{color:var(--mute);max-width:70ch}
+.app{display:grid;grid-template-columns:250px minmax(0,1fr);min-height:100%}
+.side{background:var(--side);backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);color:var(--side-fg);border-right:1px solid var(--line);
+  position:sticky;top:0;height:100dvh;display:flex;flex-direction:column;gap:22px;padding:24px 12px 18px max(12px,env(safe-area-inset-left,0px));overflow:auto;z-index:5}
+.brand{display:flex;align-items:center;gap:11px;padding:0 10px}
+.brand-mark{width:34px;height:34px;border-radius:10px;background:var(--navy);position:relative;flex:none}
+.brand-mark::before{content:"";position:absolute;inset:8px;border:2px solid var(--accent);border-radius:4px}
+.brand-mark::after{content:"";position:absolute;left:50%;top:8px;bottom:8px;margin-left:-1px;border-left:2px solid var(--accent)}
+.brand b{font-size:16px;font-weight:700;letter-spacing:-.02em;line-height:1.15;display:block}
+.brand small{color:var(--side-mute);font-size:12px}
+.nav{display:flex;flex-direction:column;gap:2px}
+.nav a{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;color:var(--side-fg);font-weight:500;white-space:nowrap;text-decoration:none}
+.nav a:hover{background:var(--side-active);text-decoration:none}
+.nav a[aria-current="page"]{background:var(--navy);color:var(--navy-fg);font-weight:600;box-shadow:var(--shadow)}
+.nav .cnt{font-size:12px;color:var(--side-mute);font-variant-numeric:tabular-nums}
+.nav a[aria-current="page"] .cnt{color:inherit;opacity:.7}
+.side-foot{margin-top:auto;font-size:12px;color:var(--side-mute);padding:0 10px;display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.sync{display:inline-flex;align-items:center;gap:7px;color:var(--side-fg)}
+.sync i{width:8px;height:8px;border-radius:50%;background:var(--side-mute);flex:none}
+.sync.ok i{background:#30d158;box-shadow:0 0 0 3px color-mix(in srgb,#30d158 25%,transparent)} .sync.local i{background:#ff9f0a}
+
+.main{min-width:0;padding-block:36px 64px;padding-left:max(var(--gut),env(safe-area-inset-left,0px));padding-right:max(var(--gut),env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:20px}
+.head p{color:var(--mute);max-width:68ch;font-size:16px;margin-top:6px}
 .tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.tools input[type=search],.tools select{height:36px;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:0 10px;min-width:0}
+.tools input[type=search],.tools select{height:38px;border:1px solid var(--line);background:var(--surface);border-radius:11px;padding:0 12px;min-width:0}
 .tools input[type=search]{flex:1 1 180px;max-width:280px}
 .tools .sp{flex:1}
-.btn{height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-weight:500;white-space:nowrap}
-.btn:hover{border-color:var(--mute)}
-.btn.pri{background:var(--accent);border-color:var(--accent);color:var(--accent-fg);font-weight:600}
-.btn.danger{color:var(--bad)} .btn.danger[data-armed]{background:var(--bad);color:#fff;border-color:var(--bad)}
-.btn.sm{height:28px;padding:0 10px;font-size:12px}
-.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface)}
-.seg button{border:0;background:none;height:34px;padding:0 12px;cursor:pointer;font-weight:500;color:var(--mute)}
-.seg button[aria-pressed="true"]{background:var(--navy);color:#fff}
+.btn{height:38px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-weight:550;white-space:nowrap}
+.btn:hover{background:var(--surface-2)} .btn:active{transform:scale(.97)}
+.btn.pri{background:var(--navy);border-color:transparent;color:var(--navy-fg);font-weight:600}
+.btn.pri:hover{filter:brightness(1.15)}
+.btn.danger{color:var(--bad)} .btn.danger[data-armed]{background:var(--bad);color:#fff;border-color:transparent}
+.btn.sm{height:30px;padding:0 12px;font-size:13px}
+.seg{display:inline-flex;border-radius:11px;background:color-mix(in srgb,var(--fg) 8%,transparent);padding:3px;gap:2px;max-width:100%;overflow-x:auto}
+.seg button{border:0;background:none;height:32px;padding:0 14px;cursor:pointer;font-weight:550;color:var(--fg);border-radius:8px;white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.14)}
 
-.note{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--blue);border-radius:8px;padding:10px 14px;color:var(--mute);max-width:100ch}
-.note.warn{border-left-color:var(--warn)} .note b{color:var(--fg)}
-.empty{border:1px dashed var(--line);border-radius:12px;padding:28px 20px;text-align:center;color:var(--mute);display:flex;flex-direction:column;gap:10px;align-items:center}
+.note{background:var(--surface);border-radius:var(--r);padding:14px 18px;color:var(--mute);max-width:100ch;box-shadow:var(--shadow)}
+.note.warn{background:var(--warn-soft);box-shadow:none} .note b{color:var(--fg)}
+.empty{border:1.5px dashed var(--line);border-radius:var(--r);padding:36px 20px;text-align:center;color:var(--mute);display:flex;flex-direction:column;gap:12px;align-items:center}
 
-.tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--surface-2);color:var(--mute);border:1px solid var(--line);white-space:nowrap}
-.tag.prev{background:var(--blue-soft);color:var(--blue);border-color:transparent}
-.tag.new{background:var(--violet-soft);color:var(--violet);border-color:transparent}
-.tag.verify{background:var(--warn-soft);color:var(--warn);border-color:transparent}
-.tag.ok{background:var(--accent-soft);color:var(--accent);border-color:transparent}
-.tag.bad{background:var(--bad-soft);color:var(--bad);border-color:transparent}
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;padding:2px 9px;border-radius:999px;background:var(--surface-2);color:var(--mute);white-space:nowrap}
+.tag.prev{background:var(--blue-soft);color:var(--blue)} .tag.new{background:var(--violet-soft);color:var(--violet)}
+.tag.verify{background:var(--warn-soft);color:var(--warn)} .tag.ok{background:var(--accent-soft);color:var(--accent)} .tag.bad{background:var(--bad-soft);color:var(--bad)}
 .tags{display:flex;flex-wrap:wrap;gap:5px}
-.tags .btn{white-space:normal;height:auto;min-height:28px;padding-block:4px;text-align:left}
+.tags .btn{white-space:normal;height:auto;min-height:30px;padding-block:5px;text-align:left;border-radius:14px}
 .dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex:none;background:var(--mute)}
-.dot.high{background:var(--bad)} .dot.medium{background:var(--warn)} .dot.low{background:var(--line)}
+.dot.high{background:var(--bad)} .dot.medium{background:#ff9f0a} .dot.low{background:var(--line)}
 
 /* Kanban */
-.board-wrap{overflow-x:auto;padding-bottom:6px}
-.board{display:grid;grid-template-columns:repeat(6,minmax(230px,1fr));gap:12px;min-width:0}
-.col{background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:8px;min-height:160px}
+.board-wrap{overflow-x:auto;padding-bottom:10px;margin-inline:-6px;padding-inline:6px}
+.board{display:grid;grid-template-columns:repeat(6,minmax(236px,1fr));gap:12px;min-width:0}
+.col{background:color-mix(in srgb,var(--fg) 4%,transparent);border-radius:var(--r);padding:10px;display:flex;flex-direction:column;gap:8px;min-height:180px;border:1.5px solid transparent}
 .col.over{border-color:var(--accent);background:var(--accent-soft)}
-.col-h{display:flex;justify-content:space-between;align-items:center;font-family:var(--display);font-weight:600;padding:2px 4px}
-.col-h span{color:var(--mute);font-family:var(--body);font-size:12px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:7px;box-shadow:var(--shadow);cursor:grab}
-.card.dragging{opacity:.4}
+.col-h{display:flex;justify-content:space-between;align-items:center;font-weight:650;padding:4px 6px;letter-spacing:-.01em}
+.col-h span{color:var(--mute);font-size:13px;font-weight:500}
+.card{background:var(--surface);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px;box-shadow:var(--shadow);cursor:grab}
+.card:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(0,0,0,.05),0 14px 30px rgba(0,0,0,.1)}
+.card.dragging{opacity:.35;transform:scale(.97)}
 .card-t{font-weight:600;line-height:1.3;background:none;border:0;padding:0;text-align:left;cursor:pointer;overflow-wrap:anywhere}
-.card-t:hover{color:var(--accent)}
-.meta{font-size:12px;color:var(--mute);overflow-wrap:anywhere}
+.card-t:hover{color:var(--blue)}
+.meta{font-size:13px;color:var(--mute);overflow-wrap:anywhere}
 .card-f{display:flex;gap:6px;align-items:center;justify-content:space-between}
-.card-f select{height:26px;border:1px solid var(--line);border-radius:6px;background:var(--surface);font-size:12px;padding:0 4px;max-width:60%}
-.col-empty{font-size:12px;color:var(--mute);text-align:center;padding:14px 4px}
+.card-f select,td select{height:28px;border:0;border-radius:8px;background:var(--surface-2);font-size:13px;padding:0 6px;max-width:60%}
+.col-empty{font-size:13px;color:var(--mute);text-align:center;padding:18px 4px}
 
 /* Tables */
-.tbl-wrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:12px}
-table{border-collapse:collapse;width:100%;min-width:720px}
-th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute);text-align:left;font-weight:600;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
-td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl-wrap{overflow-x:auto;background:var(--surface);border-radius:var(--r);box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;min-width:760px}
+th{font-size:12px;color:var(--mute);text-align:left;font-weight:600;padding:12px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
 tr:last-child td{border-bottom:0}
+tbody tr:hover{background:color-mix(in srgb,var(--fg) 2.5%,transparent)}
 td.r,th.r{text-align:right}
-.linkish{background:none;border:0;padding:0;font-weight:600;cursor:pointer;text-align:left}
-.linkish:hover{color:var(--accent)}
-.blank{color:var(--mute)}
+td.t{max-width:380px}
+.linkish{background:none;border:0;padding:0;font-weight:600;cursor:pointer;text-align:left;overflow-wrap:anywhere}
+.linkish:hover{color:var(--blue)}
+.blank{color:color-mix(in srgb,var(--mute) 70%,transparent)}
 
 /* Panels */
-.grid{display:grid;gap:14px}
-.grid.c2{grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr))}
-.grid.c3{grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr))}
-.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
-.panel h2 small{font:500 12px var(--body);color:var(--mute);margin-left:6px}
-.panel ul,.panel ol{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
-.kind{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.grid{display:grid;gap:16px}
+.grid.c2{grid-template-columns:repeat(auto-fit,minmax(min(360px,100%),1fr))}
+.grid.c3{grid-template-columns:repeat(auto-fit,minmax(min(290px,100%),1fr))}
+.panel{background:var(--surface);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:12px;min-width:0;box-shadow:var(--shadow)}
+.panel h2 small{font-weight:500;font-size:13px;color:var(--mute);margin-left:8px;letter-spacing:0}
+.panel ul,.panel ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+.kind{font-size:12px;font-weight:700;letter-spacing:.02em}
 .kind.obs{color:var(--accent)} .kind.hyp{color:var(--violet)} .kind.exp{color:var(--blue)}
-.bars{display:flex;flex-direction:column;gap:10px}
-.bar-row{display:grid;grid-template-columns:92px minmax(0,1fr);gap:10px;align-items:center}
+.bars{display:flex;flex-direction:column;gap:12px}
+.bar-row{display:grid;grid-template-columns:96px minmax(0,1fr);gap:4px 12px;align-items:center}
 .bar-row .lbl{font-weight:600}
-.bar-track{background:var(--surface-2);border-radius:4px;height:14px;overflow:hidden}
-.bar-fill{background:var(--accent);height:100%;border-radius:4px;min-width:2px}
-.bar-meta{grid-column:2;font-size:12px;color:var(--mute)}
+.bar-track{background:var(--surface-2);border-radius:6px;height:12px;overflow:hidden}
+.bar-fill{background:var(--accent);height:100%;border-radius:6px;min-width:3px;transform-origin:left;animation:grow .7s var(--ease) both}
+.bar-meta{grid-column:2;font-size:13px;color:var(--mute)}
+.chan{gap:6px}
+.chan .stats{display:flex;flex-wrap:wrap;gap:18px;margin-top:4px}
+.chan .stat b{display:block;font-size:26px;font-weight:700;letter-spacing:-.03em;line-height:1.1}
+.chan .stat span{font-size:12px;color:var(--mute)}
 
 /* Calendar */
-.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
-.day{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px;display:flex;flex-direction:column;gap:6px;min-height:170px;min-width:0}
-.day.today{border-color:var(--accent);box-shadow:inset 0 3px 0 var(--accent)}
-.day-h{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--display);font-weight:600}
-.day-h span{font:500 12px var(--body);color:var(--mute)}
-.ev{border:0;text-align:left;border-radius:6px;padding:5px 7px;font-size:12px;font-weight:500;cursor:pointer;overflow-wrap:anywhere;line-height:1.3}
+.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px}
+.day{background:var(--surface);border-radius:16px;padding:10px;display:flex;flex-direction:column;gap:6px;min-height:190px;min-width:0;box-shadow:var(--shadow);border:1.5px solid transparent}
+.day.today{border-color:var(--accent)}
+.day-h{display:flex;justify-content:space-between;align-items:baseline;font-weight:650}
+.day-h span{font-weight:500;font-size:12px;color:var(--mute)}
+.day.today .day-h span{color:var(--accent);font-weight:700}
+.ev{border:0;text-align:left;border-radius:9px;padding:6px 8px;font-size:13px;font-weight:550;cursor:pointer;overflow-wrap:anywhere;line-height:1.3}
+.ev:hover{filter:brightness(.96)}
 .ev.film{background:var(--blue-soft);color:var(--blue)} .ev.pub{background:var(--accent-soft);color:var(--accent)}
-.ev b{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.06em}
-.day-add{margin-top:auto;display:flex;gap:4px;flex-wrap:wrap}
-.day-add button{border:1px dashed var(--line);background:none;border-radius:6px;font-size:11px;padding:3px 6px;cursor:pointer;color:var(--mute)}
-.day-add button:hover{color:var(--fg);border-color:var(--mute)}
-.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--mute);align-items:center}
-.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px}
+.ev b{display:block;font-size:10.5px;letter-spacing:.03em;opacity:.8}
+.day-add{margin-top:auto;display:flex;gap:4px;flex-wrap:wrap;opacity:.55}
+.day:hover .day-add,.day:focus-within .day-add{opacity:1}
+.day-add button{border:0;background:var(--surface-2);border-radius:999px;font-size:12px;padding:3px 9px;cursor:pointer;color:var(--mute)}
+.day-add button:hover{color:var(--fg)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--mute);align-items:center}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
 
 /* Action cards */
-.act{border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:6px;background:var(--surface)}
-.act .what{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--accent)}
-.act ul{font-size:13px;color:var(--mute)}
+.act{border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:7px;background:var(--surface-2)}
+.act .what{font-size:12px;font-weight:700;color:var(--accent)}
+.act ul{font-size:13.5px;color:var(--mute);gap:4px}
 .lane h2{display:flex;justify-content:space-between;align-items:baseline}
 
-/* Modal */
-.overlay{position:fixed;inset:0;background:rgba(10,20,40,.55);display:flex;align-items:flex-start;justify-content:center;z-index:50;
-  padding:max(16px,env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));overflow:auto}
-.modal{background:var(--surface);border-radius:14px;width:min(820px,100%);display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.3);margin:auto}
-.modal-h{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:16px 18px;border-bottom:1px solid var(--line)}
-.modal-b{padding:16px 18px;display:flex;flex-direction:column;gap:16px}
-.modal-f{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;padding:14px 18px;border-top:1px solid var(--line);position:sticky;bottom:0;background:var(--surface);border-radius:0 0 14px 14px}
+/* Modal sheet */
+.overlay{position:fixed;inset:0;background:var(--scrim);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;align-items:flex-start;justify-content:center;z-index:50;
+  padding:max(20px,env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) max(20px,env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));overflow:auto;animation:fade .25s ease both}
+.modal{background:var(--surface);border-radius:22px;width:min(820px,100%);display:flex;flex-direction:column;box-shadow:var(--shadow-lg);margin:auto;animation:sheet .45s var(--ease) both}
+.modal-h{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:18px 22px;border-bottom:1px solid var(--line)}
+.modal-b{padding:20px 22px;display:flex;flex-direction:column;gap:22px}
+.modal-f{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;padding:14px 22px;border-top:1px solid var(--line);position:sticky;bottom:0;background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:0 0 22px 22px}
 .modal-f .sp{flex:1}
-.x{border:0;background:none;font-size:22px;line-height:1;cursor:pointer;color:var(--mute);padding:4px 8px}
-fieldset{border:0;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:12px;min-width:0}
-legend{font-family:var(--display);font-weight:600;font-size:13px;padding:0 0 8px;color:var(--mute);text-transform:uppercase;letter-spacing:.06em}
-.fld{display:flex;flex-direction:column;gap:4px;min-width:0}
+.x{border:0;background:var(--surface-2);width:30px;height:30px;border-radius:50%;font-size:18px;line-height:1;cursor:pointer;color:var(--mute);display:grid;place-items:center;flex:none}
+.x:hover{color:var(--fg)}
+fieldset{border:0;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:14px;min-width:0}
+legend{font-weight:650;font-size:13px;padding:0 0 10px;color:var(--mute)}
+.fld{display:flex;flex-direction:column;gap:5px;min-width:0}
 .fld.wide{grid-column:1/-1}
-.fld>span{font-size:12px;font-weight:600;color:var(--mute)}
-.fld input[type=text],.fld input[type=date],.fld select,.fld textarea{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 10px;width:100%;min-width:0}
+.fld>span{font-size:13px;font-weight:600;color:var(--mute)}
+.fld input[type=text],.fld input[type=date],.fld select,.fld textarea{border:1px solid transparent;background:var(--surface-2);border-radius:11px;padding:9px 12px;width:100%;min-width:0}
+.fld input:focus,.fld select:focus,.fld textarea:focus{background:var(--surface);border-color:var(--blue);outline:3px solid color-mix(in srgb,var(--blue) 25%,transparent)}
 .fld textarea{resize:vertical;line-height:1.45}
-.fld small{color:var(--mute);font-size:12px}
+.fld small{color:var(--mute);font-size:12px;font-weight:400}
 .chks{display:flex;flex-wrap:wrap;gap:6px}
-.chk{display:inline-flex;gap:6px;align-items:center;border:1px solid var(--line);border-radius:999px;padding:4px 10px;cursor:pointer;font-size:13px}
+.chk{display:inline-flex;gap:7px;align-items:center;background:var(--surface-2);border-radius:999px;padding:6px 13px;cursor:pointer;font-size:14px}
+.chk:has(input:checked){background:var(--accent-soft);color:var(--accent);font-weight:600}
+.chk input{accent-color:var(--accent)}
 .rows{display:flex;flex-direction:column;gap:6px}
 .row{display:flex;gap:8px;align-items:center}
 .row input[type=text]{flex:1}
-.row input[type=checkbox]{width:18px;height:18px;flex:none;accent-color:var(--accent)}
-.row .x{font-size:18px}
-.plat{border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px}
-.plat p{font-size:12px;color:var(--mute)}
+.row input[type=checkbox]{width:20px;height:20px;flex:none;accent-color:var(--accent)}
+.plat{background:var(--surface-2);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.plat h3{color:var(--fg);font-size:15px} .plat p{font-size:13px;color:var(--mute)}
+.plat .fld input,.plat .fld textarea{background:var(--surface)}
 
-.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 16px;border-radius:10px;z-index:60;box-shadow:var(--shadow);max-width:calc(100% - 32px)}
-textarea.code{font:12px/1.4 ui-monospace,Menlo,Consolas,monospace;width:100%;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);padding:10px;min-height:120px}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--glass);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);color:var(--fg);border:1px solid var(--line);
+  padding:11px 18px;border-radius:999px;z-index:60;box-shadow:var(--shadow-lg);max-width:calc(100% - 32px);font-weight:550;animation:toast .45s var(--ease) both}
+textarea.code{font:12px/1.4 ui-monospace,"SF Mono",Menlo,Consolas,monospace;width:100%;border:0;border-radius:12px;background:var(--surface-2);padding:12px;min-height:120px}
 
-@media (max-width:1020px){ .app{grid-template-columns:188px minmax(0,1fr)} :root{--gut:20px}
-  .week{grid-template-columns:repeat(4,minmax(0,1fr))} }
+@keyframes fade{from{opacity:0}}
+@keyframes sheet{from{opacity:0;transform:translateY(40px) scale(.97)}}
+@keyframes toast{from{opacity:0;transform:translate(-50%,20px)}}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+@keyframes grow{from{transform:scaleX(0)}}
+@keyframes shake{20%,60%{transform:translateX(-9px)}40%,80%{transform:translateX(9px)}}
+.enter{animation:rise .5s var(--ease) both}
+.shake{animation:shake .4s ease}
+.btn,.nav a,.card,.seg button,.ev,.x,.fld input,.fld select,.fld textarea,.day-add{transition:background .2s ease,color .2s ease,transform .25s var(--ease),box-shadow .25s ease,filter .2s ease,opacity .2s ease,border-color .2s ease}
+.lock{transition:opacity .45s ease,transform .6s var(--ease)}
+@media (prefers-reduced-motion:reduce){ *,*::before,*::after{animation:none!important;transition:none!important} }
+
+@media (max-width:1060px){ .app{grid-template-columns:204px minmax(0,1fr)} :root{--gut:22px}
+  .week{grid-template-columns:repeat(4,minmax(0,1fr))} h1{font-size:30px} }
 @media (max-width:720px){
   :root{--gut:16px}
   .app{display:block}
-  .side{position:static;height:auto;flex-direction:column;gap:10px;padding:12px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));overflow:visible}
-  .brand{padding:0}
-  .nav{flex-direction:row;overflow-x:auto;gap:4px;padding-bottom:4px;scrollbar-width:none}
-  .nav a{padding:7px 12px} .nav a[aria-current="page"]{box-shadow:inset 0 -3px 0 var(--accent)}
-  .side-foot{margin:0;padding:0;flex-direction:row;flex-wrap:wrap;gap:4px 14px}
+  .side{position:sticky;top:env(safe-area-inset-top,0px);height:auto;flex-direction:column;gap:10px;border-right:0;border-bottom:1px solid var(--line);padding:12px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));overflow:visible}
+  .brand{padding:0} .brand small{display:none}
+  .nav{flex-direction:row;overflow-x:auto;gap:4px;scrollbar-width:none;margin-inline:-4px;padding-inline:4px}
+  .nav a{padding:6px 13px;border-radius:999px} .nav .cnt{display:none}
+  .side-foot{position:absolute;right:max(16px,env(safe-area-inset-right,0px));top:14px;margin:0;padding:0;flex-direction:row;align-items:center}
+  .side-foot #clock,.sync span{display:none}
+  .main{padding-block:22px 48px}
   .week{grid-template-columns:minmax(0,1fr)} .day{min-height:0}
-  h1{font-size:21px}
-  .board{grid-template-columns:repeat(6,82vw)}
+  h1{font-size:28px} .head p{font-size:15px}
+  .board{grid-template-columns:repeat(6,80vw)}
+  .modal{border-radius:22px 22px 18px 18px}
 }
-@media (prefers-reduced-motion:no-preference){ .btn,.nav a,.card{transition:background .12s,border-color .12s} }
+
+@media (max-width:720px){ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)} }
 </style>
 
-<div class="app">
+<div class="lock" id="lock"><form class="lock-card" id="lock-form" novalidate>
+  <span class="lock-mark" aria-hidden="true"><i></i></span><h1>Touchline Studio</h1><p>Enter your password to open your studio.</p>
+  <input type="password" id="lock-pw" autocomplete="current-password" placeholder="Password" aria-label="Password">
+  <button class="btn pri" type="submit">Unlock</button><p class="lock-err" id="lock-err" aria-live="polite"></p></form></div>
+<div class="app" id="app" hidden>
   <aside class="side">
     <div class="brand"><span class="brand-mark" aria-hidden="true"></span><div><b>Touchline Studio</b><small>Miguel Ebrahimi · Luxembourg</small></div></div>
     <nav class="nav" id="nav" aria-label="Sections"></nav>
     <div class="side-foot">
       <span class="sync" id="sync"><i></i><span>Connecting…</span></span>
       <span id="clock"></span>
+      <button class="btn sm" data-a="lock" id="lock-btn">Lock</button>
     </div>
   </aside>
   <main class="main">
-    <div class="head"><div><h1 id="view-title"></h1><p id="view-sub"></p></div></div>
+    <div class="head" id="view-head"><h1 id="view-title"></h1><p id="view-sub"></p></div>
     <div class="tools" id="v-tools"></div>
     <div id="v-body"></div>
   </main>
@@ -220,19 +275,21 @@ textarea.code{font:12px/1.4 ui-monospace,Menlo,Consolas,monospace;width:100%;bor
 /* ---------- constants ---------- */
 const STATUSES=['Idea','Planned','Filmed','Editing','Ready','Published'];
 const TYPES=['Matchday vlog','Player interview','Athlete story','Day in the life','Challenge','Community','Travel','Lifestyle','Short/Reel'];
-const TOPICS=['Football','Athlete','Challenge','Community','Lifestyle','Travel'];
+const TOPICS=['Football','Athlete','Challenge','Community','Lifestyle','Travel','Motivation','Other'];
+const FORMATS=['Long video','Short / Reel','Post'];
 const LANGS=['German','Luxembourgish','French','English'];
 const PLATFORMS=['YouTube','TikTok','Instagram'];
 const ASPECTS=['16:9','9:16','1:1','4:5'];
 const PRIOS=[['high','High'],['medium','Medium'],['low','Low']];
 const COLLAB=[['idea','Idea only, nobody asked yet'],['asked','Asked, waiting for an answer'],['confirmed','Collaboration confirmed'],['none','No outside partner needed']];
 const ORIGINS=[['previous','Previous idea'],['new','New suggestion'],['own','Added by you']];
-const SOURCES=['Channel screenshot','Manual entry','Brief (unverified)'];
+const SOURCES=['Public channel data','Channel screenshot','Manual entry','Brief (unverified)'];
 const CLIP_STATUS=[['suggested','To look for (not confirmed in footage)'],['confirmed','Found in footage'],['cut','Cut in CapCut'],['published','Published']];
 const SUBS=['Auto captions generated in CapCut, then proofread line by line','Names, clubs and places spelled correctly','Caption language matches the spoken language (type Luxembourgish by hand if auto captions fail)','Maximum two lines, large type, strong contrast','Captions inside the safe zone, clear of platform buttons','Hook text on screen in the first two seconds'];
 const TZ='Europe/Luxembourg';
 const LS='touchline.data.v1', LSUI='touchline.ui.v1';
-const COLLS=['projects','videos','clips','templates'];
+const COLLS=['projects','videos','clips','templates','channels','notes'];
+const PW_SHA='92a8045980dbe416d33ef5171b3d188b6b139ad7283c7c747658dc6a13f5b7f9', PW_FNV=471896107, LSLOCK='touchline.unlocked';
 
 const TEMPLATES=[
  {id:'matchday',name:'Matchday Vlog',type:'Matchday vlog',aspect:'16:9',
@@ -315,10 +372,10 @@ const median=a=>{if(!a.length)return null;const s=[...a].sort((x,y)=>x-y),m=s.le
 function toast(msg){const r=$('#toast-root');r.innerHTML=`<div class="toast">${esc(msg)}</div>`;clearTimeout(toast.t);toast.t=setTimeout(()=>r.innerHTML='',3200);}
 
 /* ---------- state + storage ---------- */
-const S={mode:'loading',db:null,dl:null,slow:false,data:{projects:{},videos:{},clips:{},templates:{}},route:'pipeline',
-  ui:{pview:'board',f:{q:'',type:'',topic:'',lang:'',platform:'',label:''},af:{q:'',topic:'',platform:''},cf:'',week:''}};
+const S={mode:'loading',db:null,dl:null,slow:false,data:{projects:{},videos:{},clips:{},templates:{},channels:{},notes:{}},route:'pipeline',unlocked:false,
+  ui:{pview:'board',f:{q:'',type:'',topic:'',lang:'',platform:'',label:''},af:{q:'',topic:'',platform:'',format:'',sort:'views'},cf:'',week:'',seg:'yt-long',rankAll:false}};
 try{Object.assign(S.ui,JSON.parse(localStorage.getItem(LSUI)||'{}'));}catch(e){}
-S.ui.week=''; // always open on the current week
+S.ui.week=''; S.ui.af={q:'',topic:'',platform:'',format:'',sort:'views',...S.ui.af}; S.ui.seg=S.ui.seg||'yt-long'; // always open on the current week
 const saveUI=()=>{try{localStorage.setItem(LSUI,JSON.stringify(S.ui));}catch(e){}};
 const all=c=>Object.values(S.data[c]);
 const persistLocal=()=>{try{localStorage.setItem(LS,JSON.stringify(S.data));}catch(e){toast('This browser blocked local storage. Export a backup to keep your changes.');}};
@@ -346,10 +403,12 @@ async function initStore(){
   }
   renderData();
 }
-const isEmpty=()=>COLLS.every(c=>!all(c).length);
+const isEmpty=()=>['projects','videos','clips'].every(c=>!all(c).length);
+function ageMonths(v){ if(v.publishedAt){const d=diffDays(v.publishedAt,v.capturedAt||todayLux());return d<0?null:d/30.4;} return parseAgeMonths(v.ageText); }
+const whenText=v=>v.publishedAt?fmtFull(v.publishedAt):(v.ageText||'');
 
 /* ---------- backup: export / import ---------- */
-function exportObj(){return {app:'touchline-studio',version:1,exportedAt:new Date().toISOString(),projects:all('projects'),videos:all('videos'),clips:all('clips'),templates:all('templates')};}
+function exportObj(){const o={app:'touchline-studio',version:1,exportedAt:new Date().toISOString()};COLLS.forEach(c=>o[c]=all(c));return o;}
 const blankVal=v=>v==null||v===''||(Array.isArray(v)&&!v.length);
 function mergeRecord(cur,inc){ // keeps anything the user edited; fills or updates the rest
   const out=clone(cur), locked=new Set(cur.userCreated?Object.keys(cur):(cur.edited||[])); let changed=0,kept=0;
@@ -381,7 +440,7 @@ function originTag(p){return p.origin==='new'?'<span class="tag new">New suggest
 function collabTag(p){return p.collab==='confirmed'?'<span class="tag ok">Collab confirmed</span>':p.collab==='asked'?'<span class="tag">Asked, not confirmed</span>':p.collab==='idea'?'<span class="tag">Idea, nobody asked</span>':'';}
 function projectTags(p){return `<div class="tags">${originTag(p)}${p.verify?'<span class="tag verify">Status to verify</span>':''}${collabTag(p)}</div>`;}
 function shotProgress(p){const n=(p.shotlist||[]).length;return n?`${p.shotlist.filter(s=>s.done).length}/${n} shots`:'';}
-function sourceName(c){const r=c.sourceKind==='project'?S.data.projects[c.sourceId]:S.data.videos[c.sourceId];return r?(r.title||r.label):'(original removed)';}
+function sourceName(c){const r=c.sourceKind==='project'?S.data.projects[c.sourceId]:S.data.videos[c.sourceId];return r?(c.sourceKind==='project'?r.title:(r.label||r.title)):'(original removed)';}
 
 function urgency(d){return d==null?0:d<0?40:d<=2?30:d<=7?20:d<=14?10:0;}
 function when(d,verb){return d==null?'':d<0?`${verb} date passed ${-d} day${d===-1?'':'s'} ago`:d===0?`${verb} date is today`:`${verb} date in ${d} day${d===1?'':'s'}`;}
@@ -438,62 +497,65 @@ V.pipeline={title:'Content pipeline',sub:'Every active video from first idea to 
      ${p.status==='Published'?`<button class="btn sm" data-a="archive-project" data-id="${esc(p.id)}">Move to archive</button>`:''}
    </article>`).join('')||`<div class="col-empty">Drop a card here</div>`}</section>`;}).join('')}</div></div>`; }};
 
-V.archive={title:'Published video archive',sub:'Videos that are already out, kept apart from active projects. Metrics are only what you record from your own screenshots.',
+V.archive={title:'Published archive',sub:'Everything already published on YouTube, TikTok and Instagram, kept apart from active projects. Each number shows where it came from and when it was captured.',
  tools(){const f=S.ui.af;return `<input type="search" id="af-q" placeholder="Search archive" value="${esc(f.q)}" data-af="q" aria-label="Search archive">
+  <select id="af-platform" data-af="platform" aria-label="Platform">${opt(PLATFORMS,f.platform,'All platforms')}</select>
+  <select id="af-format" data-af="format" aria-label="Format">${opt(FORMATS,f.format,'All formats')}</select>
   <select id="af-topic" data-af="topic" aria-label="Topic">${opt(TOPICS,f.topic,'All topics')}</select>
-  <select id="af-platform" data-af="platform" aria-label="Platform">${opt(PLATFORMS,f.platform,'All platforms')}</select><span class="sp"></span>
+  <select id="af-sort" data-af="sort" aria-label="Sort">${[['views','Most views'],['new','Newest first'],['name','Name']].map(([v,l])=>`<option value="${v}"${f.sort===v?' selected':''}>${l}</option>`).join('')}</select><span class="sp"></span>
   <button class="btn pri" data-a="new-video">Add video</button>`;},
  body(){ const vs=all('videos'); if(!vs.length) return isEmpty()?starter():`<div class="empty">No published videos recorded yet.<button class="btn pri" data-a="new-video">Add video</button></div>`;
-  const f=S.ui.af,q=f.q.trim().toLowerCase(), list=vs.filter(v=>(!q||[v.label,v.title,v.notes].join(' ').toLowerCase().includes(q))&&(!f.topic||v.topic===f.topic)&&(!f.platform||v.platform===f.platform)).sort((a,b)=>(a.label||a.title).localeCompare(b.label||b.title));
-  const withV=vs.filter(v=>v.views!=null).length, unv=vs.filter(v=>v.source==='Brief (unverified)').length;
-  return `<div class="grid"><div class="note${unv?' warn':''}"><b>${withV} of ${vs.length} records have a view count.</b> ${unv?`${unv} records come only from your written brief and have not been checked against a screenshot, so their title, views, duration and upload age are blank. `:''}Open a record to type in what a screenshot shows, with the capture date. Nothing is fetched from YouTube, TikTok or Instagram.</div>
-  ${list.length?`<div class="tbl-wrap"><table><thead><tr><th>Video</th><th>Platform</th><th>Topic</th><th class="r">Views</th><th>Duration</th><th>Upload age (as shown)</th><th>Source · captured</th><th></th></tr></thead><tbody>${list.map(v=>`<tr>
-   <td><button class="linkish" data-a="edit-video" data-id="${esc(v.id)}">${esc(v.label||v.title)}</button><div class="meta">${v.title?'Visible title: '+esc(v.title):'<span class="blank">Visible title not recorded</span>'}</div></td>
-   <td>${esc(v.platform)||'<span class="blank">blank</span>'}</td><td>${esc(v.topic)||'<span class="blank">unsorted</span>'}</td>
-   <td class="r num">${v.views!=null?nf(v.views):'<span class="blank">blank</span>'}</td><td class="num">${esc(v.duration)||'<span class="blank">blank</span>'}</td><td>${esc(v.ageText)||'<span class="blank">blank</span>'}</td>
-   <td><span class="tag ${v.source==='Brief (unverified)'?'verify':v.source==='Channel screenshot'?'ok':''}">${esc(v.source||'No source')}</span>${v.capturedAt?`<div class="meta num">captured ${fmtFull(v.capturedAt)}</div>`:''}</td>
+  const f=S.ui.af,q=f.q.trim().toLowerCase(), list=vs.filter(v=>(!q||[v.label,v.title,v.notes].join(' ').toLowerCase().includes(q))&&(!f.topic||v.topic===f.topic)&&(!f.platform||v.platform===f.platform)&&(!f.format||v.format===f.format));
+  const age=v=>{const m=ageMonths(v);return m==null?1e9:m;};
+  list.sort(f.sort==='name'?(a,b)=>(a.label||a.title).localeCompare(b.label||b.title):f.sort==='new'?(a,b)=>age(a)-age(b):(a,b)=>(b.views??-1)-(a.views??-1));
+  const withV=vs.filter(v=>v.views!=null).length, unv=vs.filter(v=>v.source==='Brief (unverified)').length, caps=[...new Set(vs.map(v=>v.capturedAt).filter(Boolean))].sort();
+  return `<div class="grid"><div class="note"><b>${vs.length} records, ${withV} with a view count.</b> ${caps.length?`Numbers were captured ${caps.length===1?'on '+fmtFull(caps[0]):'between '+fmtFull(caps[0])+' and '+fmtFull(caps[caps.length-1])} and do not update by themselves. `:''}${unv?`${unv} records come only from your written brief and are unverified. `:''}Open a record to correct it; your edits are kept when the data is refreshed.</div>
+  ${list.length?`<div class="tbl-wrap"><table><thead><tr><th>Video</th><th>Platform</th><th>Topic</th><th class="r">Views</th><th class="r">Likes</th><th>Length</th><th>Published</th><th>Source · captured</th><th></th></tr></thead><tbody>${list.map(v=>`<tr>
+   <td class="t"><button class="linkish" data-a="edit-video" data-id="${esc(v.id)}">${esc(v.label||v.title)}</button>${v.title&&v.title!==v.label?`<div class="meta">${esc(v.title)}</div>`:''}${!v.title?'<div class="meta blank">Visible title not recorded</div>':''}${v.url?`<div class="meta"><a href="${esc(v.url)}" target="_blank" rel="noopener">Open on ${esc(v.platform||'platform')}</a></div>`:''}</td>
+   <td>${esc(v.platform)||'<span class="blank">blank</span>'}${v.format?`<div class="meta">${esc(v.format)}</div>`:''}</td><td>${esc(v.topic)||'<span class="blank">unsorted</span>'}</td>
+   <td class="r num">${v.views!=null?nf(v.views):'<span class="blank">blank</span>'}</td><td class="r num">${v.likes!=null?nf(v.likes):'<span class="blank">blank</span>'}</td><td class="num">${esc(v.duration)||'<span class="blank">blank</span>'}</td>
+   <td class="num">${esc(whenText(v))||'<span class="blank">not shown</span>'}</td>
+   <td><span class="tag ${v.source==='Brief (unverified)'?'verify':v.source==='Manual entry'?'':'ok'}">${esc(v.source||'No source')}</span>${v.capturedAt?`<div class="meta num">${fmtFull(v.capturedAt)}</div>`:''}</td>
    <td><button class="btn sm" data-a="new-clip" data-kind="video" data-id="${esc(v.id)}">New clip</button></td></tr>`).join('')}</tbody></table></div>`:`<div class="empty">No video matches these filters.</div>`}</div>`; }};
 
-V.analysis={title:'Channel analysis',sub:'Built only from the view counts in your archive. Observations are what the numbers show; hypotheses are untested ideas.',
- tools(){return '';},
- body(){ const vs=all('videos'), wv=vs.filter(v=>v.views!=null).sort((a,b)=>b.views-a.views);
-  const rate=v=>{const m=parseAgeMonths(v.ageText);return m==null?null:v.views/Math.max(m,1);};
+const SEGS=[['yt-long','YouTube videos','youtube',v=>v.platform==='YouTube'&&v.format!=='Short / Reel'&&v.format!=='Post'],['yt-short','YouTube Shorts','youtube',v=>v.platform==='YouTube'&&v.format==='Short / Reel'],['tiktok','TikTok','tiktok',v=>v.platform==='TikTok'],['instagram','Instagram','instagram',v=>v.platform==='Instagram']];
+const DEF_HYP=['Videos built around one named player may spread through that player’s own circle.','A numbered series may bring viewers back for the next episode.','The title language may change who clicks in a multilingual audience.','Shorts cut from a long video may send some viewers to the original.'];
+const DEF_EXP=['Record each new video’s views at 7 and 30 days so videos are compared at the same age.','Change one thing per experiment and write the result in the video’s notes.','Cut three Shorts from one long video and note the long video’s views before and 14 days after.'];
+V.analysis={title:'Channel analysis',sub:'What your public numbers show, one platform at a time. Observations come from the data; hypotheses are untested ideas to check.',
+ tools(){return `<span class="seg" role="group" aria-label="Platform">${SEGS.map(([k,l])=>`<button data-a="seg" data-v="${k}" aria-pressed="${S.ui.seg===k}">${l}</button>`).join('')}</span>`;},
+ body(){ const seg=SEGS.find(x=>x[0]===S.ui.seg)||SEGS[0], vs=all('videos').filter(seg[3]), wv=vs.filter(v=>v.views!=null).sort((a,b)=>b.views-a.views);
+  const rate=v=>{const m=ageMonths(v);return m==null?null:v.views/Math.max(m,1);};
   const cats=[...TOPICS,''].map(t=>{const rec=vs.filter(v=>(v.topic||'')===t), w=rec.filter(v=>v.views!=null), rates=w.map(rate).filter(x=>x!=null);
     return {t:t||'Unsorted',n:rec.length,nv:w.length,med:median(w.map(v=>v.views)),rmed:median(rates),nr:rates.length};}).filter(c=>c.n);
-  const useRate=cats.some(c=>c.rmed!=null), val=c=>useRate?c.rmed:c.med, max=Math.max(1,...cats.map(c=>val(c)||0));
-  const obs=[`${wv.length} of ${vs.length} archive records have a view count recorded.`];
-  if(wv.length){const top=wv[0];obs.push(`Most viewed: “${top.label||top.title}” with ${nf(top.views)} views${top.ageText?` (shown as ${top.ageText})`:''}.`);}
+  const useRate=wv.length>0&&wv.every(v=>rate(v)!=null), val=c=>useRate?c.rmed:c.med, max=Math.max(1,...cats.map(c=>val(c)||0));
+  const obs=[`${wv.length} of ${vs.length} ${seg[1]} records have a view count. Median: ${wv.length?nf(median(wv.map(v=>v.views))):'n/a'} views.`];
+  if(wv.length){const top=wv[0];obs.push(`Most viewed: “${(top.label||top.title).slice(0,90)}” with ${nf(top.views)} views${whenText(top)?` (${top.publishedAt?'published '+whenText(top):'shown as '+whenText(top)})`:''}.`);}
   const rk=cats.filter(c=>val(c)!=null).sort((a,b)=>val(b)-val(a));
-  if(rk.length>=2) obs.push(`By median ${useRate?'views per month of age':'views'}: ${rk.map(c=>`${c.t} ${nf(val(c))} (${useRate?c.nr:c.nv} video${(useRate?c.nr:c.nv)===1?'':'s'})`).join(', ')}.${rk.some(c=>(useRate?c.nr:c.nv)<3)?' Groups with fewer than three videos are too small to trust.':''}`);
-  const young=wv.filter(v=>{const m=parseAgeMonths(v.ageText);return m!=null&&m<1;}); if(young.length) obs.push(`${young.length} video${young.length===1?' is':'s are'} under a month old and still collecting views, so ${young.length===1?'it ranks':'they rank'} lower than ${young.length===1?'it':'they'} may end up.`);
-  const noAge=wv.filter(v=>parseAgeMonths(v.ageText)==null).length; if(noAge) obs.push(`${noAge} video${noAge===1?' has':'s have'} views but no readable upload age, so no per-month figure.`);
-  if(wv.length<3) obs.push('There is not enough data yet to compare formats. Add views, duration and upload age from your channel screenshots in the archive.');
+  if(rk.length>=2) obs.push(`By median ${useRate?'views per month of age':'views'}: ${rk.map(c=>`${c.t} ${nf(val(c))} (${c.nv})`).join(', ')}. The number in brackets is how many videos.${rk.some(c=>c.nv<3)?' Groups with fewer than three videos are too small to trust.':''}`);
+  const lk=wv.filter(v=>v.likes!=null&&v.views>0); if(lk.length>=3) obs.push(`Likes per 100 views, median across ${lk.length} posts: ${median(lk.map(v=>v.likes/v.views*100)).toFixed(1)}.`);
+  const young=wv.filter(v=>{const m=ageMonths(v);return m!=null&&m<1;}); if(young.length) obs.push(`${young.length} post${young.length===1?' is':'s are'} under a month old and still collecting views.`);
+  if(!useRate&&wv.length) obs.push('Upload age is missing for some or all of these, so they are compared on total views. Older posts have had more time to collect them.');
+  if(wv.length<3) obs.push('There is not enough data here yet to compare formats.');
+  const chans=['youtube','tiktok','instagram'].map(id=>S.data.channels[id]).filter(Boolean), ch=S.data.channels[seg[2]], note=S.data.notes.analysis;
+  const shown=S.ui.rankAll?wv:wv.slice(0,12), li=a=>a.map(o=>`<li>${esc(o)}</li>`).join('');
   return `<div class="grid">
-  <div class="note"><b>What this page cannot see.</b> Click-through rate, retention, exact upload dates and the footage itself are not available here. For those, open YouTube Studio or the TikTok and Instagram insights. Upload ages are the rounded text from your screenshots (“3 months ago”), so per-month figures are approximate.</div>
-  <div class="grid c2">
-   <section class="panel"><h2>Ranking by visible views <small>${wv.length} with data</small></h2>
-    ${wv.length?`<div class="tbl-wrap" style="border:0"><table style="min-width:520px"><thead><tr><th>#</th><th>Video</th><th>Topic</th><th class="r">Views</th><th>Age shown</th><th class="r">≈ per month</th></tr></thead><tbody>${wv.map((v,i)=>{const r=rate(v);return `<tr><td class="num">${i+1}</td><td><button class="linkish" data-a="edit-video" data-id="${esc(v.id)}">${esc(v.label||v.title)}</button><div class="meta">${esc(v.source||'')}${v.capturedAt?' · captured '+fmtFull(v.capturedAt):''}</div></td><td>${esc(v.topic)||'<span class="blank">unsorted</span>'}</td><td class="r num">${nf(v.views)}</td><td>${esc(v.ageText)||'<span class="blank">blank</span>'}</td><td class="r num">${r==null?'<span class="blank">n/a</span>':nf(r)}</td></tr>`;}).join('')}</tbody></table></div>`
-    :`<div class="empty">No view counts recorded yet, so there is nothing to rank.<button class="btn" data-a="go" data-r="archive">Open the archive</button></div>`}</section>
+  ${chans.length?`<div class="grid c3">${chans.map(c=>`<section class="panel chan"><h2>${esc(c.name)}<small>${esc(c.handle||'')}</small></h2>${c.display&&c.display!==c.handle?`<p class="meta">Channel name shown: ${esc(c.display)}</p>`:''}
+    <div class="stats">${(c.stats||[]).map(([l,v])=>`<div class="stat"><b class="num">${esc(v)}</b><span>${esc(l)}</span></div>`).join('')}</div>
+    <p class="meta">${esc(c.source||'')}${c.capturedAt?' · captured '+fmtFull(c.capturedAt):''}${c.url?` · <a href="${esc(c.url)}" target="_blank" rel="noopener">Open</a>`:''}</p></section>`).join('')}</div>`:''}
+  <div class="note"><b>What this covers.</b> ${ch&&ch.coverage?esc(ch.coverage)+' ':''}Click-through rate, retention, watch time and the footage itself are not visible from public pages; for those, open YouTube Studio or the TikTok and Instagram insights. Topics were assigned from titles and captions only.</div>
+   <section class="panel"><h2>${esc(seg[1])} ranked by views <small>${wv.length} with data</small></h2>
+    ${wv.length?`<div class="tbl-wrap" style="box-shadow:none"><table style="min-width:640px"><thead><tr><th>#</th><th>Video</th><th>Topic</th><th class="r">Views</th><th>Published</th><th class="r">≈ per month</th></tr></thead><tbody>${shown.map((v,i)=>{const r=rate(v);return `<tr><td class="num">${i+1}</td><td class="t"><button class="linkish" data-a="edit-video" data-id="${esc(v.id)}">${esc((v.label||v.title).slice(0,80))}</button></td><td>${esc(v.topic)||'<span class="blank">unsorted</span>'}</td><td class="r num">${nf(v.views)}</td><td class="num">${esc(whenText(v))||'<span class="blank">not shown</span>'}</td><td class="r num">${r==null?'<span class="blank">n/a</span>':nf(r)}</td></tr>`;}).join('')}</tbody></table></div>
+    ${wv.length>12?`<div><button class="btn sm" data-a="rank-all">${S.ui.rankAll?'Show top 12':'Show all '+wv.length}</button></div>`:''}`
+    :`<div class="empty">No view counts recorded here yet.<button class="btn" data-a="go" data-r="archive">Open the archive</button></div>`}</section>
+   <div class="grid c2">
    <section class="panel"><h2>By content area <small>${useRate?'median views per month of age':'median views'}</small></h2>
     <div class="bars">${cats.map(c=>`<div class="bar-row"><span class="lbl">${esc(c.t)}</span><div class="bar-track">${val(c)!=null?`<div class="bar-fill" style="width:${(val(c)/max*100).toFixed(1)}%"></div>`:''}</div>
-     <div class="bar-meta num">${c.n} record${c.n===1?'':'s'} · ${c.nv?`${c.nv} with views · median ${nf(c.med)} views${c.rmed!=null?` · ≈ ${nf(c.rmed)} per month`:''}`:'no views recorded'}</div></div>`).join('')||'<div class="blank">No archive records.</div>'}</div>
-    <p class="meta">Older videos have had more time to collect views. Where an upload age is recorded, areas are compared on views per month of age; compare videos of similar age before drawing conclusions.</p></section>
-  </div>
-  <div class="grid c3">
-   <section class="panel"><span class="kind obs">Observations · from your recorded numbers</span><ul>${obs.map(o=>`<li>${esc(o)}</li>`).join('')}</ul></section>
-   <section class="panel"><span class="kind hyp">Hypotheses · untested, to check against your data</span><ul>
-    <li>Videos built around one named player may spread through that player’s own circle (team-mates, club, family).</li>
-    <li>Youth national-team games may be searched for around the match date, which would reward publishing quickly.</li>
-    <li>A numbered series such as Trade-Up may bring viewers back for the next episode.</li>
-    <li>The title language (German, Luxembourgish, French, English) may change who clicks in a multilingual audience.</li>
-    <li>Shorts cut from a long video may send some viewers to the original.</li></ul></section>
-   <section class="panel"><span class="kind exp">Practical experiments</span><ul>
-    <li>Screenshot each new video’s view count at 7 and 30 days and record both, so videos are compared at the same age.</li>
-    <li>For the next two player videos, ask one player to share it within 24 hours and not the other; compare at 30 days.</li>
-    <li>Publish the next national-team video within 48 hours with opponent and age group in the title; compare with the earlier ones at the same age.</li>
-    <li>Keep the format fixed and change only the title language on two similar videos.</li>
-    <li>Cut three Shorts from one long video; note the long video’s views before the first Short and 14 days after.</li>
-    <li>Change one thing per experiment and write the result in the video’s notes.</li></ul></section>
+     <div class="bar-meta num">${c.n} post${c.n===1?'':'s'}${c.nv?` · median ${nf(c.med)} views${c.rmed!=null?` · ≈ ${nf(c.rmed)} per month`:''}`:' · no views recorded'}</div></div>`).join('')||'<div class="blank">No records.</div>'}</div></section>
+   <section class="panel"><span class="kind obs">Observations · ${esc(seg[1])}, from the recorded numbers</span><ul>${li(obs)}</ul></section></div>
+  ${note?`<section class="panel"><span class="kind obs">Observations across all three channels · ${esc(note.by||'')} ${note.date?'on data captured '+fmtFull(note.date):''}</span><ul>${li(note.observations||[])}</ul></section>`:''}
+  <div class="grid c2">
+   <section class="panel"><span class="kind hyp">Hypotheses · untested, to check against your data</span><ul>${li(note&&note.hypotheses||DEF_HYP)}</ul></section>
+   <section class="panel"><span class="kind exp">Practical experiments</span><ul>${li(note&&note.experiments||DEF_EXP)}</ul></section>
   </div></div>`; }};
 
 V.calendar={title:'Weekly calendar',sub:'Filming and publishing dates, Monday to Sunday, in Europe/Luxembourg time.',
@@ -547,12 +609,13 @@ V.repurpose={title:'Shorts & Reels from longform',sub:'Vertical clips linked to 
 
 V.backup={title:'Data & backup',sub:'Where your data lives, how to back it up, and what this app does not do.',
  tools(){return '';},
- body(){ const n=`${all('projects').length} projects, ${all('videos').length} archive records, ${all('clips').length} clips, ${all('templates').length} edited templates`;
+ body(){ const n=`${all('projects').length} projects, ${all('videos').length} archive records, ${all('clips').length} clips, ${all('templates').length} edited templates, ${all('channels').length} channel summaries`;
   return `<div class="grid c2">
    <section class="panel"><h2>Storage</h2>${S.mode==='sync'?`<p><span class="tag ok">Synchronized</span></p><p>Your data is saved in this page’s own database on Claude, tied to your account. Open this page on your desktop, iPad or phone while signed in and you see the same data; changes appear on other open devices within moments. It is not stored in your browser, so clearing browser data does not remove it. The page is private unless you share it; people you give contributor access could edit the same data.</p>`
     :S.mode==='local'?`<p><span class="tag verify">This browser only</span></p><p>The synchronized store is not available in this view, so data is saved in this browser’s local storage on this device. It does not appear on your other devices and is lost if you clear site data. Export a backup regularly.</p>`:`<p>Connecting…</p>`}
     <p class="meta">Currently stored: ${n}. Filters and the board/list choice are remembered per browser.</p></section>
-   <section class="panel"><h2>What this app does not do</h2><ul><li>No live YouTube, TikTok or Instagram analytics. Views, durations and upload ages are typed in from screenshots and labelled with source and capture date.</li><li>No publishing or scheduling to any platform. Dates here are your plan.</li><li>No automatic translation. German, Luxembourgish, French and English are tags; you write each version.</li><li>No connection to CapCut or Canva. Shotlists, subtitle checklists and thumbnail concepts are notes for your own editing.</li></ul></section>
+   <section class="panel"><h2>What this app does not do</h2><ul><li>No live analytics. Channel numbers were read once from your public pages by Claude and are labelled with their capture date. They do not refresh by themselves: ask Claude to refresh them, or edit a record by hand.</li><li>No publishing or scheduling to any platform. Dates here are your plan.</li><li>No automatic translation. German, Luxembourgish, French and English are tags; you write each version.</li><li>No connection to CapCut or Canva. Shotlists, subtitle checklists and thumbnail concepts are notes for your own editing.</li></ul></section>
+   <section class="panel"><h2>Password</h2><p>This page opens behind a password on each new visit. Use Lock in the sidebar to lock it again.</p><p class="meta">The password is a screen lock built into the page. What actually keeps your data private is that the page and its database belong to your Claude account: nobody can open the link unless you share it. Treat the password as a convenience, not as encryption.</p><div><button class="btn" data-a="lock">Lock now</button></div></section>
    <section class="panel"><h2>Export backup</h2><p class="meta">One JSON file with every project, archive record, clip and edited template.</p>
     <div class="tools">${S.dl?'<button class="btn pri" data-a="export-file">Save backup file</button>':''}<button class="btn${S.dl?'':' pri'}" data-a="export-copy">Copy backup JSON</button><button class="btn" data-a="export-show">Show JSON</button></div>
     <textarea class="code" id="export-box" readonly hidden aria-label="Backup JSON"></textarea></section>
@@ -567,9 +630,10 @@ function renderNav(){ $('#nav').innerHTML=NAV.map(([r,l,c])=>`<a href="#${r}"${S
   const s=$('#sync'); s.className='sync '+(S.mode==='sync'?'ok':S.mode==='local'?'local':''); s.lastElementChild.textContent=S.mode==='sync'?'Synced to your Claude account':S.mode==='local'?'Stored in this browser only':'Connecting…';
   $('#clock').textContent=fmt(todayLux(),{weekday:'short',day:'numeric',month:'short',year:'numeric'})+' · Luxembourg'; }
 function renderBody(){ const v=V[S.route]; $('#v-body').innerHTML=!S.ready?loading():v.body(); }
-function renderData(){ renderNav(); renderBody(); if(S.route==='repurpose') $('#v-tools').innerHTML=V.repurpose.tools(); }
+function renderData(){ if(!S.unlocked) return; renderNav(); renderBody(); if(S.route==='repurpose') $('#v-tools').innerHTML=V.repurpose.tools(); }
 function renderRoute(){ const h=location.hash.slice(1); S.route=V[h]?h:'pipeline'; const v=V[S.route];
-  $('#view-title').textContent=v.title; $('#view-sub').textContent=v.sub; const t=v.tools(); $('#v-tools').innerHTML=t; $('#v-tools').hidden=!t; renderNav(); renderBody(); }
+  $('#view-title').textContent=v.title; $('#view-sub').textContent=v.sub; const t=v.tools(); $('#v-tools').innerHTML=t; $('#v-tools').hidden=!t; if(!S.unlocked) return; renderNav(); renderBody();
+  ['#view-head','#v-tools','#v-body'].forEach((q,i)=>{const e=$(q);e.classList.remove('enter');void e.offsetWidth;e.style.animationDelay=(i*60)+'ms';e.classList.add('enter');}); window.scrollTo(0,0); }
 
 /* ---------- modal + forms ---------- */
 const fld=(l,inner,cls='')=>`<label class="fld ${cls}"><span>${l}</span>${inner}</label>`;
@@ -615,27 +679,28 @@ function saveProject(){ const {rec,isNew}=modalCtx; const title=val('p-title'); 
   const n={...clone(rec),title,status:val('p-status'),priority:val('p-priority'),type:val('p-type'),topic:val('p-topic'),people:val('p-people'),location:val('p-location'),filmDate:val('p-filmDate'),publishDate:val('p-publishDate'),aspect:val('p-aspect'),collab:val('p-collab'),origin:val('p-origin'),verify:$('#p-verify').checked,verifyNote:val('p-verifyNote'),languages:picked('p-lang'),platforms:picked('p-plat'),material:val('p-material'),hook:val('p-hook'),shotlist:readRows('p-shots'),questions:lines(val('p-questions')),titleIdeas:lines(val('p-titleIdeas')),thumbnail:val('p-thumbnail'),caption:val('p-caption'),cta:val('p-cta'),notes:val('p-notes')};
   trackEdits(isNew?null:S.data.projects[rec.id],n,P_FIELDS); put('projects',n); closeModal(); toast(isNew?'Project created.':'Project saved.'); }
 
-const V_FIELDS=['label','title','platform','topic','views','viewsText','duration','ageText','source','capturedAt','url','notes'];
+const V_FIELDS=['label','title','platform','format','topic','views','viewsText','likes','duration','ageText','publishedAt','source','capturedAt','url','notes'];
 function videoModal(v,isNew){
-  const body=`<div class="note">Record only what you can read in a screenshot or on the platform itself. Leave anything unreadable blank.</div>
+  const body=`<div class="note">Record only what you can read on the platform or in a screenshot. Leave anything you cannot see blank.</div>
   <fieldset><legend>Video</legend>${fld('Working name',inp('v-label',v.label),'wide')}${fld('Title as visible on the channel',inp('v-title',v.title,'text','Leave blank if not readable'),'wide')}
-   ${fld('Platform',sel('v-platform',v.platform,PLATFORMS,'Not recorded'))}${fld('Topic',sel('v-topic',v.topic,TOPICS,'Unsorted'))}
+   ${fld('Platform',sel('v-platform',v.platform,PLATFORMS,'Not recorded'))}${fld('Format',sel('v-format',v.format,FORMATS,'Not recorded'))}${fld('Topic',sel('v-topic',v.topic,TOPICS,'Unsorted'))}
    ${fld('Link (optional)',inp('v-url',v.url),'wide')}</fieldset>
   <fieldset><legend>Metrics as shown</legend>${fld('Views <small>e.g. 1.2K or 12,345</small>',inp('v-views',v.viewsText||(v.views!=null?String(v.views):'')))}${fld('Duration <small>e.g. 12:34</small>',inp('v-duration',v.duration))}
-   ${fld('Upload age <small>e.g. 3 months ago</small>',inp('v-age',v.ageText))}${fld('Source',sel('v-source',v.source,SOURCES))}${fld('Capture date',inp('v-captured',v.capturedAt,'date'))}
+   ${fld('Likes',inp('v-likes',v.likes!=null?String(v.likes):''))}${fld('Upload age as shown <small>e.g. 3 months ago</small>',inp('v-age',v.ageText))}${fld('Exact publish date <small>only if you know it</small>',inp('v-pub',v.publishedAt,'date'))}${fld('Source',sel('v-source',v.source,SOURCES))}${fld('Capture date',inp('v-captured',v.capturedAt,'date'))}
    ${fld('Notes',ta('v-notes',v.notes,3),'wide')}</fieldset>`;
   const foot=`${isNew?'':`<button type="button" class="btn danger" data-a="del" data-c="videos" data-id="${esc(v.id)}">Delete</button><button type="button" class="btn" data-a="new-clip" data-kind="video" data-id="${esc(v.id)}">New clip from this</button>`}<span class="sp"></span><button type="button" class="btn" data-a="close">Cancel</button><button type="submit" class="btn pri">${isNew?'Add to archive':'Save changes'}</button>`;
   openModal(isNew?'Add published video':'Edit archive record',body,foot,{kind:'video',rec:v,isNew}); }
-function blankVideo(o){return {id:uid('v'),label:'',title:'',platform:'',topic:'',views:null,viewsText:'',duration:'',ageText:'',source:'Manual entry',capturedAt:todayLux(),url:'',notes:'',edited:[],...o};}
+function blankVideo(o){return {id:uid('v'),label:'',title:'',platform:'',format:'',topic:'',views:null,viewsText:'',likes:null,comments:null,duration:'',ageText:'',publishedAt:'',source:'Manual entry',capturedAt:todayLux(),url:'',notes:'',edited:[],...o};}
 function saveVideo(){ const {rec,isNew}=modalCtx; const lab=val('v-label')||val('v-title'); if(!lab){toast('Give the video a working name or a title.');$('#v-label').focus();return;}
   const vt=val('v-views'), views=parseViews(vt); if(vt&&views==null){toast('That view count could not be read. Use a form like 1.2K or 12,345.');$('#v-views').focus();return;}
-  const n={...clone(rec),label:lab,title:val('v-title'),platform:val('v-platform'),topic:val('v-topic'),url:val('v-url'),viewsText:vt,views,duration:val('v-duration'),ageText:val('v-age'),source:val('v-source'),capturedAt:val('v-captured'),notes:val('v-notes')};
+  const lt=val('v-likes'), likes=lt?parseViews(lt):null;
+  const n={...clone(rec),label:lab,title:val('v-title'),platform:val('v-platform'),format:val('v-format'),likes,publishedAt:val('v-pub'),topic:val('v-topic'),url:val('v-url'),viewsText:vt,views,duration:val('v-duration'),ageText:val('v-age'),source:val('v-source'),capturedAt:val('v-captured'),notes:val('v-notes')};
   trackEdits(isNew?null:S.data.videos[rec.id],n,V_FIELDS); put('videos',n); closeModal(); toast(isNew?'Video added to the archive.':'Archive record saved.'); }
 
 const C_FIELDS=['title','sourceKind','sourceId','status','tcIn','tcOut','angle','hook','framing','subs','cover','pub','notes'];
 function blankClip(o){return {id:uid('c'),title:'',sourceKind:'video',sourceId:'',status:'suggested',tcIn:'',tcOut:'',angle:'',hook:'',framing:'Reframe to 9:16 in CapCut. Keep the face in the upper-middle third and leave the bottom fifth free for captions.',subs:SUBS.map(t=>({t,done:false})),cover:'',pub:{youtube:{title:'',caption:'',date:''},tiktok:{caption:'',date:''},instagram:{caption:'',date:''}},notes:'',edited:[],...o};}
 function clipModal(c,isNew){ const cur=c.sourceKind+':'+c.sourceId, pb=c.pub||{}, y=pb.youtube||{}, t=pb.tiktok||{}, i=pb.instagram||{};
-  const o=(k,r)=>`<option value="${k}:${esc(r.id)}"${cur===k+':'+r.id?' selected':''}>${esc(r.title||r.label)}</option>`;
+  const o=(k,r)=>`<option value="${k}:${esc(r.id)}"${cur===k+':'+r.id?' selected':''}>${esc(((r.label||r.title)+'').slice(0,70))}${k==='video'&&r.platform?' · '+esc(r.platform)+(r.format==='Long video'?'':' '+esc(r.format||'')):''}</option>`;
   const vids=all('videos').sort((a,b)=>(a.label||'').localeCompare(b.label||'')), prj=all('projects').sort((a,b)=>a.title.localeCompare(b.title));
   const body=`<fieldset><legend>Clip</legend>${fld('Clip name',inp('c-title',c.title),'wide')}
    ${fld('Original video',`<select id="c-source"><option value="">Choose the original…</option><optgroup label="Published videos">${vids.map(r=>o('video',r)).join('')}</optgroup><optgroup label="Pipeline projects">${prj.map(r=>o('project',r)).join('')}</optgroup></select>`,'wide')}
@@ -703,7 +768,7 @@ const A={
    try{ if(!text) text=await file.text(); toast(importData(JSON.parse(text),mode)); }catch(e){toast(e instanceof SyntaxError?'That text is not valid JSON.':e.message);} }
 };
 document.addEventListener('click',ev=>{const el=ev.target.closest('[data-a]'); if(!el) return; const fn=A[el.dataset.a]; if(fn){ if(el.tagName==='BUTTON'&&el.type!=='submit') ev.preventDefault(); fn(el,ev);} });
-document.addEventListener('submit',ev=>{ev.preventDefault(); if(!modalCtx) return; ({project:saveProject,video:saveVideo,clip:saveClip,template:saveTemplate})[modalCtx.kind](); });
+document.addEventListener('submit',ev=>{ev.preventDefault(); if(!modalCtx||ev.target.id==='lock-form') return; ({project:saveProject,video:saveVideo,clip:saveClip,template:saveTemplate})[modalCtx.kind](); });
 document.addEventListener('keydown',ev=>{ if(ev.key==='Escape'&&modalCtx) closeModal(); });
 document.addEventListener('input',ev=>{const el=ev.target; if(el.dataset.f){S.ui.f[el.dataset.f]=el.value;saveUI();renderBody();} else if(el.dataset.af){S.ui.af[el.dataset.af]=el.value;saveUI();renderBody();} else if('cf' in el.dataset){S.ui.cf=el.value;renderBody();} });
 document.addEventListener('change',ev=>{const el=ev.target; if(el.dataset.aChange==='status'){const p=S.data.projects[el.dataset.id]; if(p&&p.status!==el.value){const n=clone(p);n.status=el.value;trackEdits(p,n,['status']);put('projects',n);toast('Moved to '+el.value+'.');}} });
@@ -716,5 +781,20 @@ document.addEventListener('drop',ev=>{const col=ev.target.closest&&ev.target.clo
   if(p&&p.status!==st){const n=clone(p);n.status=st;trackEdits(p,n,['status']);put('projects',n);toast('Moved to '+st+'.');} else renderBody();});
 
 window.addEventListener('hashchange',renderRoute);
-renderRoute(); initStore();
+/* ---------- password lock ---------- */
+async function checkPw(raw){ const t=raw.trim().toLowerCase().replace(/\s+/g,' '), bytes=new TextEncoder().encode(t);
+  try{ if(crypto&&crypto.subtle){const d=await crypto.subtle.digest('SHA-256',bytes);return [...new Uint8Array(d)].map(b=>b.toString(16).padStart(2,'0')).join('')===PW_SHA;} }catch(e){}
+  let h=0x811c9dc5; for(const b of bytes){h^=b;h=Math.imul(h,0x01000193)>>>0;} return h===PW_FNV; }
+let started=false;
+function unlock(animate){ S.unlocked=true; try{sessionStorage.setItem(LSLOCK,'1');}catch(e){}
+  const l=$('#lock'); $('#app').hidden=false; if(animate){l.classList.add('leaving');setTimeout(()=>l.hidden=true,500);} else l.hidden=true;
+  renderRoute(); if(!started){started=true;initStore();} }
+function lock(){ S.unlocked=false; try{sessionStorage.removeItem(LSLOCK);}catch(e){} closeModal(); $('#app').hidden=true; $('#v-body').innerHTML=''; const l=$('#lock'); l.hidden=false; l.classList.remove('leaving'); $('#lock-pw').value=''; $('#lock-err').textContent=''; $('#lock-pw').focus(); }
+A.lock=lock;
+A.seg=el=>{S.ui.seg=el.dataset.v;S.ui.rankAll=false;saveUI();$('#v-tools').innerHTML=V.analysis.tools();renderBody();};
+A['rank-all']=()=>{S.ui.rankAll=!S.ui.rankAll;renderBody();};
+$('#lock-form').addEventListener('submit',async ev=>{ ev.preventDefault(); ev.stopPropagation(); const i=$('#lock-pw');
+  if(await checkPw(i.value)) unlock(true); else { $('#lock-err').textContent=i.value?'That password is not right. Try again.':'Type your password.'; const c=$('.lock-card'); c.classList.remove('shake'); void c.offsetWidth; c.classList.add('shake'); i.select(); } });
+let was=false; try{was=sessionStorage.getItem(LSLOCK)==='1';}catch(e){}
+if(was) unlock(false); else $('#lock-pw').focus();
 </script>
