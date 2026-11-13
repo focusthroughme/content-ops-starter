@@ -70,6 +70,7 @@
     -webkit-font-smoothing: antialiased; overflow-x: hidden;
   }
   img, svg { display: block; max-width: 100%; }
+  [hidden] { display: none !important; }
   a { color: inherit; }
   h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.05; margin: 0; letter-spacing: -.015em; }
   h2 { font-size: clamp(2.1rem, 4.6vw, 3.5rem); }
@@ -146,25 +147,8 @@
   .stars { color: var(--orange); letter-spacing: 2px; }
 
   .hero__art { position: relative; aspect-ratio: 1; width: min(100%, 540px); justify-self: end; }
-  .hero__art .pizza { width: 100%; height: 100%; animation: spin 90s linear infinite; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, .4)); }
-  .hero__badge {
-    position: absolute; left: -4%; bottom: 6%; width: 148px; height: 148px; border-radius: 50%;
-    background: var(--orange); color: #14110A; display: grid; place-content: center; text-align: center;
-    transform: rotate(-10deg); box-shadow: 0 14px 30px -12px rgba(0, 0, 0, .55);
-    font-family: var(--serif); line-height: 1;
-  }
-  .hero__badge small { font: 600 .68rem/1.2 var(--sans); letter-spacing: .14em; text-transform: uppercase; }
-  .hero__badge strong { font-size: 2.3rem; font-weight: 600; font-style: italic; margin: 5px 0 3px; }
-  @keyframes spin { to { transform: rotate(360deg); } }
+  .hero__art .pizza { width: 100%; height: 100%; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, .4)); }
 
-  /* racing stripes — a nod to the scooter */
-  .stripes { height: 14px; background: linear-gradient(var(--orange) 0 5px, transparent 5px 9px, var(--tomato) 9px 14px); }
-
-  .ticker { background: var(--orange); color: #14110A; overflow: hidden; padding-block: 14px; }
-  .ticker__track { display: flex; width: max-content; animation: slide 38s linear infinite; }
-  .ticker__track span { font-family: var(--serif); font-style: italic; font-size: 1.25rem; font-weight: 500; padding-inline: 22px; white-space: nowrap; }
-  .ticker__track span::after { content: "✺"; font-style: normal; margin-left: 44px; font-size: .9rem; opacity: .7; }
-  @keyframes slide { to { transform: translateX(-50%); } }
 
   /* ── Highlights ─────────────────────────────────────────── */
   .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--line); }
@@ -265,11 +249,44 @@
   details p { padding: 0 50px 24px 0; color: var(--muted); max-width: 62ch; }
   details a { color: var(--text); text-decoration-color: var(--orange); text-underline-offset: 3px; }
 
-  /* ── Final CTA + Footer ─────────────────────────────────── */
-  .final { background: var(--ink); color: var(--cream); text-align: center; }
-  .final h2 { font-size: clamp(2.6rem, 7vw, 5.4rem); font-weight: 400; max-width: 14ch; margin-inline: auto; }
-  .final p { margin: 24px auto 0; color: rgba(246, 239, 225, .76); max-width: 44ch; }
-  .final .hero__cta { justify-content: center; }
+  /* ── Gallery ────────────────────────────────────────────── */
+  .gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: clamp(170px, 21vw, 270px); gap: 14px; }
+  .shot { margin: 0; position: relative; border-radius: var(--radius); overflow: hidden; background: #E9DFCA; }
+  .shot--tall { grid-row: span 2; }
+  .shot--wide { grid-column: span 2; }
+  .shot img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--ease); }
+  .shot:hover img { transform: scale(1.04); }
+  .shot figcaption { position: absolute; left: 14px; bottom: 12px; font-size: .82rem; font-weight: 600; color: #fff; text-shadow: 0 1px 8px rgba(0, 0, 0, .6); }
+  .shot.empty img { display: none; }
+  .shot.empty { border: 1px dashed rgba(22, 38, 31, .3); }
+  .shot.empty figcaption { inset: 0; display: grid; place-content: center; text-align: center; padding: 16px; color: var(--muted); text-shadow: none; font: italic 500 1.1rem var(--serif); }
+
+  /* ── Reservation ────────────────────────────────────────── */
+  .final { background: var(--ink); color: var(--cream); }
+  .final .eyebrow { color: var(--orange); }
+  .book { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(32px, 6vw, 88px); align-items: start; }
+  .book__lead { margin-top: 22px; color: rgba(246, 239, 225, .78); max-width: 40ch; font-size: 1.1rem; }
+  .book__alt { margin: 30px 0 22px; color: rgba(246, 239, 225, .7); font-size: .95rem; }
+  .book__alt a { font-family: var(--serif); font-size: 1.7rem; color: var(--cream); text-decoration: none; }
+  .book__alt a:hover { color: var(--orange); }
+  .form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; color-scheme: dark; }
+  .field { display: grid; gap: 7px; min-width: 0; }
+  .field--wide { grid-column: 1 / -1; }
+  .field > span { font-size: .78rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: rgba(246, 239, 225, .7); }
+  .field input, .field select, .field textarea {
+    width: 100%; min-height: 52px; padding: 13px 15px; border-radius: 10px; border: 1px solid var(--line-light);
+    background: rgba(246, 239, 225, .06); color: var(--cream); font: 500 1rem var(--sans); transition: border-color .2s, background .2s;
+  }
+  .field textarea { resize: vertical; }
+  .field select option { color: #111; }
+  .field input:hover, .field select:hover, .field textarea:hover { border-color: rgba(246, 239, 225, .45); }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--orange); background: rgba(246, 239, 225, .1); }
+  .field .bad { border-color: #FF8A73; }
+  .form__msg { min-height: 1.5em; font-size: .93rem; color: #FFC2B5; }
+  .form__msg.ok { color: #9BE3B8; }
+  .form .btn:disabled { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  /* ── Footer ─────────────────────────────────────────────── */
   .footer { background: var(--ink); color: rgba(246, 239, 225, .7); font-size: .9rem; border-top: 1px solid var(--line-light); padding-block: 30px calc(30px + env(safe-area-inset-bottom)); }
   .footer__in { display: flex; flex-wrap: wrap; gap: 14px 32px; justify-content: space-between; align-items: center; }
   .footer a { text-decoration: none; transition: color .2s; }
@@ -298,11 +315,11 @@
     .nav-open { overflow: hidden; }
     .hero__grid { grid-template-columns: 1fr; }
     .hero__art { justify-self: center; width: min(78vw, 420px); margin-top: 12px; order: 2; }
-    .hero__badge { width: 120px; height: 120px; left: -2%; }
-    .hero__badge strong { font-size: 1.85rem; }
     .cards { grid-template-columns: 1fr; }
     .card, .card + .card { padding-inline: 0; border-left: 0; }
-    .proof__grid, .pdj__grid, .visit__grid, .faq__grid { grid-template-columns: 1fr; }
+    .proof__grid, .pdj__grid, .visit__grid, .faq__grid, .book { grid-template-columns: 1fr; }
+    .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 44vw; }
+    .shot--last { grid-column: span 2; }
     .dishes { grid-template-columns: 1fr; }
     .perks { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .map { min-height: 340px; }
@@ -313,6 +330,7 @@
     .hero__meta { gap: 12px; flex-direction: column; }
     .menu__tabs { margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); }
     .menu__foot .btn { width: 100%; }
+    .form { grid-template-columns: 1fr; }
     details p { padding-right: 0; }
     .dock {
       display: grid; grid-template-columns: 1fr 1.4fr; gap: 10px;
@@ -347,7 +365,7 @@
         <button type="button" data-lang="de" aria-pressed="true">DE</button>
         <button type="button" data-lang="fr" aria-pressed="false">FR</button>
       </div>
-      <a class="btn btn--sm js-reserve" href="tel:+35226652626" data-fr="Réserver">Reservieren</a>
+      <a class="btn btn--sm" href="#reservieren" data-fr="Réserver">Reservieren</a>
     </nav>
     <button class="burger" type="button" aria-label="Menü" aria-expanded="false" aria-controls="nav"><span><i></i><i></i></span></button>
   </div>
@@ -362,7 +380,7 @@
       <h1 data-fr="La pizza qui vaut le <em>détour</em> par Kehlen.">Pizza, für die man gern nach <em>Kehlen</em> fährt.</h1>
       <p class="hero__sub" data-fr="Pâte fine et croustillante jusqu’à la dernière bouchée, pâtes al dente et portions généreuses. Midi et soir, à dix minutes de Mamer et de Capellen.">Dünner, knuspriger Boden bis zum letzten Bissen, Pasta al dente und großzügige Portionen. Mittags und abends – zehn Minuten von Mamer und Capellen.</p>
       <div class="hero__cta">
-        <a class="btn js-reserve" href="tel:+35226652626">
+        <a class="btn" href="#reservieren">
           <span data-fr="Réserver une table">Tisch reservieren</span>
           <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
@@ -403,22 +421,10 @@
           <path d="M200 133c14-3 28-2 40 1"/><path d="M115 230c8-10 18-18 30-24"/><path d="M279 200c8 8 14 20 18 32"/><path d="M190 263c12-1 26 3 36 11"/>
         </g>
       </svg>
-      <div class="hero__badge">
-        <small data-fr="Pizza dès">Pizza ab</small>
-        <strong>12,50&nbsp;€</strong>
-        <small>Margherita</small>
-      </div>
     </div>
   </div>
-  <div class="stripes"></div>
 </section>
 
-<div class="ticker" aria-hidden="true">
-  <div class="ticker__track">
-    <span>Pizza</span><span>Pasta fresca</span><span>Risotti</span><span>Carpaccio</span><span>Tagliata</span><span>Frutti di Mare</span><span>Tiramisù</span><span>Plat du Jour</span>
-    <span>Pizza</span><span>Pasta fresca</span><span>Risotti</span><span>Carpaccio</span><span>Tagliata</span><span>Frutti di Mare</span><span>Tiramisù</span><span>Plat du Jour</span>
-  </div>
-</div>
 
 <!-- ═══ Highlights ═══ -->
 <section class="section">
@@ -543,7 +549,7 @@
           <address>8, rue de Mamer · L-8280 Kehlen</address>
         </div>
         <div class="visit__cta">
-          <a class="btn btn--dark js-reserve" href="tel:+35226652626" data-fr="Réserver une table">Tisch reservieren</a>
+          <a class="btn btn--dark" href="#reservieren" data-fr="Réserver une table">Tisch reservieren</a>
           <a class="btn btn--outline" href="https://maps.app.goo.gl/26kYkke9cCugr4o99" target="_blank" rel="noopener" data-fr="Itinéraire">Route planen</a>
         </div>
       </div>
@@ -572,7 +578,7 @@
     <div class="reveal">
       <details open>
         <summary><span data-fr="Faut-il réserver ?">Muss ich reservieren?</span><i></i></summary>
-        <p data-fr="Nous vous le conseillons, surtout le vendredi et le samedi soir. Réservez en ligne en quelques clics ou par téléphone au +352 26 65 26 26.">Wir empfehlen es – besonders freitag- und samstagabends. Reservieren Sie online in wenigen Klicks oder telefonisch unter +352 26 65 26 26.</p>
+        <p data-fr="Nous vous le conseillons, surtout le vendredi et le samedi soir. Envoyez votre demande via le <a href='#reservieren'>formulaire</a> ou appelez le +352 26 65 26 26.">Wir empfehlen es – besonders freitag- und samstagabends. Schicken Sie uns Ihre Anfrage über das <a href="#reservieren">Formular</a> oder rufen Sie an: +352 26 65 26 26.</p>
       </details>
       <details>
         <summary><span data-fr="Peut-on commander à emporter ?">Kann ich Essen zum Mitnehmen bestellen?</span><i></i></summary>
@@ -594,18 +600,48 @@
   </div>
 </section>
 
-<!-- ═══ Final CTA ═══ -->
-<section class="section final">
-  <div class="wrap reveal">
-    <h2 data-fr="Ce soir, c’est <em>italien</em>.">Heute Abend wird’s <em>italienisch</em>.</h2>
-    <p data-fr="Réservez votre table en moins d’une minute — ou emportez votre pizza à la maison.">Tisch in unter einer Minute reservieren – oder die Pizza einfach mit nach Hause nehmen.</p>
-    <div class="hero__cta">
-      <a class="btn js-reserve" href="tel:+35226652626">
-        <span data-fr="Réserver une table">Tisch reservieren</span>
-        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-      <a class="btn btn--ghost" href="tel:+35226652626">+352 26 65 26 26</a>
+<!-- ═══ Fotos ═══ -->
+<section class="section" id="fotos">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-fr="En images">Eindrücke</span>
+      <h2 data-fr="Un avant-goût, <em>en images</em>.">Ein Vorgeschmack <em>in Bildern</em>.</h2>
     </div>
+    <!-- Fotos: Dateien in den Ordner "fotos" neben diese HTML-Datei legen (01.jpg … 06.jpg). Fehlt ein Bild, erscheint die Kachel mit Beschriftung. -->
+    <div class="gallery reveal">
+      <figure class="shot shot--tall"><img src="fotos/01.jpg" alt="Pizza aus dem Ofen" loading="lazy" onerror="this.parentNode.classList.add('empty')"><figcaption data-fr="Pizza sortie du four">Pizza aus dem Ofen</figcaption></figure>
+      <figure class="shot"><img src="fotos/02.jpg" alt="Tris de pâtes Lambretta" loading="lazy" onerror="this.parentNode.classList.add('empty')"><figcaption>Tris de pâtes Lambretta</figcaption></figure>
+      <figure class="shot"><img src="fotos/03.jpg" alt="Gastraum" loading="lazy" onerror="this.parentNode.classList.add('empty')"><figcaption data-fr="La salle">Der Gastraum</figcaption></figure>
+      <figure class="shot shot--wide"><img src="fotos/04.jpg" alt="Terrasse" loading="lazy" onerror="this.parentNode.classList.add('empty')"><figcaption data-fr="La terrasse couverte">Die überdachte Terrasse</figcaption></figure>
+      <figure class="shot shot--wide"><img src="fotos/05.jpg" alt="Tiramisù" loading="lazy" onerror="this.parentNode.classList.add('empty')"><figcaption>Tiramisù</figcaption></figure>
+      <figure class="shot shot--last"><img src="fotos/06.jpg" alt="Das Team" loading="lazy" onerror="this.parentNode.classList.add('empty')"><figcaption data-fr="L’équipe">Das Team</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Reservierung ═══ -->
+<section class="section final" id="reservieren">
+  <div class="wrap book">
+    <div class="reveal">
+      <span class="eyebrow" data-fr="Réservation">Reservierung</span>
+      <h2 style="margin-top:18px" data-fr="Réserver <em>une table</em>.">Tisch <em>reservieren</em>.</h2>
+      <p class="book__lead" data-fr="Choisissez la date, l’heure et le nombre de personnes. Nous confirmons votre demande par téléphone ou par e-mail.">Datum, Uhrzeit und Personenzahl wählen – wir bestätigen Ihre Anfrage per Telefon oder E-Mail.</p>
+      <p class="book__alt"><span data-fr="Pour aujourd’hui ou plus de 12 personnes, appelez-nous :">Für heute oder mehr als 12 Personen bitte anrufen:</span><br><a href="tel:+35226652626">+352 26 65 26 26</a></p>
+      <button type="button" class="btn btn--ghost btn--sm" id="instant" hidden data-fr="Réserver en ligne, confirmation immédiate">Online buchen mit Sofortbestätigung</button>
+    </div>
+    <form class="form reveal" id="book" novalidate>
+      <label class="field"><span data-fr="Date">Datum</span><input type="date" name="date" id="f-date" required></label>
+      <label class="field"><span data-fr="Heure">Uhrzeit</span><select name="time" id="f-time" required></select></label>
+      <label class="field"><span data-fr="Personnes">Personen</span><select name="guests" id="f-guests"></select></label>
+      <label class="field"><span data-fr="Nom">Name</span><input type="text" name="name" id="f-name" autocomplete="name" required></label>
+      <label class="field field--wide"><span data-fr="Téléphone">Telefon</span><input type="tel" name="phone" id="f-phone" autocomplete="tel" inputmode="tel" required></label>
+      <label class="field field--wide"><span data-fr="Remarque (facultatif)">Anmerkung (optional)</span><textarea name="note" id="f-note" rows="2"></textarea></label>
+      <p class="form__msg field--wide" id="f-msg" role="status" aria-live="polite"></p>
+      <button class="btn field--wide" type="submit" id="f-submit">
+        <span data-fr="Envoyer la demande">Anfrage senden</span>
+        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </form>
   </div>
 </section>
 </main>
@@ -625,10 +661,10 @@
 <!-- Mobile action bar -->
 <div class="dock" id="dock">
   <a class="btn btn--outline" href="tel:+35226652626" data-fr="Appeler">Anrufen</a>
-  <a class="btn js-reserve" href="tel:+35226652626" data-fr="Réserver une table">Tisch reservieren</a>
+  <a class="btn" href="#reservieren" data-fr="Réserver une table">Tisch reservieren</a>
 </div>
 
-<!-- Bestehendes Reservierungs-Widget des Restaurants (Delova). Lädt es nicht, greifen die Buttons auf den Anruf zurück. -->
+<!-- Bestehendes Reservierungs-Widget des Restaurants (Delova), optional. Lädt es, erscheint im Reservierungsbereich ein Button dafür. -->
 <delova-reservation tenant="lalambretta" locale="fr"></delova-reservation>
 <script src="https://delova.app/embed/v1/reservation.js" async></script>
 
@@ -832,25 +868,77 @@
     $$('.lang button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === l)); });
     var w = $('delova-reservation'); if (w) w.setAttribute('locale', l);
     document.title = l === 'fr' ? 'La Lambretta · Ristorante Pizzeria à Kehlen' : 'La Lambretta · Ristorante Pizzeria in Kehlen';
-    renderTabs(); renderDishes(); renderStatus();
+    renderTabs(); renderDishes(); renderStatus(); fillGuests(); fillTimes(); if (msgKey) say(msgKey, fMsg.classList.contains('ok'));
     try { localStorage.setItem('ll-lang', l); } catch (e) {}
   }
   $$('.lang button').forEach(function (b) { b.addEventListener('click', function () { setLang(b.getAttribute('data-lang')); }); });
 
-  /* ── Reservation: open the booking widget if it loaded, otherwise the tel: link does its job ── */
-  document.addEventListener('click', function (e) {
-    var t = e.target.closest && e.target.closest('.js-reserve');
-    if (!t) return;
-    var host = $('delova-reservation');
-    var launcher = host && host.shadowRoot && host.shadowRoot.querySelector('.dr-launcher');
-    if (launcher) { e.preventDefault(); document.body.classList.remove('nav-open'); launcher.click(); }
+  /* ── Reservation form: builds a request e-mail to the restaurant (no backend needed) ── */
+  var T = {
+    de: { closed: 'Dienstag ist Ruhetag – bitte einen anderen Tag wählen.', none: 'An diesem Tag sind online keine Zeiten mehr frei – bitte anrufen.', missing: 'Bitte Datum, Uhrzeit, Name und Telefon ausfüllen.',
+          sent: 'Ihr E-Mail-Programm öffnet sich mit der fertigen Anfrage – bitte dort auf „Senden“ tippen. Die Reservierung gilt, sobald wir sie bestätigt haben.',
+          subject: 'Reservierungsanfrage', p1: 'Person', pn: 'Personen',
+          body: function (d) { return 'Guten Tag,\n\nich möchte gern einen Tisch reservieren:\n\nDatum: ' + d.date + '\nUhrzeit: ' + d.time + ' Uhr\nPersonen: ' + d.guests + '\nName: ' + d.name + '\nTelefon: ' + d.phone + (d.note ? '\nAnmerkung: ' + d.note : '') + '\n\nVielen Dank und freundliche Grüße\n' + d.name; } },
+    fr: { closed: 'Le restaurant est fermé le mardi – merci de choisir un autre jour.', none: 'Plus de créneau en ligne ce jour-là – merci de nous appeler.', missing: 'Merci d’indiquer la date, l’heure, votre nom et votre téléphone.',
+          sent: 'Votre messagerie s’ouvre avec la demande prête – il suffit de l’envoyer. La réservation est valable dès que nous l’avons confirmée.',
+          subject: 'Demande de réservation', p1: 'personne', pn: 'personnes',
+          body: function (d) { return 'Bonjour,\n\nje souhaite réserver une table :\n\nDate : ' + d.date + '\nHeure : ' + d.time + '\nPersonnes : ' + d.guests + '\nNom : ' + d.name + '\nTéléphone : ' + d.phone + (d.note ? '\nRemarque : ' + d.note : '') + '\n\nMerci et cordialement,\n' + d.name; } }
+  };
+  var form = $('#book'), fDate = $('#f-date'), fTime = $('#f-time'), fGuests = $('#f-guests'), fMsg = $('#f-msg'), fSubmit = $('#f-submit');
+  var iso = function (d) { return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); };
+  var msgKey = '';
+  function say(key, ok) { msgKey = key; fMsg.textContent = key ? T[lang][key] : ''; fMsg.classList.toggle('ok', !!ok); }
+  function fillGuests() {
+    var keep = fGuests.value || '2'; fGuests.textContent = '';
+    for (var i = 1; i <= 12; i++) { var o = el('option', null, i + ' ' + (i === 1 ? T[lang].p1 : T[lang].pn)); o.value = i; fGuests.appendChild(o); }
+    fGuests.value = keep;
+  }
+  function fillTimes() {
+    var keep = fTime.value; fTime.textContent = '';
+    if (!fDate.value) { fSubmit.disabled = false; return; }
+    var parts = fDate.value.split('-'), day = new Date(+parts[0], +parts[1] - 1, +parts[2]).getDay();
+    var now = luxNow(), today = fDate.value === iso(new Date());
+    SLOTS[day].forEach(function (s) {
+      for (var m = s[0]; m <= s[1] - 30; m += 30) {
+        if (today && m < now.min + 60) continue;   /* same-day: at least one hour ahead */
+        var o = el('option', null, hhmm(m)); o.value = hhmm(m); fTime.appendChild(o);
+      }
+    });
+    var has = fTime.options.length > 0;
+    if (has && keep && fTime.querySelector('option[value="' + keep + '"]')) fTime.value = keep;
+    else if (has && fTime.querySelector('option[value="19:00"]')) fTime.value = '19:00';
+    fSubmit.disabled = !has;
+    say(has ? '' : (SLOTS[day].length ? 'none' : 'closed'));
+  }
+  (function initForm() {
+    var d = new Date(); fDate.min = iso(d);
+    d.setDate(d.getDate() + 1); if (d.getDay() === 2) d.setDate(d.getDate() + 1);
+    fDate.value = iso(d);
+    var max = new Date(); max.setDate(max.getDate() + 90); fDate.max = iso(max);
+  })();
+  fDate.addEventListener('change', fillTimes);
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var bad = false;
+    [fDate, fTime, $('#f-name'), $('#f-phone')].forEach(function (f) { var b = !String(f.value).trim(); f.classList.toggle('bad', b); bad = bad || b; });
+    if (bad) { say('missing'); return; }
+    var p = fDate.value.split('-');
+    var d = { date: p[2] + '.' + p[1] + '.' + p[0], time: fTime.value, guests: fGuests.value, name: $('#f-name').value.trim(), phone: $('#f-phone').value.trim(), note: $('#f-note').value.trim() };
+    say('sent', true);
+    window.location.href = 'mailto:info@lalambretta.lu?subject=' + encodeURIComponent(T[lang].subject + ' ' + d.date + ', ' + d.time + ' – ' + d.guests + ' ' + (d.guests === '1' ? T[lang].p1 : T[lang].pn)) + '&body=' + encodeURIComponent(T[lang].body(d));
   });
+
+  /* Optional: the restaurant's existing live booking widget (Delova). The button only appears if the widget actually loaded. */
+  var instant = $('#instant');
+  function findLauncher() { var h = $('delova-reservation'); return h && h.shadowRoot && h.shadowRoot.querySelector('.dr-launcher'); }
+  var tries = 0, poll = setInterval(function () { if (findLauncher()) { instant.hidden = false; clearInterval(poll); } else if (++tries > 20) clearInterval(poll); }, 500);
+  instant.addEventListener('click', function () { var l = findLauncher(); if (l) l.click(); });
 
   /* ── Header, mobile nav, dock, reveal ── */
   var header = $('.header'), burger = $('.burger'), dock = $('#dock');
   function onScroll() {
     header.classList.toggle('is-stuck', window.scrollY > 24);
-    dock.classList.toggle('show', window.scrollY > 520);
+    dock.classList.toggle('show', window.scrollY > 520 && $('#reservieren').getBoundingClientRect().top > window.innerHeight * .6);
   }
   window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
   burger.addEventListener('click', function () {
