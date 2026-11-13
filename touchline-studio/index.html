@@ -173,6 +173,14 @@ td.t{max-width:380px}
 .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--mute);align-items:center}
 .legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
 
+.todos{display:flex;flex-direction:column;gap:6px}
+.todo{display:flex;gap:9px;align-items:flex-start;background:var(--surface-2);border-radius:10px;padding:7px 9px;font-size:13.5px;line-height:1.3;cursor:pointer;overflow-wrap:anywhere;min-width:0}
+.todo input{width:17px;height:17px;flex:none;margin:1px 0 0;accent-color:var(--accent)}
+.todo small{display:block;color:var(--mute);font-size:11.5px;margin-top:2px}
+.todo.done span{color:var(--mute);text-decoration:line-through}
+.today-panel .todo{background:var(--surface-2);font-size:15px;padding:10px 12px}
+.today-panel .todo input{width:20px;height:20px}
+.row.task{flex-wrap:wrap} .row.task input[type=date]{flex:0 0 150px;width:150px} .row.task input[type=text]{flex:1 1 200px}
 /* Action cards */
 .act{border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:7px;background:var(--surface-2)}
 .act .what{font-size:12px;font-weight:700;color:var(--accent)}
@@ -286,6 +294,11 @@ const ORIGINS=[['previous','Previous idea'],['new','New suggestion'],['own','Add
 const SOURCES=['Public channel data','Channel screenshot','Manual entry','Brief (unverified)'];
 const CLIP_STATUS=[['suggested','To look for (not confirmed in footage)'],['confirmed','Found in footage'],['cut','Cut in CapCut'],['published','Published']];
 const SUBS=['Auto captions generated in CapCut, then proofread line by line','Names, clubs and places spelled correctly','Caption language matches the spoken language (type Luxembourgish by hand if auto captions fail)','Maximum two lines, large type, strong contrast','Captions inside the safe zone, clear of platform buttons','Hook text on screen in the first two seconds'];
+const STYLES=[
+ {id:'clean',name:'Clean vlog',steps:['Cut out pauses and repeated sentences','Natural colour: fix exposure and white balance only','Name tag the first time each person speaks','Music under speech at low volume, louder on montage','Chapter title cards for each part of the day']},
+ {id:'motion',name:'Cinematic motion design',steps:['Punch-in zoom on the key word of each sentence','Word-by-word animated captions, one accent colour','Animated lower thirds and title cards instead of plain text','B-roll or screenshots layered over long talking parts','Sound design: whoosh on transitions, soft hit on title cards','Smooth transitions only where the scene changes','Colour grade: contrast up, slight teal and orange, same look on every clip']},
+ {id:'fast',name:'Fast-cut Short',steps:['Hook on screen and spoken within the first two seconds','A cut or camera move every one to two seconds','Large captions in the middle third','Remove every breath and filler word','End on the payoff, then one line pointing to the full video']},
+ {id:'launch',name:'Launch-trailer hype',steps:['Pick the track first and mark the beats','Cut every shot on a beat','Big kinetic text: three words per screen at most','Speed ramps into the strongest action shots','Black frames before the drop, logo or title at the end']}];
 const TZ='Europe/Luxembourg';
 const LS='touchline.data.v1', LSUI='touchline.ui.v1';
 const COLLS=['projects','videos','clips','templates','channels','notes'];
@@ -378,7 +391,8 @@ try{Object.assign(S.ui,JSON.parse(localStorage.getItem(LSUI)||'{}'));}catch(e){}
 S.ui.week=''; S.ui.af={q:'',topic:'',platform:'',format:'',sort:'views',...S.ui.af}; S.ui.seg=S.ui.seg||'yt-long'; // always open on the current week
 const saveUI=()=>{try{localStorage.setItem(LSUI,JSON.stringify(S.ui));}catch(e){}};
 const all=c=>Object.values(S.data[c]);
-const persistLocal=()=>{try{localStorage.setItem(LS,JSON.stringify(S.data));}catch(e){toast('This browser blocked local storage. Export a backup to keep your changes.');}};
+const NATIVE=!!window.ReactNativeWebView;
+const persistLocal=()=>{ if(NATIVE){window.ReactNativeWebView.postMessage(JSON.stringify({type:'save',data:JSON.stringify(S.data)}));return;} try{localStorage.setItem(LS,JSON.stringify(S.data));}catch(e){toast('This browser blocked local storage. Export a backup to keep your changes.');}};
 const queues=new Map();
 function dbWrite(coll,id,fn){const k=coll+'/'+id;const p=(queues.get(k)||Promise.resolve()).then(fn).catch(e=>{toast('Could not save ('+((e&&e.code)||'error')+'). Your change may not be stored.');});queues.set(k,p);return p;}
 function put(coll,obj,quiet){ obj.updatedAt=new Date().toISOString(); S.data[coll][obj.id]=obj;
@@ -399,7 +413,8 @@ async function initStore(){
     },err=>{clearTimeout(slow);S.ready=true;toast('Sync stopped ('+err.code+'). Reload the page to reconnect.');renderData();}));
   } else {
     S.mode='local'; S.ready=true;
-    try{const d=JSON.parse(localStorage.getItem(LS)||'null'); if(d) COLLS.forEach(c=>S.data[c]=d[c]||{});}catch(e){}
+    try{const d=NATIVE?(window.__TL_DATA||null):JSON.parse(localStorage.getItem(LS)||'null'); if(d) COLLS.forEach(c=>S.data[c]=d[c]||{});}catch(e){}
+    if(NATIVE&&isEmpty()&&window.__TL_SEED){try{importData(window.__TL_SEED,'merge');}catch(e){}}
   }
   renderData();
 }
@@ -428,7 +443,7 @@ function importData(obj,mode){
     else{const m=mergeRecord(cur,r); kept+=m.kept; if(m.changed){put(c,m.out,true);updated++;}} }));
   renderData();
   return `Imported: ${added} added, ${updated} updated${kept?`, ${kept} of your edited fields kept as they were`:''}.`; }
-async function loadStarter(){ try{const r=await fetch('seed.json'); if(!r.ok) throw 0; toast(importData(await r.json(),'merge'));}catch(e){toast('The starter plan could not be loaded here. Use Import on the Data & backup page.');} }
+async function loadStarter(){ if(window.__TL_SEED){toast(importData(window.__TL_SEED,'merge'));return;} try{const r=await fetch('seed.json'); if(!r.ok) throw 0; toast(importData(await r.json(),'merge'));}catch(e){toast('The starter plan could not be loaded here. Use Import on the Data & backup page.');} }
 
 /* ---------- domain logic ---------- */
 function filteredProjects(){ const f=S.ui.f,q=f.q.trim().toLowerCase();
@@ -442,6 +457,12 @@ function projectTags(p){return `<div class="tags">${originTag(p)}${p.verify?'<sp
 function shotProgress(p){const n=(p.shotlist||[]).length;return n?`${p.shotlist.filter(s=>s.done).length}/${n} shots`:'';}
 function sourceName(c){const r=c.sourceKind==='project'?S.data.projects[c.sourceId]:S.data.videos[c.sourceId];return r?(c.sourceKind==='project'?r.title:(r.label||r.title)):'(original removed)';}
 
+function genPlan(film,pub,styleId){ const T=[], st=STYLES.find(x=>x.id===styleId), add=(d,t)=>T.push({t,date:d,done:false});
+  if(film){add(addDays(film,-3),'Confirm people, location and filming permission');add(addDays(film,-1),'Charge batteries, clear memory cards, read the shotlist');add(film,'Film: follow the shotlist');add(addDays(film,1),'Back up the footage and mark the best moments');}
+  if(pub){add(addDays(pub,-4),'Rough cut in CapCut');add(addDays(pub,-2),'Fine cut'+(st?': work through the '+st.name+' style checklist':'')+', proofread subtitles');add(addDays(pub,-1),'Thumbnail in Canva, final title, caption and call to action');add(pub,'Publish, then post the teaser on TikTok and Instagram');add(addDays(pub,1),'Cut Shorts and Reels from the video');add(addDays(pub,7),'Record the 7-day views in the archive');add(addDays(pub,30),'Record the 30-day views in the archive');}
+  return T.sort((a,b)=>a.date.localeCompare(b.date)); }
+function allTasks(){ const out=[]; all('projects').forEach(p=>(p.tasks||[]).forEach((k,i)=>{if(k.date) out.push({...k,i,p});})); return out.sort((a,b)=>a.date.localeCompare(b.date)); }
+const todoHtml=(k,showDate)=>`<label class="todo${k.done?' done':''}"><input type="checkbox" data-a-change="task" data-id="${esc(k.p.id)}" data-i="${k.i}"${k.done?' checked':''}><span>${esc(k.t)}<small>${showDate?fmtShort(k.date)+' · ':''}${esc(k.p.title)}</small></span></label>`;
 function urgency(d){return d==null?0:d<0?40:d<=2?30:d<=7?20:d<=14?10:0;}
 function when(d,verb){return d==null?'':d<0?`${verb} date passed ${-d} day${d===-1?'':'s'} ago`:d===0?`${verb} date is today`:`${verb} date in ${d} day${d===1?'':'s'}`;}
 function buildActions(){ const t=todayLux(), out=[];
@@ -558,17 +579,22 @@ V.analysis={title:'Channel analysis',sub:'What your public numbers show, one pla
    <section class="panel"><span class="kind exp">Practical experiments</span><ul>${li(note&&note.experiments||DEF_EXP)}</ul></section>
   </div></div>`; }};
 
-V.calendar={title:'Weekly calendar',sub:'Filming and publishing dates, Monday to Sunday, in Europe/Luxembourg time.',
+V.calendar={title:'Weekly calendar',sub:'What to do each day, with filming and publishing dates, Monday to Sunday, in Europe/Luxembourg time.',
  tools(){return `<button class="btn" data-a="week" data-d="-1" aria-label="Previous week">← Previous</button><button class="btn" data-a="week" data-d="0">Today</button><button class="btn" data-a="week" data-d="1" aria-label="Next week">Next →</button>
   <strong id="week-label" class="num" style="margin-left:6px"></strong><span class="sp"></span>
-  <span class="legend"><span><i style="background:var(--blue)"></i>Filming</span><span><i style="background:var(--accent)"></i>Publishing</span></span>`;},
+  <span class="legend"><span><i style="background:var(--blue)"></i>Filming</span><span><i style="background:var(--accent)"></i>Publishing</span><span><i style="background:var(--mute)"></i>Step to do</span></span>`;},
  body(){ const t=todayLux(), mon=S.ui.week||mondayOf(t), days=[...Array(7)].map((_,i)=>addDays(mon,i)), ps=all('projects');
   const wl=$('#week-label'); if(wl) wl.textContent=`Week ${isoWeek(mon)} · ${fmtShort(mon)} – ${fmtFull(days[6])}`;
-  const un=ps.filter(p=>p.status!=='Published'&&!p.filmDate&&!p.publishDate);
-  return `<div class="grid"><div class="week">${days.map(d=>{const film=ps.filter(p=>p.filmDate===d), pub=ps.filter(p=>p.publishDate===d);
+  const un=ps.filter(p=>p.status!=='Published'&&!p.filmDate&&!p.publishDate), tasks=allTasks(), due=tasks.filter(k=>k.date===t), late=tasks.filter(k=>k.date<t&&!k.done), next=tasks.filter(k=>k.date>t&&!k.done).slice(0,4);
+  return `<div class="grid"><section class="panel today-panel"><h2>What to do today<small>${fmt(t,{weekday:'long',day:'numeric',month:'long'})}</small></h2>
+    ${due.length||late.length?`<div class="todos">${late.map(k=>todoHtml(k,true)).join('')}${due.map(k=>todoHtml(k,false)).join('')}</div>${late.length?`<p class="meta">${late.length} step${late.length===1?' is':'s are'} overdue and listed first.</p>`:''}`
+    :`<p class="meta">${tasks.length?'Nothing is due today.':'No steps planned yet. Open a project, set its filming and publishing dates, then press “Generate plan from dates”: every step appears here on its day.'}</p>`}
+    ${next.length?`<div><h3>Coming up</h3><div class="todos">${next.map(k=>todoHtml(k,true)).join('')}</div></div>`:''}</section>
+   <div class="week">${days.map(d=>{const film=ps.filter(p=>p.filmDate===d), pub=ps.filter(p=>p.publishDate===d), dt=tasks.filter(k=>k.date===d);
    return `<section class="day${d===t?' today':''}" data-date="${d}"><div class="day-h">${fmt(d,{weekday:'short'})} ${fmt(d,{day:'numeric'})}<span>${d===t?'Today':fmt(d,{month:'short'})}</span></div>
     ${film.map(p=>`<button class="ev film" data-a="edit-project" data-id="${esc(p.id)}"><b>Film</b>${esc(p.title)}</button>`).join('')}
     ${pub.map(p=>`<button class="ev pub" data-a="edit-project" data-id="${esc(p.id)}"><b>Publish</b>${esc(p.title)}</button>`).join('')}
+    ${dt.map(k=>todoHtml(k,false)).join('')}
     <div class="day-add"><button data-a="new-project" data-film="${d}">+ Filming</button><button data-a="new-project" data-pub="${d}">+ Publishing</button></div></section>`;}).join('')}</div>
    <section class="panel"><h2>Not scheduled yet <small>${un.length}</small></h2>${un.length?`<p class="meta">Open a project to give it a filming or publishing date.</p><div class="tags">${un.map(p=>`<button class="btn sm" data-a="edit-project" data-id="${esc(p.id)}">${esc(p.title)}</button>`).join('')}</div>`:'<p class="meta">Every active project has at least one date.</p>'}</section></div>`; }};
 
@@ -627,7 +653,7 @@ V.backup={title:'Data & backup',sub:'Where your data lives, how to back it up, a
 
 /* ---------- rendering ---------- */
 function renderNav(){ $('#nav').innerHTML=NAV.map(([r,l,c])=>`<a href="#${r}"${S.route===r?' aria-current="page"':''}>${l}${c?`<span class="cnt">${c()}</span>`:''}</a>`).join('');
-  const s=$('#sync'); s.className='sync '+(S.mode==='sync'?'ok':S.mode==='local'?'local':''); s.lastElementChild.textContent=S.mode==='sync'?'Synced to your Claude account':S.mode==='local'?'Stored in this browser only':'Connecting…';
+  const s=$('#sync'); s.className='sync '+(S.mode==='sync'?'ok':S.mode==='local'?'local':''); s.lastElementChild.textContent=S.mode==='sync'?'Synced to your Claude account':S.mode==='local'?(NATIVE?'Stored on this device only':'Stored in this browser only'):'Connecting…';
   $('#clock').textContent=fmt(todayLux(),{weekday:'short',day:'numeric',month:'short',year:'numeric'})+' · Luxembourg'; }
 function renderBody(){ const v=V[S.route]; $('#v-body').innerHTML=!S.ready?loading():v.body(); }
 function renderData(){ if(!S.unlocked) return; renderNav(); renderBody(); if(S.route==='repurpose') $('#v-tools').innerHTML=V.repurpose.tools(); }
@@ -643,13 +669,15 @@ const ta=(id,v,rows=3,ph='')=>`<textarea id="${id}" rows="${rows}" placeholder="
 const chks=(name,vals,opts)=>`<div class="chks">${opts.map(o=>`<label class="chk"><input type="checkbox" name="${name}" value="${o}"${(vals||[]).includes(o)?' checked':''}>${o}</label>`).join('')}</div>`;
 const rowHtml=(s,withCheck)=>`<div class="row">${withCheck?`<input type="checkbox"${s.done?' checked':''} aria-label="Done">`:''}<input type="text" value="${esc(s.t)}" aria-label="Item"><button type="button" class="x" data-a="row-del" aria-label="Remove">×</button></div>`;
 const rowsEd=(id,items,withCheck,add)=>`<div class="rows" id="${id}" data-check="${withCheck?1:''}">${items.map(s=>rowHtml(s,withCheck)).join('')}</div><div><button type="button" class="btn sm" data-a="row-add" data-t="${id}">${add}</button></div>`;
+const taskRow=k=>`<div class="row task"><input type="checkbox"${k.done?' checked':''} aria-label="Done"><input type="date" value="${esc(k.date||'')}" aria-label="Date"><input type="text" value="${esc(k.t)}" aria-label="Step"><button type="button" class="x" data-a="row-del" aria-label="Remove">×</button></div>`;
+const readTasks=()=>$$('#p-tasks .row').map(r=>({t:$('input[type=text]',r).value.trim(),date:$('input[type=date]',r).value,done:$('input[type=checkbox]',r).checked})).filter(k=>k.t);
 const readRows=id=>$$('#'+id+' .row').map(r=>({t:$('input[type=text]',r).value.trim(),done:!!($('input[type=checkbox]',r)||{}).checked})).filter(s=>s.t);
 const val=id=>$('#'+id).value.trim(); const picked=name=>$$(`input[name=${name}]:checked`).map(i=>i.value);
 let modalCtx=null;
 function openModal(title,body,foot,ctx){ modalCtx=ctx||null; $('#modal-root').innerHTML=`<div class="overlay" data-a="overlay"><form class="modal" role="dialog" aria-modal="true" aria-label="${esc(title)}" novalidate><div class="modal-h"><h2>${esc(title)}</h2><button type="button" class="x" data-a="close" aria-label="Close">×</button></div><div class="modal-b">${body}</div><div class="modal-f">${foot}</div></form></div>`;
   const f=$('#modal-root input[type=text]'); if(f&&!ctx?.noFocus) f.focus(); }
 function closeModal(){ $('#modal-root').innerHTML=''; modalCtx=null; }
-const P_FIELDS=['title','origin','verify','verifyNote','status','type','topic','people','location','filmDate','publishDate','priority','languages','platforms','aspect','collab','material','hook','shotlist','questions','titleIdeas','thumbnail','caption','cta','notes'];
+const P_FIELDS=['title','origin','verify','verifyNote','status','type','topic','people','location','filmDate','publishDate','priority','languages','platforms','aspect','collab','material','hook','shotlist','questions','titleIdeas','thumbnail','caption','cta','notes','style','styleSteps','tasks'];
 function trackEdits(prev,next,fields){ if(!prev) {next.userCreated=true;return;} if(prev.userCreated){next.userCreated=true;return;}
   const e=new Set(prev.edited||[]); fields.forEach(k=>{if(JSON.stringify(prev[k]??null)!==JSON.stringify(next[k]??null)) e.add(k);}); next.edited=[...e]; }
 
@@ -669,17 +697,22 @@ function projectModal(p,isNew){
   <fieldset><legend>Story</legend>${fld('Hook',ta('p-hook',p.hook,2),'wide')}
    <div class="fld wide"><span>Shotlist</span>${rowsEd('p-shots',p.shotlist||[],true,'Add shot')}</div>
    ${fld('Interview questions <small>one per line</small>',ta('p-questions',(p.questions||[]).join('\n'),4),'wide')}</fieldset>
+  <fieldset><legend>Edit style</legend>${fld('Style preset',sel('p-style',p.style||'',STYLES.map(x=>[x.id,x.name]),'No preset'))}
+   <div class="fld wide"><span>Style checklist for CapCut <small>a checklist for your own edit; the app does not edit video</small></span>${rowsEd('p-styleSteps',p.styleSteps||[],true,'Add step')}<div><button type="button" class="btn sm" data-a="style-fill">Fill from preset</button></div></div></fieldset>
+  <fieldset><legend>Production plan</legend>
+   <div class="fld wide"><span>Dated steps <small>these appear in the calendar on their day</small></span><div class="rows" id="p-tasks">${(p.tasks||[]).map(taskRow).join('')}</div>
+   <div class="tools"><button type="button" class="btn sm" data-a="plan-gen">Generate plan from dates</button><button type="button" class="btn sm" data-a="task-add">Add step</button></div></div></fieldset>
   <fieldset><legend>Packaging</legend>${fld('Title ideas <small>one per line</small>',ta('p-titleIdeas',(p.titleIdeas||[]).join('\n'),3),'wide')}
    ${fld('Thumbnail concept (Canva)',ta('p-thumbnail',p.thumbnail,2),'wide')}${fld('Caption',ta('p-caption',p.caption,3),'wide')}
    ${fld('Call to action',inp('p-cta',p.cta),'wide')}${fld('Notes',ta('p-notes',p.notes,3),'wide')}</fieldset>`;
   const foot=`${isNew?'':`<button type="button" class="btn danger" data-a="del" data-c="projects" data-id="${esc(p.id)}">Delete</button><button type="button" class="btn" data-a="new-clip" data-kind="project" data-id="${esc(p.id)}">New clip from this</button>`}<span class="sp"></span><button type="button" class="btn" data-a="close">Cancel</button><button type="submit" class="btn pri">${isNew?'Create project':'Save changes'}</button>`;
   openModal(isNew?'New project':'Edit project',body,foot,{kind:'project',rec:p,isNew}); }
-function blankProject(o){return {id:uid('p'),origin:'own',verify:false,verifyNote:'',status:'Idea',type:'',topic:'Football',people:'',location:'',filmDate:'',publishDate:'',priority:'medium',languages:[],platforms:['YouTube'],aspect:'16:9',collab:'none',material:'',hook:'',shotlist:[],questions:[],titleIdeas:[],thumbnail:'',caption:'',cta:'',notes:'',edited:[],...o};}
+function blankProject(o){return {id:uid('p'),origin:'own',verify:false,verifyNote:'',status:'Idea',type:'',topic:'Football',people:'',location:'',filmDate:'',publishDate:'',priority:'medium',languages:[],platforms:['YouTube'],aspect:'16:9',collab:'none',material:'',hook:'',shotlist:[],questions:[],titleIdeas:[],thumbnail:'',caption:'',cta:'',notes:'',style:'',styleSteps:[],tasks:[],edited:[],...o};}
 function saveProject(){ const {rec,isNew}=modalCtx; const title=val('p-title'); if(!title){toast('Give the project a title.');$('#p-title').focus();return;}
-  const n={...clone(rec),title,status:val('p-status'),priority:val('p-priority'),type:val('p-type'),topic:val('p-topic'),people:val('p-people'),location:val('p-location'),filmDate:val('p-filmDate'),publishDate:val('p-publishDate'),aspect:val('p-aspect'),collab:val('p-collab'),origin:val('p-origin'),verify:$('#p-verify').checked,verifyNote:val('p-verifyNote'),languages:picked('p-lang'),platforms:picked('p-plat'),material:val('p-material'),hook:val('p-hook'),shotlist:readRows('p-shots'),questions:lines(val('p-questions')),titleIdeas:lines(val('p-titleIdeas')),thumbnail:val('p-thumbnail'),caption:val('p-caption'),cta:val('p-cta'),notes:val('p-notes')};
+  const n={...clone(rec),title,status:val('p-status'),priority:val('p-priority'),type:val('p-type'),topic:val('p-topic'),people:val('p-people'),location:val('p-location'),filmDate:val('p-filmDate'),publishDate:val('p-publishDate'),aspect:val('p-aspect'),collab:val('p-collab'),origin:val('p-origin'),verify:$('#p-verify').checked,verifyNote:val('p-verifyNote'),languages:picked('p-lang'),platforms:picked('p-plat'),material:val('p-material'),hook:val('p-hook'),shotlist:readRows('p-shots'),questions:lines(val('p-questions')),titleIdeas:lines(val('p-titleIdeas')),thumbnail:val('p-thumbnail'),caption:val('p-caption'),cta:val('p-cta'),notes:val('p-notes'),style:val('p-style'),styleSteps:readRows('p-styleSteps'),tasks:readTasks()};
   trackEdits(isNew?null:S.data.projects[rec.id],n,P_FIELDS); put('projects',n); closeModal(); toast(isNew?'Project created.':'Project saved.'); }
 
-const V_FIELDS=['label','title','platform','format','topic','views','viewsText','likes','duration','ageText','publishedAt','source','capturedAt','url','notes'];
+const V_FIELDS=['label','title','platform','format','topic','views','viewsText','likes','duration','ageText','publishedAt','source','capturedAt','url','notes','hookNote','screenNote','whyNote'];
 function videoModal(v,isNew){
   const body=`<div class="note">Record only what you can read on the platform or in a screenshot. Leave anything you cannot see blank.</div>
   <fieldset><legend>Video</legend>${fld('Working name',inp('v-label',v.label),'wide')}${fld('Title as visible on the channel',inp('v-title',v.title,'text','Leave blank if not readable'),'wide')}
@@ -687,14 +720,15 @@ function videoModal(v,isNew){
    ${fld('Link (optional)',inp('v-url',v.url),'wide')}</fieldset>
   <fieldset><legend>Metrics as shown</legend>${fld('Views <small>e.g. 1.2K or 12,345</small>',inp('v-views',v.viewsText||(v.views!=null?String(v.views):'')))}${fld('Duration <small>e.g. 12:34</small>',inp('v-duration',v.duration))}
    ${fld('Likes',inp('v-likes',v.likes!=null?String(v.likes):''))}${fld('Upload age as shown <small>e.g. 3 months ago</small>',inp('v-age',v.ageText))}${fld('Exact publish date <small>only if you know it</small>',inp('v-pub',v.publishedAt,'date'))}${fld('Source',sel('v-source',v.source,SOURCES))}${fld('Capture date',inp('v-captured',v.capturedAt,'date'))}
-   ${fld('Notes',ta('v-notes',v.notes,3),'wide')}</fieldset>`;
+   ${fld('Notes',ta('v-notes',v.notes,3),'wide')}</fieldset>
+  <fieldset><legend>Breakdown · your own notes after watching</legend>${fld('Hook: the first three seconds',ta('v-hook',v.hookNote||'',2,'What is said and shown before anyone can scroll away?'),'wide')}${fld('What happens on screen',ta('v-screen',v.screenNote||'',2),'wide')}${fld('Why it worked, or did not',ta('v-why',v.whyNote||'',2),'wide')}</fieldset>`;
   const foot=`${isNew?'':`<button type="button" class="btn danger" data-a="del" data-c="videos" data-id="${esc(v.id)}">Delete</button><button type="button" class="btn" data-a="new-clip" data-kind="video" data-id="${esc(v.id)}">New clip from this</button>`}<span class="sp"></span><button type="button" class="btn" data-a="close">Cancel</button><button type="submit" class="btn pri">${isNew?'Add to archive':'Save changes'}</button>`;
   openModal(isNew?'Add published video':'Edit archive record',body,foot,{kind:'video',rec:v,isNew}); }
 function blankVideo(o){return {id:uid('v'),label:'',title:'',platform:'',format:'',topic:'',views:null,viewsText:'',likes:null,comments:null,duration:'',ageText:'',publishedAt:'',source:'Manual entry',capturedAt:todayLux(),url:'',notes:'',edited:[],...o};}
 function saveVideo(){ const {rec,isNew}=modalCtx; const lab=val('v-label')||val('v-title'); if(!lab){toast('Give the video a working name or a title.');$('#v-label').focus();return;}
   const vt=val('v-views'), views=parseViews(vt); if(vt&&views==null){toast('That view count could not be read. Use a form like 1.2K or 12,345.');$('#v-views').focus();return;}
   const lt=val('v-likes'), likes=lt?parseViews(lt):null;
-  const n={...clone(rec),label:lab,title:val('v-title'),platform:val('v-platform'),format:val('v-format'),likes,publishedAt:val('v-pub'),topic:val('v-topic'),url:val('v-url'),viewsText:vt,views,duration:val('v-duration'),ageText:val('v-age'),source:val('v-source'),capturedAt:val('v-captured'),notes:val('v-notes')};
+  const n={...clone(rec),label:lab,title:val('v-title'),platform:val('v-platform'),format:val('v-format'),likes,publishedAt:val('v-pub'),topic:val('v-topic'),url:val('v-url'),viewsText:vt,views,duration:val('v-duration'),ageText:val('v-age'),source:val('v-source'),capturedAt:val('v-captured'),notes:val('v-notes'),hookNote:val('v-hook'),screenNote:val('v-screen'),whyNote:val('v-why')};
   trackEdits(isNew?null:S.data.videos[rec.id],n,V_FIELDS); put('videos',n); closeModal(); toast(isNew?'Video added to the archive.':'Archive record saved.'); }
 
 const C_FIELDS=['title','sourceKind','sourceId','status','tcIn','tcOut','angle','hook','framing','subs','cover','pub','notes'];
@@ -757,6 +791,10 @@ const A={
  'reset-template'(el){ if(!el.dataset.armed){el.dataset.armed=1;el.textContent='Confirm reset';return;} del('templates',el.dataset.id); toast('Template reset to the default.');},
  'row-add'(el){const box=$('#'+el.dataset.t); box.insertAdjacentHTML('beforeend',rowHtml({t:'',done:false},!!box.dataset.check)); $('input[type=text]',box.lastElementChild).focus();},
  'row-del'(el){el.closest('.row').remove();},
+ 'task-add'(){const b=$('#p-tasks'); b.insertAdjacentHTML('beforeend',taskRow({t:'',date:$('#p-filmDate').value||$('#p-publishDate').value||todayLux(),done:false})); $('input[type=text]',b.lastElementChild).focus();},
+ 'plan-gen'(){const f=$('#p-filmDate').value,pb=$('#p-publishDate').value; if(!f&&!pb){toast('Set a filming or publishing date first.');return;}
+   const keep=readTasks().filter(k=>k.done); $('#p-tasks').innerHTML=[...keep,...genPlan(f,pb,$('#p-style').value)].map(taskRow).join(''); toast('Plan generated. Finished steps were kept. Save to put it in the calendar.');},
+ 'style-fill'(){const st=STYLES.find(x=>x.id===$('#p-style').value); if(!st){toast('Choose a style preset first.');return;} $('#p-styleSteps').innerHTML=st.steps.map(t=>rowHtml({t,done:false},true)).join('');},
  del(el){ if(!el.dataset.armed){el.dataset.armed=1;el.textContent='Confirm delete';return;} del(el.dataset.c,el.dataset.id); closeModal(); toast('Deleted.');},
  week(el){const d=+el.dataset.d; S.ui.week=d===0?'':addDays(S.ui.week||mondayOf(todayLux()),7*d); renderBody();},
  async 'export-file'(){ try{await S.dl.save({filename:`touchline-studio-backup-${todayLux()}.json`,data:JSON.stringify(exportObj(),null,1)});toast('Backup saved.');}catch(e){toast(e&&e.code==='declined'?'Save cancelled.':'The file could not be saved here. Use Copy backup JSON instead.');} },
@@ -771,7 +809,8 @@ document.addEventListener('click',ev=>{const el=ev.target.closest('[data-a]'); i
 document.addEventListener('submit',ev=>{ev.preventDefault(); if(!modalCtx||ev.target.id==='lock-form') return; ({project:saveProject,video:saveVideo,clip:saveClip,template:saveTemplate})[modalCtx.kind](); });
 document.addEventListener('keydown',ev=>{ if(ev.key==='Escape'&&modalCtx) closeModal(); });
 document.addEventListener('input',ev=>{const el=ev.target; if(el.dataset.f){S.ui.f[el.dataset.f]=el.value;saveUI();renderBody();} else if(el.dataset.af){S.ui.af[el.dataset.af]=el.value;saveUI();renderBody();} else if('cf' in el.dataset){S.ui.cf=el.value;renderBody();} });
-document.addEventListener('change',ev=>{const el=ev.target; if(el.dataset.aChange==='status'){const p=S.data.projects[el.dataset.id]; if(p&&p.status!==el.value){const n=clone(p);n.status=el.value;trackEdits(p,n,['status']);put('projects',n);toast('Moved to '+el.value+'.');}} });
+document.addEventListener('change',ev=>{const el=ev.target; if(el.dataset.aChange==='task'){const p=S.data.projects[el.dataset.id]; if(p&&p.tasks&&p.tasks[el.dataset.i]){const n=clone(p);n.tasks[el.dataset.i].done=el.checked;trackEdits(p,n,['tasks']);put('projects',n);} return;}
+  if(el.dataset.aChange==='status'){const p=S.data.projects[el.dataset.id]; if(p&&p.status!==el.value){const n=clone(p);n.status=el.value;trackEdits(p,n,['status']);put('projects',n);toast('Moved to '+el.value+'.');}} });
 /* drag and drop between columns */
 let dragId=null;
 document.addEventListener('dragstart',ev=>{const c=ev.target.closest&&ev.target.closest('.card'); if(!c) return; dragId=c.dataset.id; c.classList.add('dragging'); ev.dataTransfer.effectAllowed='move'; ev.dataTransfer.setData('text/plain',dragId);});

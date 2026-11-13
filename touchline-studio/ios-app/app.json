@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "Touchline Studio",
+    "slug": "touchline-studio",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "lu.miguelebrahimi.touchlinestudio",
+      "buildNumber": "1",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "package": "lu.miguelebrahimi.touchlinestudio"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
