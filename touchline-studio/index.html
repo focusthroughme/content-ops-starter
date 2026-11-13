@@ -1,6 +1,6 @@
 <title>Touchline Studio</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Nunito:wght@700;800;900&display=swap">
 <style>
 /* Layout: frosted sidebar beside a calm grey canvas of white rounded sheets; the sidebar folds into a frosted top bar on phones. */
 :root{
@@ -253,10 +253,58 @@ textarea.code{font:12px/1.4 ui-monospace,"SF Mono",Menlo,Consolas,monospace;widt
 }
 
 @media (max-width:720px){ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)} }
+
+/* ---- v4: looser, more colourful creator look ---- */
+:root{ --round:ui-rounded,"SF Pro Rounded","Nunito",var(--font); --grad:linear-gradient(135deg,#0fb86b,#b4ec51); --grad-fg:#04250f; --r:24px;
+  --t-football:#12b76a; --t-athlete:#f97316; --t-challenge:#ec4899; --t-community:#14b8a6; --t-lifestyle:#8b5cf6; --t-travel:#0ea5e9; --t-motivation:#f59e0b; --t-other:#94a3b8;
+  --bg:#f4f6f3; --hero:linear-gradient(135deg,#0b1f44 0%,#0f5132 70%,#0fb86b 130%); --hero-fg:#ffffff }
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#07090c; --hero:linear-gradient(135deg,#0b1f44 0%,#0c3b26 70%,#0fb86b 140%) } }
+:root[data-theme="dark"]{ --bg:#07090c; --hero:linear-gradient(135deg,#0b1f44 0%,#0c3b26 70%,#0fb86b 140%) }
+:root[data-theme="light"]{ --bg:#f4f6f3 }
+h1,h2,.brand b,.col-h,.day-h,.hello,.stat b,.tile b{font-family:var(--round)}
+h1{font-size:38px;font-weight:900} h2{font-size:20px;font-weight:800}
+.btn.pri,.nav a[aria-current="page"]{background:var(--grad);color:var(--grad-fg);box-shadow:0 6px 18px color-mix(in srgb,#0fb86b 35%,transparent)}
+.nav a[aria-current="page"] .cnt{color:var(--grad-fg)}
+.brand-mark,.lock-mark{background:var(--grad)} .brand-mark::before,.brand-mark::after,.lock-mark i,.lock-mark i::before{border-color:var(--grad-fg)}
+.card{border-radius:18px;padding:14px;gap:9px} .card-t{font-size:15.5px}
+.col{border-radius:22px} .col-h{font-size:16px;gap:8px;justify-content:flex-start} .col-h span{margin-left:auto}
+.col-h::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--sc,var(--mute))}
+.col[data-status="Idea"]{--sc:#f59e0b} .col[data-status="Planned"]{--sc:#0ea5e9} .col[data-status="Filmed"]{--sc:#8b5cf6} .col[data-status="Editing"]{--sc:#ec4899} .col[data-status="Ready"]{--sc:#12b76a} .col[data-status="Published"]{--sc:#94a3b8}
+.tchip{display:inline-flex;align-items:center;font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:999px;white-space:nowrap;background:color-mix(in srgb,var(--c) 18%,transparent);color:color-mix(in srgb,var(--c) 62%,var(--fg))}
+.bar-fill{background:var(--grad)}
+.ver{font-size:11px;opacity:.7}
+/* Home */
+.hero{background:var(--hero);color:var(--hero-fg);border-radius:28px;padding:28px;display:flex;flex-wrap:wrap;gap:18px;align-items:flex-end;justify-content:space-between;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border:3px solid rgba(255,255,255,.14);border-radius:50%}
+.hero>*{position:relative;z-index:1}
+.hello{font-size:15px;font-weight:800;opacity:.85}
+.hero h2{font-size:30px;font-weight:900;line-height:1.1;max-width:18ch;color:#fff}
+.hero .btn{border:0;background:rgba(255,255,255,.16);color:#fff} .hero .btn:hover{background:rgba(255,255,255,.26)}
+.hero .btn.pri{background:#fff;color:#0b1f44;box-shadow:none}
+.tile{border-radius:24px;padding:20px;color:#fff;display:flex;flex-direction:column;gap:2px;min-width:0;box-shadow:var(--shadow);text-decoration:none;position:relative;overflow:hidden}
+.tile:hover{text-decoration:none;transform:translateY(-3px)} .tile{transition:transform .3s var(--ease)}
+.tile span{font-weight:700;opacity:.9} .tile b{font-size:40px;font-weight:900;line-height:1.05;letter-spacing:-.03em} .tile small{opacity:.8}
+.tile.tiktok{background:linear-gradient(135deg,#111,#2b2b33 60%,#00c2c7 160%)} .tile.youtube{background:linear-gradient(135deg,#e5202b,#ff7a59)} .tile.instagram{background:linear-gradient(135deg,#f58529,#dd2a7b 55%,#8134af)}
+.best{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:10px}
+.best .act b{font-family:var(--round);font-size:22px}
+/* Phone tab bar */
+.tabbar{display:none}
+@media (max-width:720px){
+  h1{font-size:30px} .hero{padding:22px;border-radius:24px} .hero h2{font-size:25px} .tile b{font-size:32px}
+  .side .nav{display:none} .side{padding-bottom:12px}
+  .main{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+  .tabbar{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;z-index:20;background:color-mix(in srgb,var(--surface) 90%,transparent);backdrop-filter:blur(26px) saturate(180%);-webkit-backdrop-filter:blur(26px) saturate(180%);border-top:1px solid var(--line);
+    padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
+  .tabbar a,.tabbar button{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;font-size:10.5px;font-weight:700;color:var(--mute);text-decoration:none;border-radius:12px;cursor:pointer}
+  .tabbar svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .tabbar [aria-current="page"]{color:#0fa35f}
+  .toast{bottom:calc(92px + env(safe-area-inset-bottom,0px))}
+}
+.more-list{display:grid;gap:8px} .more-list a{display:flex;justify-content:space-between;padding:14px 16px;border-radius:14px;background:var(--surface-2);color:var(--fg);font-weight:700;text-decoration:none}
 </style>
 
 <div class="lock" id="lock"><form class="lock-card" id="lock-form" novalidate>
-  <span class="lock-mark" aria-hidden="true"><i></i></span><h1>Touchline Studio</h1><p>Enter your password to open your studio.</p>
+  <span class="lock-mark" aria-hidden="true"><i></i></span><h1>Hey Miguel 👋</h1><p>Type your password and let’s get to work.</p>
   <input type="password" id="lock-pw" autocomplete="current-password" placeholder="Password" aria-label="Password">
   <button class="btn pri" type="submit">Unlock</button><p class="lock-err" id="lock-err" aria-live="polite"></p></form></div>
 <div class="app" id="app" hidden>
@@ -265,7 +313,7 @@ textarea.code{font:12px/1.4 ui-monospace,"SF Mono",Menlo,Consolas,monospace;widt
     <nav class="nav" id="nav" aria-label="Sections"></nav>
     <div class="side-foot">
       <span class="sync" id="sync"><i></i><span>Connecting…</span></span>
-      <span id="clock"></span>
+      <span id="clock"></span><span class="ver">Version 4</span>
       <button class="btn sm" data-a="lock" id="lock-btn">Lock</button>
     </div>
   </aside>
@@ -275,6 +323,7 @@ textarea.code{font:12px/1.4 ui-monospace,"SF Mono",Menlo,Consolas,monospace;widt
     <div id="v-body"></div>
   </main>
 </div>
+<nav class="tabbar" id="tabbar" aria-label="Main" hidden></nav>
 <div id="modal-root"></div>
 <div id="toast-root" aria-live="polite"></div>
 
@@ -385,7 +434,7 @@ const median=a=>{if(!a.length)return null;const s=[...a].sort((x,y)=>x-y),m=s.le
 function toast(msg){const r=$('#toast-root');r.innerHTML=`<div class="toast">${esc(msg)}</div>`;clearTimeout(toast.t);toast.t=setTimeout(()=>r.innerHTML='',3200);}
 
 /* ---------- state + storage ---------- */
-const S={mode:'loading',db:null,dl:null,slow:false,data:{projects:{},videos:{},clips:{},templates:{},channels:{},notes:{}},route:'pipeline',unlocked:false,
+const S={mode:'loading',db:null,dl:null,slow:false,data:{projects:{},videos:{},clips:{},templates:{},channels:{},notes:{}},route:'home',unlocked:false,
   ui:{pview:'board',f:{q:'',type:'',topic:'',lang:'',platform:'',label:''},af:{q:'',topic:'',platform:'',format:'',sort:'views'},cf:'',week:'',seg:'yt-long',rankAll:false}};
 try{Object.assign(S.ui,JSON.parse(localStorage.getItem(LSUI)||'{}'));}catch(e){}
 S.ui.week=''; S.ui.af={q:'',topic:'',platform:'',format:'',sort:'views',...S.ui.af}; S.ui.seg=S.ui.seg||'yt-long'; // always open on the current week
@@ -451,9 +500,10 @@ function filteredProjects(){ const f=S.ui.f,q=f.q.trim().toLowerCase();
     &&(!f.type||p.type===f.type)&&(!f.topic||p.topic===f.topic)&&(!f.lang||(p.languages||[]).includes(f.lang))&&(!f.platform||(p.platforms||[]).includes(f.platform))
     &&(!f.label||(f.label==='verify'?p.verify:p.origin===f.label)))
   .sort((a,b)=>({high:0,medium:1,low:2}[a.priority]-({high:0,medium:1,low:2})[b.priority])||(a.publishDate||'9').localeCompare(b.publishDate||'9')||a.title.localeCompare(b.title)); }
+const topicChip=t=>t?`<span class="tchip" style="--c:var(--t-${esc(String(t).toLowerCase())},var(--t-other))">${esc(t)}</span>`:'';
 function originTag(p){return p.origin==='new'?'<span class="tag new">New suggestion</span>':p.origin==='previous'?'<span class="tag prev">Previous idea</span>':'<span class="tag">Added by you</span>';}
 function collabTag(p){return p.collab==='confirmed'?'<span class="tag ok">Collab confirmed</span>':p.collab==='asked'?'<span class="tag">Asked, not confirmed</span>':p.collab==='idea'?'<span class="tag">Idea, nobody asked</span>':'';}
-function projectTags(p){return `<div class="tags">${originTag(p)}${p.verify?'<span class="tag verify">Status to verify</span>':''}${collabTag(p)}</div>`;}
+function projectTags(p){return `<div class="tags">${topicChip(p.topic)}${originTag(p)}${p.verify?'<span class="tag verify">Status to verify</span>':''}${collabTag(p)}</div>`;}
 function shotProgress(p){const n=(p.shotlist||[]).length;return n?`${p.shotlist.filter(s=>s.done).length}/${n} shots`:'';}
 function sourceName(c){const r=c.sourceKind==='project'?S.data.projects[c.sourceId]:S.data.videos[c.sourceId];return r?(c.sourceKind==='project'?r.title:(r.label||r.title)):'(original removed)';}
 
@@ -484,13 +534,28 @@ function buildActions(){ const t=todayLux(), out=[];
   return out.sort((a,b)=>b.score-a.score||a.p.title.localeCompare(b.p.title)); }
 
 /* ---------- views ---------- */
-const NAV=[['pipeline','Content pipeline',()=>all('projects').length],['archive','Published archive',()=>all('videos').length],['analysis','Channel analysis',null],['calendar','Weekly calendar',null],['actions','Next actions',null],['templates','Templates',()=>TEMPLATES.length],['repurpose','Shorts & Reels',()=>all('clips').length],['backup','Data & backup',null]];
+const NAV=[['home','Home',null],['pipeline','Pipeline',()=>all('projects').length],['calendar','Calendar',null],['actions','Next up',null],['archive','Archive',()=>all('videos').length],['analysis','Analysis',null],['templates','Templates',()=>TEMPLATES.length],['repurpose','Shorts & Reels',()=>all('clips').length],['backup','Data & backup',null]];
 const opt=(arr,v,any)=>`<option value="">${any}</option>`+arr.map(o=>{const[val,lab]=Array.isArray(o)?o:[o,o];return `<option value="${esc(val)}"${val===v?' selected':''}>${esc(lab)}</option>`;}).join('');
 const starter=()=>`<div class="empty"><b>Nothing stored yet.</b><span>Load the starter plan with your future ideas and known published videos, or start from scratch.</span><button class="btn pri" data-a="starter">Load starter plan</button></div>`;
 const loading=()=>`<div class="empty">${S.slow?'Your data cannot be reached yet. Still trying…':'Loading your data…'}</div>`;
 
 const V={};
-V.pipeline={title:'Content pipeline',sub:'Every active video from first idea to published. Drag cards between columns or use the status menu on each card.',
+const ICON={home:'<path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',pipeline:'<rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="10" y="4" width="5" height="11" rx="1.5"/><rect x="17" y="4" width="4" height="7" rx="1.5"/>',calendar:'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/>',analysis:'<path d="M5 20V11M12 20V4M19 20v-7"/>',more:'<circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/>'};
+const TABS=[['home','Home'],['pipeline','Pipeline'],['calendar','Calendar'],['analysis','Analysis']];
+V.home={title:'',sub:'',tools(){return '';},
+ body(){ if(isEmpty()) return starter();
+  const t=todayLux(), tasks=allTasks(), due=tasks.filter(k=>k.date===t&&!k.done), late=tasks.filter(k=>k.date<t&&!k.done), acts=buildActions().filter(a=>a.lane!=='check').slice(0,3);
+  const film=all('projects').filter(p=>p.filmDate===t), pub=all('projects').filter(p=>p.publishDate===t), n=due.length+late.length;
+  const line=film.length?`Shoot day: ${film[0].title}`:pub.length?`Posting today: ${pub[0].title}`:n?`${n} thing${n===1?'':'s'} to do today`:'Nothing due today. Pick your next shoot.';
+  const best=SEGS.map(([k,l,,f])=>{const v=all('videos').filter(f).filter(x=>x.views!=null).sort((a,b)=>b.views-a.views)[0];return v?`<div class="act"><span class="what">Top ${esc(l)}</span><b class="num">${nf(v.views)} views</b><button class="linkish" data-a="edit-video" data-id="${esc(v.id)}">${esc((v.label||v.title).slice(0,70))}</button></div>`:'';}).join('');
+  const tiles=['tiktok','youtube','instagram'].map(id=>S.data.channels[id]).filter(Boolean).map(c=>`<a class="tile ${esc(c.id)}" href="#analysis"><span>${esc(c.name)}</span><b class="num">${esc((c.stats&&c.stats[0]||[])[1]||'')}</b><small>${esc(((c.stats&&c.stats[0]||[])[0]||'').toLowerCase())} · ${c.capturedAt?fmtShort(c.capturedAt):''}</small></a>`).join('');
+  return `<div class="grid"><section class="hero"><div><p class="hello">Moien Miguel 👋 · ${fmt(t,{weekday:'long',day:'numeric',month:'long'})}</p><h2>${esc(line)}</h2></div>
+    <div class="tools"><button class="btn pri" data-a="new-project">+ New idea</button><button class="btn" data-a="go" data-r="calendar">Open calendar</button></div></section>
+   ${tiles?`<div class="grid c3">${tiles}</div>`:''}
+   <div class="grid c2"><section class="panel today-panel"><h2>Today</h2>${n?`<div class="todos">${late.map(k=>todoHtml(k,true)).join('')}${due.map(k=>todoHtml(k,false)).join('')}</div>`:`<p class="meta">${tasks.length?'All clear for today.':'No plan yet. Open a project, set the dates and tap “Generate plan from dates”. Your steps show up here.'}</p>`}</section>
+    <section class="panel"><h2>Next up</h2>${acts.map(a=>`<div class="act"><span class="what">${esc(a.what)}</span><button class="linkish" data-a="edit-project" data-id="${esc(a.p.id)}">${esc(a.p.title)}</button><div class="meta">${esc(a.reasons.slice(0,2).join(' · '))}</div></div>`).join('')||'<p class="meta">Add a project to get suggestions.</p>'}<div><button class="btn sm" data-a="go" data-r="actions">See all</button></div></section></div>
+   ${best?`<section class="panel"><h2>Your best so far</h2><div class="best">${best}</div></section>`:''}</div>`; }};
+V.pipeline={title:'Pipeline',sub:'From idea to posted. Drag a card, or tap its status.',
  tools(){const f=S.ui.f;return `<input type="search" id="pf-q" placeholder="Search projects" value="${esc(f.q)}" data-f="q" aria-label="Search projects">
   <select id="pf-type" data-f="type" aria-label="Content type">${opt(TYPES,f.type,'All content types')}</select>
   <select id="pf-topic" data-f="topic" aria-label="Topic">${opt(TOPICS,f.topic,'All topics')}</select>
@@ -518,7 +583,7 @@ V.pipeline={title:'Content pipeline',sub:'Every active video from first idea to 
      ${p.status==='Published'?`<button class="btn sm" data-a="archive-project" data-id="${esc(p.id)}">Move to archive</button>`:''}
    </article>`).join('')||`<div class="col-empty">Drop a card here</div>`}</section>`;}).join('')}</div></div>`; }};
 
-V.archive={title:'Published archive',sub:'Everything already published on YouTube, TikTok and Instagram, kept apart from active projects. Each number shows where it came from and when it was captured.',
+V.archive={title:'Archive',sub:'Everything you have posted, with the numbers and where they came from.',
  tools(){const f=S.ui.af;return `<input type="search" id="af-q" placeholder="Search archive" value="${esc(f.q)}" data-af="q" aria-label="Search archive">
   <select id="af-platform" data-af="platform" aria-label="Platform">${opt(PLATFORMS,f.platform,'All platforms')}</select>
   <select id="af-format" data-af="format" aria-label="Format">${opt(FORMATS,f.format,'All formats')}</select>
@@ -533,7 +598,7 @@ V.archive={title:'Published archive',sub:'Everything already published on YouTub
   return `<div class="grid"><div class="note"><b>${vs.length} records, ${withV} with a view count.</b> ${caps.length?`Numbers were captured ${caps.length===1?'on '+fmtFull(caps[0]):'between '+fmtFull(caps[0])+' and '+fmtFull(caps[caps.length-1])} and do not update by themselves. `:''}${unv?`${unv} records come only from your written brief and are unverified. `:''}Open a record to correct it; your edits are kept when the data is refreshed.</div>
   ${list.length?`<div class="tbl-wrap"><table><thead><tr><th>Video</th><th>Platform</th><th>Topic</th><th class="r">Views</th><th class="r">Likes</th><th>Length</th><th>Published</th><th>Source · captured</th><th></th></tr></thead><tbody>${list.map(v=>`<tr>
    <td class="t"><button class="linkish" data-a="edit-video" data-id="${esc(v.id)}">${esc(v.label||v.title)}</button>${v.title&&v.title!==v.label?`<div class="meta">${esc(v.title)}</div>`:''}${!v.title?'<div class="meta blank">Visible title not recorded</div>':''}${v.url?`<div class="meta"><a href="${esc(v.url)}" target="_blank" rel="noopener">Open on ${esc(v.platform||'platform')}</a></div>`:''}</td>
-   <td>${esc(v.platform)||'<span class="blank">blank</span>'}${v.format?`<div class="meta">${esc(v.format)}</div>`:''}</td><td>${esc(v.topic)||'<span class="blank">unsorted</span>'}</td>
+   <td>${esc(v.platform)||'<span class="blank">blank</span>'}${v.format?`<div class="meta">${esc(v.format)}</div>`:''}</td><td>${topicChip(v.topic)||'<span class="blank">unsorted</span>'}</td>
    <td class="r num">${v.views!=null?nf(v.views):'<span class="blank">blank</span>'}</td><td class="r num">${v.likes!=null?nf(v.likes):'<span class="blank">blank</span>'}</td><td class="num">${esc(v.duration)||'<span class="blank">blank</span>'}</td>
    <td class="num">${esc(whenText(v))||'<span class="blank">not shown</span>'}</td>
    <td><span class="tag ${v.source==='Brief (unverified)'?'verify':v.source==='Manual entry'?'':'ok'}">${esc(v.source||'No source')}</span>${v.capturedAt?`<div class="meta num">${fmtFull(v.capturedAt)}</div>`:''}</td>
@@ -542,7 +607,7 @@ V.archive={title:'Published archive',sub:'Everything already published on YouTub
 const SEGS=[['yt-long','YouTube videos','youtube',v=>v.platform==='YouTube'&&v.format!=='Short / Reel'&&v.format!=='Post'],['yt-short','YouTube Shorts','youtube',v=>v.platform==='YouTube'&&v.format==='Short / Reel'],['tiktok','TikTok','tiktok',v=>v.platform==='TikTok'],['instagram','Instagram','instagram',v=>v.platform==='Instagram']];
 const DEF_HYP=['Videos built around one named player may spread through that player’s own circle.','A numbered series may bring viewers back for the next episode.','The title language may change who clicks in a multilingual audience.','Shorts cut from a long video may send some viewers to the original.'];
 const DEF_EXP=['Record each new video’s views at 7 and 30 days so videos are compared at the same age.','Change one thing per experiment and write the result in the video’s notes.','Cut three Shorts from one long video and note the long video’s views before and 14 days after.'];
-V.analysis={title:'Channel analysis',sub:'What your public numbers show, one platform at a time. Observations come from the data; hypotheses are untested ideas to check.',
+V.analysis={title:'Analysis',sub:'What your numbers say. Facts first, guesses clearly marked.',
  tools(){return `<span class="seg" role="group" aria-label="Platform">${SEGS.map(([k,l])=>`<button data-a="seg" data-v="${k}" aria-pressed="${S.ui.seg===k}">${l}</button>`).join('')}</span>`;},
  body(){ const seg=SEGS.find(x=>x[0]===S.ui.seg)||SEGS[0], vs=all('videos').filter(seg[3]), wv=vs.filter(v=>v.views!=null).sort((a,b)=>b.views-a.views);
   const rate=v=>{const m=ageMonths(v);return m==null?null:v.views/Math.max(m,1);};
@@ -565,7 +630,7 @@ V.analysis={title:'Channel analysis',sub:'What your public numbers show, one pla
     <p class="meta">${esc(c.source||'')}${c.capturedAt?' · captured '+fmtFull(c.capturedAt):''}${c.url?` · <a href="${esc(c.url)}" target="_blank" rel="noopener">Open</a>`:''}</p></section>`).join('')}</div>`:''}
   <div class="note"><b>What this covers.</b> ${ch&&ch.coverage?esc(ch.coverage)+' ':''}Click-through rate, retention, watch time and the footage itself are not visible from public pages; for those, open YouTube Studio or the TikTok and Instagram insights. Topics were assigned from titles and captions only.</div>
    <section class="panel"><h2>${esc(seg[1])} ranked by views <small>${wv.length} with data</small></h2>
-    ${wv.length?`<div class="tbl-wrap" style="box-shadow:none"><table style="min-width:640px"><thead><tr><th>#</th><th>Video</th><th>Topic</th><th class="r">Views</th><th>Published</th><th class="r">≈ per month</th></tr></thead><tbody>${shown.map((v,i)=>{const r=rate(v);return `<tr><td class="num">${i+1}</td><td class="t"><button class="linkish" data-a="edit-video" data-id="${esc(v.id)}">${esc((v.label||v.title).slice(0,80))}</button></td><td>${esc(v.topic)||'<span class="blank">unsorted</span>'}</td><td class="r num">${nf(v.views)}</td><td class="num">${esc(whenText(v))||'<span class="blank">not shown</span>'}</td><td class="r num">${r==null?'<span class="blank">n/a</span>':nf(r)}</td></tr>`;}).join('')}</tbody></table></div>
+    ${wv.length?`<div class="tbl-wrap" style="box-shadow:none"><table style="min-width:640px"><thead><tr><th>#</th><th>Video</th><th>Topic</th><th class="r">Views</th><th>Published</th><th class="r">≈ per month</th></tr></thead><tbody>${shown.map((v,i)=>{const r=rate(v);return `<tr><td class="num">${i+1}</td><td class="t"><button class="linkish" data-a="edit-video" data-id="${esc(v.id)}">${esc((v.label||v.title).slice(0,80))}</button></td><td>${topicChip(v.topic)||'<span class="blank">unsorted</span>'}</td><td class="r num">${nf(v.views)}</td><td class="num">${esc(whenText(v))||'<span class="blank">not shown</span>'}</td><td class="r num">${r==null?'<span class="blank">n/a</span>':nf(r)}</td></tr>`;}).join('')}</tbody></table></div>
     ${wv.length>12?`<div><button class="btn sm" data-a="rank-all">${S.ui.rankAll?'Show top 12':'Show all '+wv.length}</button></div>`:''}`
     :`<div class="empty">No view counts recorded here yet.<button class="btn" data-a="go" data-r="archive">Open the archive</button></div>`}</section>
    <div class="grid c2">
@@ -579,7 +644,7 @@ V.analysis={title:'Channel analysis',sub:'What your public numbers show, one pla
    <section class="panel"><span class="kind exp">Practical experiments</span><ul>${li(note&&note.experiments||DEF_EXP)}</ul></section>
   </div></div>`; }};
 
-V.calendar={title:'Weekly calendar',sub:'What to do each day, with filming and publishing dates, Monday to Sunday, in Europe/Luxembourg time.',
+V.calendar={title:'Calendar',sub:'Your week: what to do, film and post. Luxembourg time.',
  tools(){return `<button class="btn" data-a="week" data-d="-1" aria-label="Previous week">← Previous</button><button class="btn" data-a="week" data-d="0">Today</button><button class="btn" data-a="week" data-d="1" aria-label="Next week">Next →</button>
   <strong id="week-label" class="num" style="margin-left:6px"></strong><span class="sp"></span>
   <span class="legend"><span><i style="background:var(--blue)"></i>Filming</span><span><i style="background:var(--accent)"></i>Publishing</span><span><i style="background:var(--mute)"></i>Step to do</span></span>`;},
@@ -598,7 +663,7 @@ V.calendar={title:'Weekly calendar',sub:'What to do each day, with filming and p
     <div class="day-add"><button data-a="new-project" data-film="${d}">+ Filming</button><button data-a="new-project" data-pub="${d}">+ Publishing</button></div></section>`;}).join('')}</div>
    <section class="panel"><h2>Not scheduled yet <small>${un.length}</small></h2>${un.length?`<p class="meta">Open a project to give it a filming or publishing date.</p><div class="tags">${un.map(p=>`<button class="btn sm" data-a="edit-project" data-id="${esc(p.id)}">${esc(p.title)}</button>`).join('')}</div>`:'<p class="meta">Every active project has at least one date.</p>'}</section></div>`; }};
 
-V.actions={title:'Priorities and next actions',sub:'What to film, edit or post next, ranked from each project’s status, deadlines, priority and available material.',
+V.actions={title:'Next up',sub:'What to film, edit and post next, and why.',
  tools(){return '';},
  body(){ const acts=buildActions(); if(!acts.length) return isEmpty()?starter():`<div class="empty">No active projects to rank.</div>`;
   const card=a=>`<div class="act"><span class="what">${esc(a.what)}</span><button class="linkish" data-a="edit-project" data-id="${esc(a.p.id)}">${esc(a.p.title)}</button>${projectTags(a.p)}<ul>${a.reasons.filter(Boolean).map(r=>`<li>${esc(r)}</li>`).join('')}</ul></div>`;
@@ -609,7 +674,7 @@ V.actions={title:'Priorities and next actions',sub:'What to film, edit or post n
    <div class="grid c2">${lane('film','Film next','Nothing is planned or ready to schedule. Confirm an idea first.')}${lane('edit','Edit next','No footage is waiting. Projects appear here once their status is Filmed or Editing.')}${lane('post','Post next','Nothing is ready to publish.')}${lane('check','Confirm and verify','Nothing is waiting on a confirmation.')}</div></div>`; }};
 
 const tplOf=id=>{const d=TEMPLATES.find(t=>t.id===id);return {...d,...(S.data.templates[id]||{}),id};};
-V.templates={title:'Reusable templates',sub:'Starting points for your five formats. Edit a template once, then create projects from it. Templates are written in English; write each language version yourself.',
+V.templates={title:'Templates',sub:'Starting points for your five formats. Written in English; write each language version yourself.',
  tools(){return '';},
  body(){return `<div class="grid c2">${TEMPLATES.map(d=>{const t=tplOf(d.id), custom=!!S.data.templates[d.id];return `<section class="panel"><h2>${esc(t.name)}${custom?'<small>edited by you</small>':''}</h2><p class="meta">${esc(t.blurb)}</p>
    <div><h3>Hook</h3><p>${esc(t.hook)}</p></div>
@@ -620,7 +685,7 @@ V.templates={title:'Reusable templates',sub:'Starting points for your five forma
    <div><h3>Caption</h3><p>${esc(t.caption)}</p></div><div><h3>Call to action</h3><p>${esc(t.cta)}</p></div>
    <div class="tools" style="margin-top:auto"><button class="btn pri" data-a="use-template" data-id="${d.id}">Create project</button><button class="btn" data-a="edit-template" data-id="${d.id}">Edit template</button>${custom?`<button class="btn danger" data-a="reset-template" data-id="${d.id}">Reset</button>`:''}</div></section>`;}).join('')}</div>`; }};
 
-V.repurpose={title:'Shorts & Reels from longform',sub:'Vertical clips linked to the video they come from. A clip marked “to look for” is a suggestion, not a moment confirmed in your footage.',
+V.repurpose={title:'Shorts & Reels',sub:'Clips linked to the video they come from. “To look for” means a suggestion, not a moment confirmed in your footage.',
  tools(){const src=[...new Set(all('clips').map(c=>c.sourceKind+':'+c.sourceId))].map(k=>{const[kind,id]=k.split(':');return [k,sourceName({sourceKind:kind,sourceId:id})];});
   return `<select id="cf-src" data-cf aria-label="Original video">${opt(src,S.ui.cf,'All original videos')}</select><span class="sp"></span><button class="btn pri" data-a="new-clip">New clip</button>`;},
  body(){ const cs=all('clips').filter(c=>!S.ui.cf||c.sourceKind+':'+c.sourceId===S.ui.cf); if(!all('clips').length) return isEmpty()?starter():`<div class="empty">No clips yet. Create one and link it to its original video.<button class="btn pri" data-a="new-clip">New clip</button></div>`;
@@ -652,12 +717,13 @@ V.backup={title:'Data & backup',sub:'Where your data lives, how to back it up, a
   </div>`; }};
 
 /* ---------- rendering ---------- */
-function renderNav(){ $('#nav').innerHTML=NAV.map(([r,l,c])=>`<a href="#${r}"${S.route===r?' aria-current="page"':''}>${l}${c?`<span class="cnt">${c()}</span>`:''}</a>`).join('');
+function renderNav(){ const tb=$('#tabbar'); tb.hidden=false; tb.innerHTML=TABS.map(([r,l])=>`<a href="#${r}"${S.route===r?' aria-current="page"':''}><svg viewBox="0 0 24 24" aria-hidden="true">${ICON[r]}</svg>${l}</a>`).join('')+`<button data-a="more"${TABS.some(x=>x[0]===S.route)?'':' aria-current="page"'}><svg viewBox="0 0 24 24" aria-hidden="true">${ICON.more}</svg>More</button>`;
+  $('#nav').innerHTML=NAV.map(([r,l,c])=>`<a href="#${r}"${S.route===r?' aria-current="page"':''}>${l}${c?`<span class="cnt">${c()}</span>`:''}</a>`).join('');
   const s=$('#sync'); s.className='sync '+(S.mode==='sync'?'ok':S.mode==='local'?'local':''); s.lastElementChild.textContent=S.mode==='sync'?'Synced to your Claude account':S.mode==='local'?(NATIVE?'Stored on this device only':'Stored in this browser only'):'Connecting…';
   $('#clock').textContent=fmt(todayLux(),{weekday:'short',day:'numeric',month:'short',year:'numeric'})+' · Luxembourg'; }
 function renderBody(){ const v=V[S.route]; $('#v-body').innerHTML=!S.ready?loading():v.body(); }
 function renderData(){ if(!S.unlocked) return; renderNav(); renderBody(); if(S.route==='repurpose') $('#v-tools').innerHTML=V.repurpose.tools(); }
-function renderRoute(){ const h=location.hash.slice(1); S.route=V[h]?h:'pipeline'; const v=V[S.route];
+function renderRoute(){ const h=location.hash.slice(1); S.route=V[h]?h:'home'; const v=V[S.route]; $('#view-head').hidden=!v.title;
   $('#view-title').textContent=v.title; $('#view-sub').textContent=v.sub; const t=v.tools(); $('#v-tools').innerHTML=t; $('#v-tools').hidden=!t; if(!S.unlocked) return; renderNav(); renderBody();
   ['#view-head','#v-tools','#v-body'].forEach((q,i)=>{const e=$(q);e.classList.remove('enter');void e.offsetWidth;e.style.animationDelay=(i*60)+'ms';e.classList.add('enter');}); window.scrollTo(0,0); }
 
@@ -806,7 +872,7 @@ const A={
    try{ if(!text) text=await file.text(); toast(importData(JSON.parse(text),mode)); }catch(e){toast(e instanceof SyntaxError?'That text is not valid JSON.':e.message);} }
 };
 document.addEventListener('click',ev=>{const el=ev.target.closest('[data-a]'); if(!el) return; const fn=A[el.dataset.a]; if(fn){ if(el.tagName==='BUTTON'&&el.type!=='submit') ev.preventDefault(); fn(el,ev);} });
-document.addEventListener('submit',ev=>{ev.preventDefault(); if(!modalCtx||ev.target.id==='lock-form') return; ({project:saveProject,video:saveVideo,clip:saveClip,template:saveTemplate})[modalCtx.kind](); });
+document.addEventListener('submit',ev=>{ev.preventDefault(); if(!modalCtx||modalCtx.kind==='more'||ev.target.id==='lock-form') return; ({project:saveProject,video:saveVideo,clip:saveClip,template:saveTemplate})[modalCtx.kind](); });
 document.addEventListener('keydown',ev=>{ if(ev.key==='Escape'&&modalCtx) closeModal(); });
 document.addEventListener('input',ev=>{const el=ev.target; if(el.dataset.f){S.ui.f[el.dataset.f]=el.value;saveUI();renderBody();} else if(el.dataset.af){S.ui.af[el.dataset.af]=el.value;saveUI();renderBody();} else if('cf' in el.dataset){S.ui.cf=el.value;renderBody();} });
 document.addEventListener('change',ev=>{const el=ev.target; if(el.dataset.aChange==='task'){const p=S.data.projects[el.dataset.id]; if(p&&p.tasks&&p.tasks[el.dataset.i]){const n=clone(p);n.tasks[el.dataset.i].done=el.checked;trackEdits(p,n,['tasks']);put('projects',n);} return;}
@@ -828,8 +894,9 @@ let started=false;
 function unlock(animate){ S.unlocked=true; try{sessionStorage.setItem(LSLOCK,'1');}catch(e){}
   const l=$('#lock'); $('#app').hidden=false; if(animate){l.classList.add('leaving');setTimeout(()=>l.hidden=true,500);} else l.hidden=true;
   renderRoute(); if(!started){started=true;initStore();} }
-function lock(){ S.unlocked=false; try{sessionStorage.removeItem(LSLOCK);}catch(e){} closeModal(); $('#app').hidden=true; $('#v-body').innerHTML=''; const l=$('#lock'); l.hidden=false; l.classList.remove('leaving'); $('#lock-pw').value=''; $('#lock-err').textContent=''; $('#lock-pw').focus(); }
+function lock(){ S.unlocked=false; $('#tabbar').hidden=true; try{sessionStorage.removeItem(LSLOCK);}catch(e){} closeModal(); $('#app').hidden=true; $('#v-body').innerHTML=''; const l=$('#lock'); l.hidden=false; l.classList.remove('leaving'); $('#lock-pw').value=''; $('#lock-err').textContent=''; $('#lock-pw').focus(); }
 A.lock=lock;
+A.more=()=>openModal('More',`<div class="more-list">${NAV.filter(n=>!TABS.some(x=>x[0]===n[0])).map(([r,l,c])=>`<a href="#${r}" data-a="close">${l}<span class="meta num">${c?c():''}</span></a>`).join('')}</div>`,'<span class="sp"></span><button type="button" class="btn" data-a="lock">Lock</button>',{kind:'more',noFocus:true});
 A.seg=el=>{S.ui.seg=el.dataset.v;S.ui.rankAll=false;saveUI();$('#v-tools').innerHTML=V.analysis.tools();renderBody();};
 A['rank-all']=()=>{S.ui.rankAll=!S.ui.rankAll;renderBody();};
 $('#lock-form').addEventListener('submit',async ev=>{ ev.preventDefault(); ev.stopPropagation(); const i=$('#lock-pw');
