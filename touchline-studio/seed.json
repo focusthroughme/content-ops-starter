@@ -1,0 +1,1276 @@
+{
+ "app": "touchline-studio",
+ "version": 1,
+ "exportedAt": "2026-11-13",
+ "projects": [
+  {
+   "id": "radomir-interview",
+   "origin": "previous",
+   "verify": false,
+   "verifyNote": "",
+   "status": "Idea",
+   "type": "Player interview",
+   "topic": "Football",
+   "people": "Radomir",
+   "location": "",
+   "filmDate": "",
+   "publishDate": "",
+   "priority": "medium",
+   "languages": [],
+   "platforms": [
+    "YouTube"
+   ],
+   "aspect": "16:9",
+   "collab": "idea",
+   "material": "",
+   "hook": "Open on his strongest answer, cut before the payoff, then title card.",
+   "shotlist": [
+    {
+     "t": "Arrival and handshake",
+     "done": false
+    },
+    {
+     "t": "Wide two-shot of the interview setup",
+     "done": false
+    },
+    {
+     "t": "Close-up single on Radomir",
+     "done": false
+    },
+    {
+     "t": "Cutaways: hands, boots, club badge",
+     "done": false
+    },
+    {
+     "t": "B-roll: a few touches on the pitch",
+     "done": false
+    },
+    {
+     "t": "Walk-and-talk closing shot",
+     "done": false
+    }
+   ],
+   "questions": [
+    "Where did football start for you?",
+    "Which moment changed your career so far?",
+    "What does a normal training week look like?",
+    "What do people get wrong about football in Luxembourg?",
+    "What is the next goal you have set yourself?"
+   ],
+   "titleIdeas": [
+    "Radomir: the interview",
+    "\"Nobody saw this coming\": Radomir on his journey"
+   ],
+   "thumbnail": "Canva: tight portrait of Radomir on the left, one short quote (max 4 words) on the right, club colour as background block.",
+   "caption": "",
+   "cta": "Which player should I interview next? Tell me in the comments.",
+   "notes": "From your brief. Draft plan: nothing here is confirmed with anyone yet.",
+   "edited": [],
+   "title": "Radomir player interview"
+  },
+  {
+   "id": "sargis-ditl",
+   "origin": "previous",
+   "verify": false,
+   "verifyNote": "",
+   "status": "Idea",
+   "type": "Day in the life",
+   "topic": "Football",
+   "people": "Sargis",
+   "location": "",
+   "filmDate": "",
+   "publishDate": "",
+   "priority": "medium",
+   "languages": [],
+   "platforms": [
+    "YouTube"
+   ],
+   "aspect": "16:9",
+   "collab": "idea",
+   "material": "",
+   "hook": "Alarm goes off, one line from Sargis about what today decides.",
+   "shotlist": [
+    {
+     "t": "Morning at home: wake-up, breakfast",
+     "done": false
+    },
+    {
+     "t": "Packing the bag",
+     "done": false
+    },
+    {
+     "t": "Travel to training or work",
+     "done": false
+    },
+    {
+     "t": "Training session highlights",
+     "done": false
+    },
+    {
+     "t": "Lunch and a quiet moment",
+     "done": false
+    },
+    {
+     "t": "Evening routine and reflection to camera",
+     "done": false
+    }
+   ],
+   "questions": [
+    "What time does your day really start?",
+    "What do you never skip?",
+    "What is the hardest part of the day?",
+    "What would surprise people about your routine?"
+   ],
+   "titleIdeas": [
+    "A day in the life of Sargis",
+    "24 hours with Sargis"
+   ],
+   "thumbnail": "Canva: split image morning / training, clock graphic with the wake-up time.",
+   "caption": "",
+   "cta": "Whose day should I follow next?",
+   "notes": "From your brief. Draft plan: nothing here is confirmed with anyone yet.",
+   "edited": [],
+   "title": "Day in the Life with Sargis"
+  },
+  {
+   "id": "ben-kovac-story",
+   "origin": "previous",
+   "verify": false,
+   "verifyNote": "",
+   "status": "Idea",
+   "type": "Athlete story",
+   "topic": "Athlete",
+   "people": "Ben Kovac",
+   "location": "",
+   "filmDate": "",
+   "publishDate": "",
+   "priority": "medium",
+   "languages": [],
+   "platforms": [
+    "YouTube"
+   ],
+   "aspect": "16:9",
+   "collab": "idea",
+   "material": "",
+   "hook": "Start with the turning point in his own words, then rewind to the beginning.",
+   "shotlist": [
+    {
+     "t": "Sit-down interview, two angles",
+     "done": false
+    },
+    {
+     "t": "Training footage: details and effort",
+     "done": false
+    },
+    {
+     "t": "Old photos or clips if he can share them",
+     "done": false
+    },
+    {
+     "t": "A place that matters to his story",
+     "done": false
+    },
+    {
+     "t": "Slow closing portrait",
+     "done": false
+    }
+   ],
+   "questions": [
+    "When did you know this was more than a hobby?",
+    "What was the lowest point and how did you get out of it?",
+    "Who helped you most?",
+    "What are you chasing now?"
+   ],
+   "titleIdeas": [
+    "The Ben Kovac story",
+    "What it really takes: Ben Kovac"
+   ],
+   "thumbnail": "Canva: dark portrait, one word that sums up the story, small name tag.",
+   "caption": "",
+   "cta": "Know an athlete with a story worth telling? Send me a message.",
+   "notes": "From your brief. Draft plan: nothing here is confirmed with anyone yet.",
+   "edited": [],
+   "title": "Ben Kovac athlete storytelling"
+  },
+  {
+   "id": "creator-bingo",
+   "origin": "previous",
+   "verify": false,
+   "verifyNote": "",
+   "status": "Idea",
+   "type": "Challenge",
+   "topic": "Challenge",
+   "people": "",
+   "location": "Luxembourg or Frankfurt (to decide)",
+   "filmDate": "",
+   "publishDate": "",
+   "priority": "medium",
+   "languages": [],
+   "platforms": [
+    "YouTube"
+   ],
+   "aspect": "16:9",
+   "collab": "idea",
+   "material": "",
+   "hook": "Show the bingo card, the two teams and the clock: \"Nine tasks. One deadline.\"",
+   "shotlist": [
+    {
+     "t": "Rules explained in under 30 seconds",
+     "done": false
+    },
+    {
+     "t": "Bingo card reveal with all nine tasks",
+     "done": false
+    },
+    {
+     "t": "Team A and Team B introductions",
+     "done": false
+    },
+    {
+     "t": "Each task attempt (both teams)",
+     "done": false
+    },
+    {
+     "t": "Clock check-ins",
+     "done": false
+    },
+    {
+     "t": "Final sprint to the deadline",
+     "done": false
+    },
+    {
+     "t": "Result and forfeit",
+     "done": false
+    }
+   ],
+   "questions": [],
+   "titleIdeas": [
+    "Creator Bingo: 9 tasks, 2 teams, 1 deadline",
+    "We turned Luxembourg into a bingo card"
+   ],
+   "thumbnail": "Canva: 3×3 bingo grid with three squares crossed out, both teams either side, timer in the corner.",
+   "caption": "",
+   "cta": "Which task should go on the next card?",
+   "notes": "From your brief. Draft plan: nothing here is confirmed with anyone yet. Format: two teams, nine tasks and a deadline. The nine tasks and the second team are still open.",
+   "edited": [],
+   "title": "Creator Bingo challenge"
+  },
+  {
+   "id": "trade-up-2",
+   "origin": "previous",
+   "verify": false,
+   "verifyNote": "",
+   "status": "Idea",
+   "type": "Challenge",
+   "topic": "Challenge",
+   "people": "",
+   "location": "",
+   "filmDate": "",
+   "publishDate": "",
+   "priority": "high",
+   "languages": [],
+   "platforms": [
+    "YouTube"
+   ],
+   "aspect": "16:9",
+   "collab": "none",
+   "material": "Episode 1 is published, so a recap can be cut from existing footage.",
+   "hook": "Hold up the current item: \"Last time this was a pen. Today we trade it again.\"",
+   "shotlist": [
+    {
+     "t": "Recap of episode 1 in 20 seconds",
+     "done": false
+    },
+    {
+     "t": "Current item and its rough value",
+     "done": false
+    },
+    {
+     "t": "Each trade attempt, including the refusals",
+     "done": false
+    },
+    {
+     "t": "Reaction after each successful trade",
+     "done": false
+    },
+    {
+     "t": "Running \"trade ladder\" graphic",
+     "done": false
+    },
+    {
+     "t": "Cliffhanger: the item going into episode 3",
+     "done": false
+    }
+   ],
+   "questions": [],
+   "titleIdeas": [
+    "From a pen to a car: episode 2",
+    "Trading up again: what did the pen become?"
+   ],
+   "thumbnail": "Canva: pen on the left, arrow, current item in the middle, car silhouette with a question mark on the right.",
+   "caption": "",
+   "cta": "Have something to trade? Write to me.",
+   "notes": "From your brief. Draft plan: nothing here is confirmed with anyone yet. Priority set to high as a suggestion because it continues a published series. Change it if you disagree.",
+   "edited": [],
+   "title": "Trade-Up Challenge episode 2: from a pen toward a car"
+  },
+  {
+   "id": "tiago-rodrigues-followup",
+   "origin": "previous",
+   "verify": false,
+   "verifyNote": "",
+   "status": "Idea",
+   "type": "Player interview",
+   "topic": "Football",
+   "people": "Tiago Rodrigues",
+   "location": "",
+   "filmDate": "",
+   "publishDate": "",
+   "priority": "high",
+   "languages": [],
+   "platforms": [
+    "YouTube"
+   ],
+   "aspect": "16:9",
+   "collab": "idea",
+   "material": "The first vlog is published, so before/after cuts can use that footage.",
+   "hook": "Play a short line from the first vlog, then cut to Tiago today reacting to it.",
+   "shotlist": [
+    {
+     "t": "Tiago watching a clip from the first vlog",
+     "done": false
+    },
+    {
+     "t": "Sit-down: what changed",
+     "done": false
+    },
+    {
+     "t": "Current training or matchday footage",
+     "done": false
+    },
+    {
+     "t": "Side-by-side then and now moments",
+     "done": false
+    },
+    {
+     "t": "Closing: where he wants to be at the next follow-up",
+     "done": false
+    }
+   ],
+   "questions": [
+    "What has changed since we filmed the first vlog?",
+    "What did people say to you after it came out?",
+    "What would you tell yourself from back then?",
+    "What is next?"
+   ],
+   "titleIdeas": [
+    "Tiago Rodrigues: what changed since our first vlog?",
+    "We filmed him once. Here is what happened next."
+   ],
+   "thumbnail": "Canva: then / now split of Tiago with the word \"NOW?\" over the right half.",
+   "caption": "",
+   "cta": "Watch the first vlog if you missed it.",
+   "notes": "From your brief. Draft plan: nothing here is confirmed with anyone yet. This is a follow-up, not a first shoot: the original Tiago Rodrigues vlog is in the archive. Priority high is a suggestion.",
+   "edited": [],
+   "title": "Tiago Rodrigues follow-up: what changed since our first vlog?"
+  },
+  {
+   "id": "ylb-reunion",
+   "origin": "previous",
+   "verify": false,
+   "verifyNote": "",
+   "status": "Idea",
+   "type": "Community",
+   "topic": "Football",
+   "people": "YoungLuxBallers",
+   "location": "",
+   "filmDate": "",
+   "publishDate": "",
+   "priority": "medium",
+   "languages": [],
+   "platforms": [
+    "YouTube"
+   ],
+   "aspect": "16:9",
+   "collab": "idea",
+   "material": "The earlier YoungLuxBallers video is published and can be referenced.",
+   "hook": "Old clip of the group, hard cut to everyone walking back in today.",
+   "shotlist": [
+    {
+     "t": "Arrivals and greetings",
+     "done": false
+    },
+    {
+     "t": "Group catch-up: who is where now",
+     "done": false
+    },
+    {
+     "t": "A small game or challenge together",
+     "done": false
+    },
+    {
+     "t": "Individual one-line updates",
+     "done": false
+    },
+    {
+     "t": "Group photo recreated from the old video",
+     "done": false
+    }
+   ],
+   "questions": [
+    "Where are you playing now?",
+    "What is your best memory from back then?",
+    "Who changed the most?"
+   ],
+   "titleIdeas": [
+    "YoungLuxBallers: the reunion",
+    "Where are they now? YoungLuxBallers"
+   ],
+   "thumbnail": "Canva: old group photo and new group photo stacked, \"REUNION\" across the middle.",
+   "caption": "",
+   "cta": "Tag someone who should have been there.",
+   "notes": "From your brief. Draft plan: nothing here is confirmed with anyone yet. A reunion, not a first shoot: the earlier YoungLuxBallers video is in the archive.",
+   "edited": [],
+   "title": "YoungLuxBallers reunion"
+  },
+  {
+   "id": "derby-three-views",
+   "origin": "previous",
+   "verify": false,
+   "verifyNote": "",
+   "status": "Idea",
+   "type": "Matchday vlog",
+   "topic": "Football",
+   "people": "",
+   "location": "",
+   "filmDate": "",
+   "publishDate": "",
+   "priority": "medium",
+   "languages": [],
+   "platforms": [
+    "YouTube"
+   ],
+   "aspect": "16:9",
+   "collab": "idea",
+   "material": "",
+   "hook": "Three faces, one sentence each about what this derby means, then kick-off whistle.",
+   "shotlist": [
+    {
+     "t": "Player: pre-match routine",
+     "done": false
+    },
+    {
+     "t": "Fan: walk to the ground and the stand",
+     "done": false
+    },
+    {
+     "t": "Coach: team talk or touchline (if permitted)",
+     "done": false
+    },
+    {
+     "t": "Match moments from each viewpoint",
+     "done": false
+    },
+    {
+     "t": "Final whistle reaction from all three",
+     "done": false
+    },
+    {
+     "t": "One closing line each",
+     "done": false
+    }
+   ],
+   "questions": [
+    "What does this derby mean to you?",
+    "What is your first derby memory?",
+    "What happens if you lose this one?"
+   ],
+   "titleIdeas": [
+    "One derby, three stories",
+    "Player, fan, coach: the same derby from three sides"
+   ],
+   "thumbnail": "Canva: three vertical strips (player, fan, coach) with the score hidden behind a blur.",
+   "caption": "",
+   "cta": "Which derby should I cover next?",
+   "notes": "From your brief. Draft plan: nothing here is confirmed with anyone yet. Which derby and which three people are still open. Filming a coach needs club permission.",
+   "edited": [],
+   "title": "A derby told through a player, a fan and a coach"
+  },
+  {
+   "id": "lux-vs-germany-matchday",
+   "origin": "previous",
+   "verify": false,
+   "verifyNote": "",
+   "status": "Idea",
+   "type": "Matchday vlog",
+   "topic": "Football",
+   "people": "",
+   "location": "",
+   "filmDate": "",
+   "publishDate": "",
+   "priority": "medium",
+   "languages": [],
+   "platforms": [
+    "YouTube"
+   ],
+   "aspect": "16:9",
+   "collab": "idea",
+   "material": "",
+   "hook": "Two tickets in one hand: \"Same weekend, two countries, 40 minutes apart.\"",
+   "shotlist": [
+    {
+     "t": "Travel to each ground",
+     "done": false
+    },
+    {
+     "t": "Ticket price and entry",
+     "done": false
+    },
+    {
+     "t": "Food and drink at both",
+     "done": false
+    },
+    {
+     "t": "Atmosphere and crowd",
+     "done": false
+    },
+    {
+     "t": "Level of play, a few match moments",
+     "done": false
+    },
+    {
+     "t": "Verdict to camera",
+     "done": false
+    }
+   ],
+   "questions": [],
+   "titleIdeas": [
+    "Matchday in Luxembourg vs Germany: what is the difference?",
+    "I went to two matchdays across the border"
+   ],
+   "thumbnail": "Canva: split screen with both flags, two stadium shots and \"VS\" in the middle.",
+   "caption": "",
+   "cta": "Which country does matchday better?",
+   "notes": "From your brief. Draft plan: nothing here is confirmed with anyone yet. Clubs and fixtures are not chosen yet. Check filming rules at both grounds.",
+   "edited": [],
+   "title": "Luxembourg versus nearby Germany matchday comparison"
+  },
+  {
+   "id": "national-team-followups",
+   "origin": "previous",
+   "verify": false,
+   "verifyNote": "",
+   "status": "Idea",
+   "type": "Player interview",
+   "topic": "Football",
+   "people": "",
+   "location": "",
+   "filmDate": "",
+   "publishDate": "",
+   "priority": "medium",
+   "languages": [],
+   "platforms": [
+    "YouTube"
+   ],
+   "aspect": "16:9",
+   "collab": "idea",
+   "material": "Published U17 and U18 national-team videos can supply \"back then\" clips.",
+   "hook": "Match clip from the earlier coverage, freeze frame on the player, cut to them today.",
+   "shotlist": [
+    {
+     "t": "Clip from the original match video",
+     "done": false
+    },
+    {
+     "t": "Sit-down or walk-and-talk today",
+     "done": false
+    },
+    {
+     "t": "Current club training footage",
+     "done": false
+    },
+    {
+     "t": "Then and now comparison",
+     "done": false
+    }
+   ],
+   "questions": [
+    "What do you remember from that game?",
+    "Where are you playing now?",
+    "What did the national team teach you?",
+    "What is the next step?"
+   ],
+   "titleIdeas": [
+    "Where are they now? Luxembourg youth internationals",
+    "I filmed them for the national team. This is where they are today."
+   ],
+   "thumbnail": "Canva: national-team shot on the left, current club shot on the right, year labels on both.",
+   "caption": "",
+   "cta": "Which player should I catch up with next?",
+   "notes": "From your brief. Draft plan: nothing here is confirmed with anyone yet. Could become a series, one player per episode. No player has been asked yet.",
+   "edited": [],
+   "title": "Follow-up interviews with players from my earlier national-team coverage"
+  },
+  {
+   "id": "mifa-metz",
+   "origin": "previous",
+   "verify": true,
+   "verifyNote": "Status to verify: publication is not confirmed. Check your channels, then either move it to the archive or set the real production status.",
+   "status": "Idea",
+   "type": "",
+   "topic": "Football",
+   "people": "",
+   "location": "",
+   "filmDate": "",
+   "publishDate": "",
+   "priority": "medium",
+   "languages": [],
+   "platforms": [
+    "YouTube"
+   ],
+   "aspect": "16:9",
+   "collab": "none",
+   "material": "",
+   "hook": "",
+   "shotlist": [],
+   "questions": [],
+   "titleIdeas": [],
+   "thumbnail": "",
+   "caption": "",
+   "cta": "",
+   "notes": "Kept in the pipeline with a placeholder status until you confirm whether it was published.",
+   "edited": [],
+   "title": "MIFA Metz"
+  },
+  {
+   "id": "four-languages-short",
+   "origin": "new",
+   "verify": false,
+   "verifyNote": "",
+   "status": "Idea",
+   "type": "Short/Reel",
+   "topic": "Football",
+   "people": "",
+   "location": "",
+   "filmDate": "",
+   "publishDate": "",
+   "priority": "medium",
+   "languages": [
+    "German",
+    "Luxembourgish",
+    "French",
+    "English"
+   ],
+   "platforms": [
+    "YouTube",
+    "TikTok",
+    "Instagram"
+   ],
+   "aspect": "9:16",
+   "collab": "none",
+   "material": "",
+   "hook": "\"I am going to ask the same question in four languages.\"",
+   "shotlist": [
+    {
+     "t": "Same short question asked in each language",
+     "done": false
+    },
+    {
+     "t": "Quick-cut answers",
+     "done": false
+    },
+    {
+     "t": "On-screen label for each language",
+     "done": false
+    }
+   ],
+   "questions": [
+    "Who wins today?"
+   ],
+   "titleIdeas": [
+    "Same question, four languages"
+   ],
+   "thumbnail": "Canva cover: four small flags or language tags around one face.",
+   "caption": "",
+   "cta": "Which language should the next video be in?",
+   "notes": "New suggestion from Claude, not from your earlier list. Uses the four languages you already work in; each version is recorded by you, nothing is translated automatically.",
+   "edited": [],
+   "title": "One matchday moment in four languages"
+  },
+  {
+   "id": "matchday-behind-scenes",
+   "origin": "new",
+   "verify": false,
+   "verifyNote": "",
+   "status": "Idea",
+   "type": "Matchday vlog",
+   "topic": "Football",
+   "people": "",
+   "location": "",
+   "filmDate": "",
+   "publishDate": "",
+   "priority": "medium",
+   "languages": [],
+   "platforms": [
+    "YouTube"
+   ],
+   "aspect": "16:9",
+   "collab": "idea",
+   "material": "",
+   "hook": "Empty ground, early morning: \"Kick-off is in eight hours. These people are already here.\"",
+   "shotlist": [
+    {
+     "t": "Ground staff preparing the pitch",
+     "done": false
+    },
+    {
+     "t": "Kit laid out in the changing room",
+     "done": false
+    },
+    {
+     "t": "Ticket booth and kiosk opening",
+     "done": false
+    },
+    {
+     "t": "Kick-off from their point of view",
+     "done": false
+    },
+    {
+     "t": "Clearing up after the final whistle",
+     "done": false
+    }
+   ],
+   "questions": [
+    "What time does your matchday start?",
+    "What does nobody notice about your job?"
+   ],
+   "titleIdeas": [
+    "The matchday you never see",
+    "Who runs a matchday in Luxembourg?"
+   ],
+   "thumbnail": "Canva: volunteer or groundskeeper portrait in front of an empty stand.",
+   "caption": "",
+   "cta": "Know a club volunteer who deserves a video?",
+   "notes": "New suggestion from Claude, not from your earlier list. No club has been asked.",
+   "edited": [],
+   "title": "The people who make a matchday happen"
+  }
+ ],
+ "videos": [
+  {
+   "id": "tim-flick",
+   "label": "Tim Flick",
+   "title": "",
+   "platform": "",
+   "topic": "",
+   "views": null,
+   "viewsText": "",
+   "duration": "",
+   "ageText": "",
+   "source": "Brief (unverified)",
+   "capturedAt": "",
+   "url": "",
+   "notes": "Topic left blank: the brief does not say what kind of video this is.",
+   "edited": []
+  },
+  {
+   "id": "tiago-rodrigues",
+   "label": "Tiago Rodrigues (first vlog)",
+   "title": "",
+   "platform": "",
+   "topic": "Football",
+   "views": null,
+   "viewsText": "",
+   "duration": "",
+   "ageText": "",
+   "source": "Brief (unverified)",
+   "capturedAt": "",
+   "url": "",
+   "notes": "Topic assumed from the name. Correct it if needed.",
+   "edited": []
+  },
+  {
+   "id": "tiago-costa",
+   "label": "Tiago Costa",
+   "title": "",
+   "platform": "",
+   "topic": "",
+   "views": null,
+   "viewsText": "",
+   "duration": "",
+   "ageText": "",
+   "source": "Brief (unverified)",
+   "capturedAt": "",
+   "url": "",
+   "notes": "Topic left blank: the brief does not say what kind of video this is.",
+   "edited": []
+  },
+  {
+   "id": "dejan-ngemba",
+   "label": "Dejan Ngemba",
+   "title": "",
+   "platform": "",
+   "topic": "",
+   "views": null,
+   "viewsText": "",
+   "duration": "",
+   "ageText": "",
+   "source": "Brief (unverified)",
+   "capturedAt": "",
+   "url": "",
+   "notes": "Topic left blank: the brief does not say what kind of video this is.",
+   "edited": []
+  },
+  {
+   "id": "hostert-kaerjeng-cup-final",
+   "label": "Hostert versus Käerjeng cup final",
+   "title": "",
+   "platform": "",
+   "topic": "Football",
+   "views": null,
+   "viewsText": "",
+   "duration": "",
+   "ageText": "",
+   "source": "Brief (unverified)",
+   "capturedAt": "",
+   "url": "",
+   "notes": "",
+   "edited": []
+  },
+  {
+   "id": "lux-turkey-u18-game-1",
+   "label": "Luxembourg versus Turkey U18 (game 1)",
+   "title": "",
+   "platform": "",
+   "topic": "Football",
+   "views": null,
+   "viewsText": "",
+   "duration": "",
+   "ageText": "",
+   "source": "Brief (unverified)",
+   "capturedAt": "",
+   "url": "",
+   "notes": "One of two Luxembourg versus Turkey U18 videos.",
+   "edited": []
+  },
+  {
+   "id": "lux-turkey-u18-game-2",
+   "label": "Luxembourg versus Turkey U18 (game 2)",
+   "title": "",
+   "platform": "",
+   "topic": "Football",
+   "views": null,
+   "viewsText": "",
+   "duration": "",
+   "ageText": "",
+   "source": "Brief (unverified)",
+   "capturedAt": "",
+   "url": "",
+   "notes": "One of two Luxembourg versus Turkey U18 videos.",
+   "edited": []
+  },
+  {
+   "id": "malta-lux-u17",
+   "label": "Malta versus Luxembourg U17",
+   "title": "",
+   "platform": "",
+   "topic": "Football",
+   "views": null,
+   "viewsText": "",
+   "duration": "",
+   "ageText": "",
+   "source": "Brief (unverified)",
+   "capturedAt": "",
+   "url": "",
+   "notes": "",
+   "edited": []
+  },
+  {
+   "id": "youngluxballers",
+   "label": "YoungLuxBallers",
+   "title": "",
+   "platform": "",
+   "topic": "Football",
+   "views": null,
+   "viewsText": "",
+   "duration": "",
+   "ageText": "",
+   "source": "Brief (unverified)",
+   "capturedAt": "",
+   "url": "",
+   "notes": "Topic assumed from the name. Correct it if needed.",
+   "edited": []
+  },
+  {
+   "id": "loris-muay-thai",
+   "label": "Loris’s Muay Thai fight",
+   "title": "",
+   "platform": "",
+   "topic": "Athlete",
+   "views": null,
+   "viewsText": "",
+   "duration": "",
+   "ageText": "",
+   "source": "Brief (unverified)",
+   "capturedAt": "",
+   "url": "",
+   "notes": "",
+   "edited": []
+  },
+  {
+   "id": "community-runs",
+   "label": "Community runs",
+   "title": "",
+   "platform": "",
+   "topic": "Community",
+   "views": null,
+   "viewsText": "",
+   "duration": "",
+   "ageText": "",
+   "source": "Brief (unverified)",
+   "capturedAt": "",
+   "url": "",
+   "notes": "Possibly more than one video. Split into separate records once the screenshots show them.",
+   "edited": []
+  },
+  {
+   "id": "table-tennis-championships",
+   "label": "Table-tennis championships",
+   "title": "",
+   "platform": "",
+   "topic": "Athlete",
+   "views": null,
+   "viewsText": "",
+   "duration": "",
+   "ageText": "",
+   "source": "Brief (unverified)",
+   "capturedAt": "",
+   "url": "",
+   "notes": "Topic assumed from the name. Correct it if needed. Possibly more than one video.",
+   "edited": []
+  },
+  {
+   "id": "spain",
+   "label": "Spain",
+   "title": "",
+   "platform": "",
+   "topic": "Travel",
+   "views": null,
+   "viewsText": "",
+   "duration": "",
+   "ageText": "",
+   "source": "Brief (unverified)",
+   "capturedAt": "",
+   "url": "",
+   "notes": "",
+   "edited": []
+  },
+  {
+   "id": "athens",
+   "label": "Athens",
+   "title": "",
+   "platform": "",
+   "topic": "Travel",
+   "views": null,
+   "viewsText": "",
+   "duration": "",
+   "ageText": "",
+   "source": "Brief (unverified)",
+   "capturedAt": "",
+   "url": "",
+   "notes": "",
+   "edited": []
+  },
+  {
+   "id": "rome",
+   "label": "Rome",
+   "title": "",
+   "platform": "",
+   "topic": "Travel",
+   "views": null,
+   "viewsText": "",
+   "duration": "",
+   "ageText": "",
+   "source": "Brief (unverified)",
+   "capturedAt": "",
+   "url": "",
+   "notes": "",
+   "edited": []
+  },
+  {
+   "id": "ikea-with-lenny",
+   "label": "IKEA with Lenny",
+   "title": "",
+   "platform": "",
+   "topic": "Lifestyle",
+   "views": null,
+   "viewsText": "",
+   "duration": "",
+   "ageText": "",
+   "source": "Brief (unverified)",
+   "capturedAt": "",
+   "url": "",
+   "notes": "Topic assumed from the name. Correct it if needed.",
+   "edited": []
+  },
+  {
+   "id": "bowling-and-darts",
+   "label": "Bowling and darts",
+   "title": "",
+   "platform": "",
+   "topic": "Lifestyle",
+   "views": null,
+   "viewsText": "",
+   "duration": "",
+   "ageText": "",
+   "source": "Brief (unverified)",
+   "capturedAt": "",
+   "url": "",
+   "notes": "Topic assumed from the name. Correct it if needed.",
+   "edited": []
+  },
+  {
+   "id": "trade-up-1",
+   "label": "Trade-Up episode 1",
+   "title": "",
+   "platform": "",
+   "topic": "Challenge",
+   "views": null,
+   "viewsText": "",
+   "duration": "",
+   "ageText": "",
+   "source": "Brief (unverified)",
+   "capturedAt": "",
+   "url": "",
+   "notes": "",
+   "edited": []
+  }
+ ],
+ "clips": [
+  {
+   "id": "clip-trade-up-first-trade",
+   "title": "The first trade",
+   "sourceKind": "video",
+   "sourceId": "trade-up-1",
+   "status": "suggested",
+   "tcIn": "",
+   "tcOut": "",
+   "angle": "Look for the moment the pen is swapped for the first item, including the other person’s reaction.",
+   "hook": "I started with a pen.",
+   "framing": "Reframe to 9:16 in CapCut. Keep the face in the upper-middle third and leave the bottom fifth free for captions.",
+   "subs": [
+    {
+     "t": "Auto captions generated in CapCut, then proofread line by line",
+     "done": false
+    },
+    {
+     "t": "Names, clubs and places spelled correctly",
+     "done": false
+    },
+    {
+     "t": "Caption language matches the spoken language (type Luxembourgish by hand if auto captions fail)",
+     "done": false
+    },
+    {
+     "t": "Maximum two lines, large type, strong contrast",
+     "done": false
+    },
+    {
+     "t": "Captions inside the safe zone, clear of platform buttons",
+     "done": false
+    },
+    {
+     "t": "Hook text on screen in the first two seconds",
+     "done": false
+    }
+   ],
+   "cover": "Canva cover: pen, arrow, first item. Three words maximum.",
+   "pub": {
+    "youtube": {
+     "title": "",
+     "caption": "",
+     "date": ""
+    },
+    "tiktok": {
+     "caption": "",
+     "date": ""
+    },
+    "instagram": {
+     "caption": "",
+     "date": ""
+    }
+   },
+   "notes": "Suggestion of what to look for. Not confirmed in the footage: add timecodes once you find the moment.",
+   "edited": []
+  },
+  {
+   "id": "clip-cup-final-whistle",
+   "title": "Final whistle",
+   "sourceKind": "video",
+   "sourceId": "hostert-kaerjeng-cup-final",
+   "status": "suggested",
+   "tcIn": "",
+   "tcOut": "",
+   "angle": "Look for the seconds around the final whistle: players, bench and crowd.",
+   "hook": "This is what a cup final sounds like in Luxembourg.",
+   "framing": "Reframe to 9:16 in CapCut. Keep the face in the upper-middle third and leave the bottom fifth free for captions.",
+   "subs": [
+    {
+     "t": "Auto captions generated in CapCut, then proofread line by line",
+     "done": false
+    },
+    {
+     "t": "Names, clubs and places spelled correctly",
+     "done": false
+    },
+    {
+     "t": "Caption language matches the spoken language (type Luxembourgish by hand if auto captions fail)",
+     "done": false
+    },
+    {
+     "t": "Maximum two lines, large type, strong contrast",
+     "done": false
+    },
+    {
+     "t": "Captions inside the safe zone, clear of platform buttons",
+     "done": false
+    },
+    {
+     "t": "Hook text on screen in the first two seconds",
+     "done": false
+    }
+   ],
+   "cover": "Canva cover: celebration frame with both club names.",
+   "pub": {
+    "youtube": {
+     "title": "",
+     "caption": "",
+     "date": ""
+    },
+    "tiktok": {
+     "caption": "",
+     "date": ""
+    },
+    "instagram": {
+     "caption": "",
+     "date": ""
+    }
+   },
+   "notes": "Suggestion of what to look for. Not confirmed in the footage: add timecodes once you find the moment.",
+   "edited": []
+  },
+  {
+   "id": "clip-tiago-best-line",
+   "title": "Tiago’s strongest line",
+   "sourceKind": "video",
+   "sourceId": "tiago-rodrigues",
+   "status": "suggested",
+   "tcIn": "",
+   "tcOut": "",
+   "angle": "Look for one answer of 15 to 30 seconds that makes sense without the rest of the vlog.",
+   "hook": "",
+   "framing": "Reframe to 9:16 in CapCut. Keep the face in the upper-middle third and leave the bottom fifth free for captions.",
+   "subs": [
+    {
+     "t": "Auto captions generated in CapCut, then proofread line by line",
+     "done": false
+    },
+    {
+     "t": "Names, clubs and places spelled correctly",
+     "done": false
+    },
+    {
+     "t": "Caption language matches the spoken language (type Luxembourgish by hand if auto captions fail)",
+     "done": false
+    },
+    {
+     "t": "Maximum two lines, large type, strong contrast",
+     "done": false
+    },
+    {
+     "t": "Captions inside the safe zone, clear of platform buttons",
+     "done": false
+    },
+    {
+     "t": "Hook text on screen in the first two seconds",
+     "done": false
+    }
+   ],
+   "cover": "Canva cover: Tiago portrait with the quote in four words or fewer.",
+   "pub": {
+    "youtube": {
+     "title": "",
+     "caption": "",
+     "date": ""
+    },
+    "tiktok": {
+     "caption": "",
+     "date": ""
+    },
+    "instagram": {
+     "caption": "",
+     "date": ""
+    }
+   },
+   "notes": "Suggestion of what to look for. Not confirmed in the footage: add timecodes once you find the moment.",
+   "edited": []
+  },
+  {
+   "id": "clip-loris-walkout",
+   "title": "Walk-out and first exchange",
+   "sourceKind": "video",
+   "sourceId": "loris-muay-thai",
+   "status": "suggested",
+   "tcIn": "",
+   "tcOut": "",
+   "angle": "Look for the walk to the ring and the first few seconds of the fight, if you filmed them.",
+   "hook": "His first seconds in the ring.",
+   "framing": "Reframe to 9:16 in CapCut. Keep the face in the upper-middle third and leave the bottom fifth free for captions.",
+   "subs": [
+    {
+     "t": "Auto captions generated in CapCut, then proofread line by line",
+     "done": false
+    },
+    {
+     "t": "Names, clubs and places spelled correctly",
+     "done": false
+    },
+    {
+     "t": "Caption language matches the spoken language (type Luxembourgish by hand if auto captions fail)",
+     "done": false
+    },
+    {
+     "t": "Maximum two lines, large type, strong contrast",
+     "done": false
+    },
+    {
+     "t": "Captions inside the safe zone, clear of platform buttons",
+     "done": false
+    },
+    {
+     "t": "Hook text on screen in the first two seconds",
+     "done": false
+    }
+   ],
+   "cover": "Canva cover: Loris at the ring with the event name.",
+   "pub": {
+    "youtube": {
+     "title": "",
+     "caption": "",
+     "date": ""
+    },
+    "tiktok": {
+     "caption": "",
+     "date": ""
+    },
+    "instagram": {
+     "caption": "",
+     "date": ""
+    }
+   },
+   "notes": "Suggestion of what to look for. Not confirmed in the footage: add timecodes once you find the moment.",
+   "edited": []
+  }
+ ],
+ "templates": []
+}
